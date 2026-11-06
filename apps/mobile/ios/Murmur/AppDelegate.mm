@@ -28,4 +28,33 @@
 #endif
 }
 
+- (UISceneConfiguration *)application:(UIApplication *)application
+    configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
+                                   options:(UISceneConnectionOptions *)options
+{
+  UISceneConfiguration *config = [[UISceneConfiguration alloc] initWithName:@"Default" sessionRole:connectingSceneSession.role];
+  config.delegateClass = [SceneDelegate class];
+  return config;
+}
+
+@end
+
+@implementation SceneDelegate
+
+- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions
+{
+  if (![scene isKindOfClass:[UIWindowScene class]]) return;
+  UIWindowScene *windowScene = (UIWindowScene *)scene;
+  AppDelegate *appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
+  UIWindow *window = appDelegate.window;
+  if (window == nil) {
+    window = [[UIWindow alloc] initWithWindowScene:windowScene];
+    appDelegate.window = window;
+  } else {
+    window.windowScene = windowScene;
+  }
+  self.window = window;
+  [window makeKeyAndVisible];
+}
+
 @end
