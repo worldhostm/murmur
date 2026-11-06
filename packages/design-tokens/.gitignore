@@ -1,0 +1,3 @@
+# dist/ 안의 생성물(tokens.ts, Tokens.cs)은 커밋한다. 소비자(RN, Unity)가 바로 쓰기 때문이다.
+# 루트 .gitignore의 dist/ 규칙을 이 패키지에서만 푼다.
+!dist/
