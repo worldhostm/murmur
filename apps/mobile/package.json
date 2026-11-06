@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@murmur/design-tokens": "workspace:*",
+    "@murmur/face-protocol": "workspace:*",
     "@murmur/shared-types": "workspace:*",
     "i18next": "^23.16.4",
     "react": "18.3.1",

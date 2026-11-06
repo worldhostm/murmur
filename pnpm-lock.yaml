@@ -41,6 +41,9 @@ importers:
       '@murmur/design-tokens':
         specifier: workspace:*
         version: link:../../packages/design-tokens
+      '@murmur/face-protocol':
+        specifier: workspace:*
+        version: link:../../packages/face-protocol
       '@murmur/shared-types':
         specifier: workspace:*
         version: link:../../packages/shared-types
@@ -103,6 +106,33 @@ importers:
       '@murmur/design-tokens':
         specifier: workspace:*
         version: link:../design-tokens
+
+  services/ai-character:
+    dependencies:
+      '@murmur/face-protocol':
+        specifier: workspace:*
+        version: link:../../packages/face-protocol
+      '@murmur/shared-types':
+        specifier: workspace:*
+        version: link:../../packages/shared-types
+
+  services/signaling:
+    dependencies:
+      '@murmur/face-protocol':
+        specifier: workspace:*
+        version: link:../../packages/face-protocol
+      '@murmur/shared-types':
+        specifier: workspace:*
+        version: link:../../packages/shared-types
+
+  services/upload-check:
+    dependencies:
+      '@murmur/face-protocol':
+        specifier: workspace:*
+        version: link:../../packages/face-protocol
+      '@murmur/shared-types':
+        specifier: workspace:*
+        version: link:../../packages/shared-types
 
 packages:
 
@@ -4936,7 +4966,9 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/preset-env'
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@react-native/normalize-colors@0.76.9': {}
 
