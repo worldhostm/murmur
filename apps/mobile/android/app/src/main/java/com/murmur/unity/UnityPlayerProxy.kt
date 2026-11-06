@@ -15,6 +15,26 @@ object UnityPlayerProxy {
   private const val TAG = "MurmurUnity"
 
   @Volatile var sender: ((gameObject: String, method: String, message: String) -> Unit)? = null
+  /** UnityPlayer 뷰를 만드는 팩토리. src/unity 의 UnityHost 가 설정한다. */
+  @Volatile var viewFactory: ((activity: android.app.Activity) -> android.widget.FrameLayout)? = null
+  @Volatile var lifecycle: Lifecycle? = null
+
+  interface Lifecycle { fun pause(); fun resume(); fun destroy() }
+
+  val isAttached: Boolean get() = sender != null
+
+  /** unityLibrary 가 포함된 빌드면 UnityHost.install() 을 리플렉션으로 부른다. 없으면 조용히 넘어간다. */
+  fun attachIfAvailable() {
+    try {
+      val cls = Class.forName("com.murmur.unity.UnityHost")
+      cls.getMethod("install").invoke(null)
+      Log.i(TAG, "Unity library attached")
+    } catch (_: ClassNotFoundException) {
+      Log.i(TAG, "Unity library not bundled (export with pnpm unity:export:android)")
+    } catch (e: Throwable) {
+      Log.w(TAG, "Unity attach failed", e)
+    }
+  }
 
   fun pushFrame(slot: String, frame: ByteArray) {
     send("OnFaceFrame", slot + "|" + Base64.encodeToString(frame, Base64.NO_WRAP))

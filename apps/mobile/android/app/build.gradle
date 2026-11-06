@@ -127,7 +127,19 @@ tasks.register("downloadFaceLandmarkerModel") {
 }
 preBuild.dependsOn("downloadFaceLandmarkerModel")
 
+// Unity 라이브러리가 있을 때만 UnityPlayer 에 의존하는 소스(src/unity)를 컴파일한다.
+def hasUnity = gradle.ext.has("murmurUnityLibrary") && gradle.ext.murmurUnityLibrary
+if (hasUnity) {
+    android.sourceSets.main.java.srcDirs += "src/unity/java"
+    println "Murmur: unityLibrary 포함"
+}
+
 dependencies {
+    if (hasUnity) {
+        implementation project(":unityLibrary")
+        // UnityPlayer 클래스는 라이브러리 안에서 implementation 으로만 묶여 있어 소비자에게 노출되지 않는다.
+        implementation fileTree(dir: new File(project(":unityLibrary").projectDir, "libs"), include: ["*.jar"])
+    }
     // 트래킹: MediaPipe Face Landmarker (52 blendshapes + 머리 변환 행렬). 어댑터 뒤에 둔다.
     implementation("com.google.mediapipe:tasks-vision:0.10.14")
     // 전면 카메라 프레임 공급. 프레임은 기기 안에서만 소비되고 JS로 나가지 않는다.

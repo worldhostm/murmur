@@ -33,6 +33,9 @@ pnpm perf:budget          # 성능 예산 (코덱·립싱크 프레임 생성·�
 pnpm sync:generated       # 생성된 C#·Kotlin·Swift를 Unity·Android·iOS 프로젝트로 복사 (generate:check가 최신 여부 검사)
 pnpm android:build        # Android 디버그 APK (ANDROID_HOME, JDK 17 필요)
 pnpm unity:compile-check  # Unity 라이선스 없이 C# 컴파일만 검사 (Unity Hub 에디터 필요, 없으면 건너뜀)
+pnpm unity:test           # Unity EditMode 테스트 (배치 모드, Hub 로그인 필요)
+pnpm unity:export:android # Unity as a Library → apps/avatar-unity/Builds/android/unityLibrary (이후 android:build 가 자동 포함)
+pnpm unity:export:ios     # Unity as a Library → apps/avatar-unity/Builds/ios (Xcode 프로젝트)
 ```
 
 네이티브: iOS 빌드는 Xcode + CocoaPods(`cd apps/mobile/ios && pod install`)가 필요하다. Unity 에디터 작업은 Unity Hub 로그인(라이선스)이 필요하다. 이 머신에서 할 수 없었던 검증은 `docs/REMAINING_WORK.md`에 있다.

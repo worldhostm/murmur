@@ -4,3 +4,23 @@ extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autoli
 rootProject.name = 'Murmur'
 include ':app'
 includeBuild('../../../node_modules/@react-native/gradle-plugin')
+
+// Unity as a Library: apps/avatar-unity 에서 내보낸 unityLibrary 가 있으면 포함한다 (pnpm unity:export:android).
+def unityLibraryDir = new File(settingsDir, "../../avatar-unity/Builds/android/unityLibrary")
+if (unityLibraryDir.exists()) {
+    include ':unityLibrary'
+    project(':unityLibrary').projectDir = unityLibraryDir
+    gradle.ext.murmurUnityLibrary = true
+    // Unity 가 내보낸 gradle.properties 의 unity.* 값(SDK/NDK 경로 등)을 모든 프로젝트의 ext 로 올린다.
+    // unityLibrary/build.gradle 이 getProperty("unity.androidNdkPath") 로 읽기 때문이다.
+    def unityProps = new Properties()
+    new File(unityLibraryDir, "../gradle.properties").withInputStream { unityProps.load(it) }
+    gradle.beforeProject { proj ->
+        unityProps.each { k, v ->
+            def key = k.toString()
+            if ((key.startsWith("unity.") || key == "unityStreamingAssets") && !proj.hasProperty(key)) proj.ext.set(key, v.toString())
+        }
+    }
+} else {
+    gradle.ext.murmurUnityLibrary = false
+}

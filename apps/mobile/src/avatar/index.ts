@@ -6,3 +6,4 @@ export { UnityAvatarRenderer, UNITY_MODULE } from './UnityAvatarRenderer';
 export { createFaceTracker, createAvatarRenderer } from './createAdapters';
 export type { CreateFaceTrackerOptions, CreateAvatarRendererOptions } from './createAdapters';
 export { encodeBase64, decodeBase64 } from './base64';
+export { UnityView, isUnityViewAvailable } from './UnityView';

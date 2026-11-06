@@ -51,3 +51,9 @@ pnpm --filter @murmur/mobile typecheck
 - `app/murmur/faceprotocol/FaceProtocol.kt`: 생성물 (`pnpm sync:generated`)
 - 모델 `face_landmarker.task`는 gradle `downloadFaceLandmarkerModel`이 내려받는다 (커밋하지 않음)
 - 빌드: `pnpm android:build` (ANDROID_HOME, JDK 17). gradle은 모노레포 루트 node_modules를 가리키도록 패치되어 있다 (`settings.gradle`, `app/build.gradle`의 react 블록)
+
+### Unity as a Library (Android)
+
+- `pnpm unity:export:android` 로 `apps/avatar-unity/Builds/android/unityLibrary` 가 생기면 `settings.gradle` 이 자동으로 `:unityLibrary` 를 포함하고, `app/build.gradle` 이 `src/unity/java` 소스셋(UnityHost, UnityViewManager)을 켠다. 없으면 둘 다 빠져서 앱은 그대로 빌드된다.
+- `MainApplication` 은 리플렉션으로 `UnityHost.install()` 을 불러 `UnityPlayerProxy.sender/viewFactory/lifecycle` 를 연결한다. `MainActivity` 가 pause/resume/destroy 를 전달한다.
+- JS `UnityView` 는 네이티브 `MurmurUnityView` 가 등록돼 있으면 그리고, 아니면 자리 표시만 둔다. 통화 화면의 `renderer` 자리에 넣는다.

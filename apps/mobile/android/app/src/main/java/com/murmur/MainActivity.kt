@@ -4,6 +4,7 @@ import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.murmur.unity.UnityPlayerProxy
 
 class MainActivity : ReactActivity() {
 
@@ -19,4 +20,9 @@ class MainActivity : ReactActivity() {
    */
   override fun createReactActivityDelegate(): ReactActivityDelegate =
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+
+  // Unity as a Library 생명주기 전달 (라이브러리가 없으면 no-op)
+  override fun onPause() { super.onPause(); UnityPlayerProxy.lifecycle?.pause() }
+  override fun onResume() { super.onResume(); UnityPlayerProxy.lifecycle?.resume() }
+  override fun onDestroy() { UnityPlayerProxy.lifecycle?.destroy(); super.onDestroy() }
 }

@@ -5,7 +5,7 @@ Unity(URP) 아바타 렌더러. 앱(React Native)에 라이브러리(Unity as a 
 ## 상태
 
 Unity 6 (6000.0.84f1) 프로젝트 뼈대. Unity Hub에서 이 폴더를 열면 Library/ProjectSettings가 생성된다. 씬은 메뉴 `Murmur/Create Call Scene`(또는 `-executeMethod Murmur.Editor.SceneSetup.CreateCallScene`)으로 만든다.
-이 머신에는 배치 모드 라이선스가 없어 에디터 실행·패키지 해석·Test Runner는 돌리지 못했다. C# 컴파일은 `pnpm unity:compile-check`로 검사했다.
+배치 모드: `pnpm unity:test`(EditMode), `pnpm unity:export:android`/`ios`(Unity as a Library 내보내기, `Editor/BuildLibrary.cs`). 라이선스 없이 컴파일만 보려면 `pnpm unity:compile-check`.
 
 ## 스크립트 (Assets/Murmur/Scripts)
 
@@ -19,6 +19,7 @@ Unity 6 (6000.0.84f1) 프로젝트 뼈대. Unity Hub에서 이 폴더를 열면 
 | `ThemeBackground.cs` | 카메라 배경 = `Tokens.{Light,Dark}.Night` |
 | `FrameTimingProbe.cs` | 프레임 시간·수신→렌더 지연 로그 (0단계 성능 측정) |
 | `Editor/SceneSetup.cs` | 통화 씬 생성 |
+| `Editor/BuildLibrary.cs` | UaaL 내보내기 (Android: IL2CPP arm64+armv7, minSdk 29, gradle 프로젝트 / iOS: Xcode 프로젝트) |
 | `Tests/EditMode/FaceProtocolTests.cs` | 코덱 라운드트립, 매직·버전 거부, 리시버, clamp |
 
 Packages/manifest.json에는 URP와 UniVRM(git)이 들어 있다. VRM 로더(`IAvatarLoader` 구현)와 VRM 1.0 Expression 매핑은 아직 없다.

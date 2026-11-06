@@ -3,6 +3,7 @@ import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-
 import { ThemeProvider } from '../theme';
 import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen, UnsupportedDeviceScreen } from '../screens';
 import { getDeviceSupport } from '../device/deviceSupport';
+import { UnityView } from '../avatar/UnityView';
 import type { DeviceSupport } from '../device/deviceSupport';
 import type { SoloMessage } from '../screens';
 
@@ -94,6 +95,7 @@ export function AppNavigator({
           onSwapAvatar={() => undefined}
           onReport={() => undefined}
           onEnd={() => setRoute({ name: 'character-select' })}
+          renderer={<UnityView />}
         />
       );
       break;
