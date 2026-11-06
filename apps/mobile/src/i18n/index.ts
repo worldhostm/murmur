@@ -18,6 +18,8 @@ if (!i18n.isInitialized) {
     lng: DEFAULT_LOCALE,
     fallbackLng: 'ko',
     interpolation: { escapeValue: false },
+    // Hermes 에는 Intl.PluralRules 가 없다. v3 복수형 규칙(_plural 접미사)을 쓴다.
+    compatibilityJSON: 'v3',
     // i18next의 'character.seo-doyoon.name' 같은 키에서 '-'가 아닌 '.'만 구분자로 쓴다.
     keySeparator: '.',
     nsSeparator: false,

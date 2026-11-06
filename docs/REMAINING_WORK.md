@@ -6,12 +6,12 @@
 
 | # | 항목 | 상태 | 막힌 이유 |
 | --- | --- | --- | --- |
-| 1 | iOS 네이티브 빌드 (ARKit 트래커, Unity 브리지) | 코드 작성됨, **미컴파일** | 이 머신에 Xcode와 CocoaPods가 없음 (Command Line Tools만 있음) |
+| 1 | iOS 네이티브 빌드 (ARKit 트래커, Unity 브리지) | Xcode 27.2·CocoaPods 설치됨, **라이선스 동의 대기** | `sudo xcodebuild -license accept` 전에는 iphoneos SDK를 못 찾아 `pod install`이 실패한다 |
 | 2 | Unity 에디터에서 프로젝트 열기·패키지 해석·Test Runner | **완료** (Hub 로그인 후 배치 모드로 임포트, 씬 생성, EditMode 5개 통과) | — |
 | 3 | Unity as a Library 내보내기와 RN 연결 | 브리지 양쪽 코드 작성됨, **미연결** | Unity 에디터에 Android/iOS 빌드 모듈이 설치되어 있지 않음 (Mac Standalone만 있음) |
 | 4 | VRM 로더 (`IAvatarLoader` 구현)와 VRM 1.0 Expression 매핑 | 인터페이스만 | UniVRM 패키지 해석이 2번에 막힘 |
 | 5 | 2020년 보급형 Android 기기 트래킹 품질·지연 측정 | 측정 코드(FrameTimingProbe) 작성됨 | 연결된 기기 없음 (`adb devices` 비어 있음) |
-| 6 | Android 앱 실기기·에뮬레이터 실행 (카메라 권한 흐름 포함) | APK 빌드 성공, **미실행** | 기기 없음. 에뮬레이터는 전면 카메라 입력이 없어 트래킹 검증이 안 됨 |
+| 6 | Android 앱 실기기·에뮬레이터 실행 | 에뮬레이터(Pixel 8, API 36) **실행 확인**: 기기 게이트 통과, 온보딩→통화 화면 자동 탭, Unity 초기화, 크래시 없음. 카메라 권한·트래킹은 실기기 필요 | 기기 없음 |
 | 7 | react-navigation 교체 | 임시 내비게이터 사용 중 | 네이티브 프로젝트가 생긴 뒤 하기로 한 작업. 우선순위상 뒤로 미룸 |
 | 8 | Noto 글꼴 번들 | README만 | 글꼴 파일(수 MB)을 저장소에 넣을지 결정 필요 |
 | 9 | 카메라 권한 요청 UI (Android `PermissionsAndroid`, iOS 안내) | 네이티브는 거부 코드 반환 | 화면 설계 필요 (온보딩 어디에 넣을지) |
