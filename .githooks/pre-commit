@@ -1,0 +1,7 @@
+#!/bin/sh
+# 활성화: git config core.hooksPath .githooks
+# lint, 타입 검사, 생성물 최신 여부를 커밋 전에 돌린다 (PLANNING.md 개발 방법론 7).
+set -e
+pnpm -s lint
+pnpm -s typecheck
+pnpm -s generate:check

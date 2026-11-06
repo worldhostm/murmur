@@ -3,7 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "packageManager": "pnpm@10.20.0",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "pnpm -r --filter './packages/**' --filter './services/**' run build",
     "generate": "pnpm -r run generate",
@@ -12,10 +14,15 @@
     "lint": "eslint . && pnpm run lint:boundaries",
     "lint:boundaries": "tsx scripts/check-boundaries.ts",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "generate:check": "pnpm -r run generate:check",
+    "sync:unity": "tsx scripts/sync-unity.ts",
+    "perf:budget": "tsx scripts/perf-budget.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
+    "@murmur/ai-character": "workspace:*",
+    "@murmur/face-protocol": "workspace:*",
     "@types/node": "^22.9.0",
     "eslint": "^9.14.0",
     "globals": "^15.12.0",

@@ -28,7 +28,12 @@ pnpm build                # packages, services 빌드
 pnpm test                 # 전체 테스트 (packages/services: vitest, mobile: jest)
 pnpm typecheck            # 전체 타입 검사
 pnpm lint                 # eslint + 모듈 경계 검사(scripts/check-boundaries.ts)
+pnpm generate:check       # 생성물이 원본과 일치하는지 (CI, pre-commit)
+pnpm perf:budget          # 성능 예산 (코덱·립싱크 프레임 생성·파이프라인 오버헤드). 초과 시 실패
+pnpm sync:unity           # 생성된 C#을 apps/avatar-unity/Assets/Murmur/Generated/로 복사
 ```
+
+처음 한 번: `git config core.hooksPath .githooks` (pre-commit에서 lint, typecheck, generate:check).
 
 패키지 하나만: `pnpm --filter @murmur/face-protocol test`.
 
