@@ -54,6 +54,12 @@ class FaceTrackerModule(private val ctx: ReactApplicationContext) : ReactContext
     private const val MODEL_ASSET = "face_landmarker.task"
     private const val MIN_FRAME_INTERVAL_MS = 1000L / 30
     private const val LOST_AFTER_MS = 500L
+    /**
+     * GPU 델리게이트가 생성은 되지만 추론마다 실패하는 기기(일부 GL 드라이버, 에뮬레이터)를 잡는다.
+     * MediaPipe tasks 0.10.14 는 options 의 errorListener 를 TaskRunner 에 넘기지 않아 "Mediapipe error" 를 로그만 하므로,
+     * 결과 콜백 없이 보낸 프레임 수로 판단한다 (LIVE_STREAM 은 얼굴이 없어도 빈 결과를 돌려준다).
+     */
+    private const val GPU_SENDS_WITHOUT_RESULT_BEFORE_FALLBACK = 30
   }
 
   override fun getName(): String = NAME
@@ -70,6 +76,8 @@ class FaceTrackerModule(private val ctx: ReactApplicationContext) : ReactContext
   @Volatile private var lastEmitMs = 0L
   @Volatile private var lastFaceMs = 0L
   @Volatile private var lastState: TrackingState? = null
+  @Volatile private var delegateInUse: Delegate = Delegate.GPU
+  @Volatile private var sentSinceResult = 0
 
   @ReactMethod
   fun isSupported(promise: Promise) {
@@ -159,11 +167,30 @@ class FaceTrackerModule(private val ctx: ReactApplicationContext) : ReactContext
 
   /** GPU 델리게이트를 먼저 시도하고, 지원하지 않는 기기(일부 2020년 보급형)에서는 CPU 로 폴백한다. */
   private fun createLandmarker(): FaceLandmarker {
+    sentSinceResult = 0
     return try {
-      createLandmarker(Delegate.GPU).also { Log.i(TAG, "landmarker delegate=GPU") }
+      createLandmarker(Delegate.GPU).also { delegateInUse = Delegate.GPU; Log.i(TAG, "landmarker delegate=GPU") }
     } catch (e: Exception) {
       Log.w(TAG, "GPU delegate unavailable, falling back to CPU: ${e.message}")
-      createLandmarker(Delegate.CPU).also { Log.i(TAG, "landmarker delegate=CPU") }
+      createLandmarker(Delegate.CPU).also { delegateInUse = Delegate.CPU; Log.i(TAG, "landmarker delegate=CPU") }
+    }
+  }
+
+  /** 분석 스레드에서 호출. GPU 랜드마커가 결과를 돌려주지 않으면 CPU 로 교체한다. */
+  private fun fallbackToCpuIfStalled() {
+    if (delegateInUse != Delegate.GPU || sentSinceResult < GPU_SENDS_WITHOUT_RESULT_BEFORE_FALLBACK) return
+    Log.w(TAG, "GPU delegate returned no result for $sentSinceResult frames, falling back to CPU")
+    // 깨진 그래프는 close() 자체가 예외를 던진다. 그래도 CPU 랜드마커는 만들어야 한다.
+    try { landmarker?.close() } catch (e: Exception) { Log.w(TAG, "closing GPU landmarker failed: ${e.message?.lineSequence()?.firstOrNull()}") }
+    landmarker = null
+    try {
+      landmarker = createLandmarker(Delegate.CPU)
+      delegateInUse = Delegate.CPU
+      sentSinceResult = 0
+      Log.i(TAG, "landmarker delegate=CPU")
+    } catch (ex: Exception) {
+      Log.e(TAG, "CPU fallback failed", ex)
+      landmarker = null
     }
   }
 
@@ -175,7 +202,7 @@ class FaceTrackerModule(private val ctx: ReactApplicationContext) : ReactContext
       .setNumFaces(1)
       .setOutputFaceBlendshapes(true)
       .setOutputFacialTransformationMatrixes(true)
-      .setResultListener { result, _ -> onResult(result) }
+      .setResultListener { result, _ -> sentSinceResult = 0; onResult(result) }
       .setErrorListener { e -> Log.w(TAG, "landmarker error", e) }
       .build()
     return FaceLandmarker.createFromOptions(ctx, options)
@@ -183,6 +210,7 @@ class FaceTrackerModule(private val ctx: ReactApplicationContext) : ReactContext
 
   private fun analyze(image: ImageProxy) {
     try {
+      fallbackToCpuIfStalled()
       val lm = landmarker ?: return
       // 회전·좌우 반전 후 MediaPipe 로. Bitmap 은 이 메서드 안에서만 산다.
       val bitmap = image.toBitmap()
@@ -192,6 +220,7 @@ class FaceTrackerModule(private val ctx: ReactApplicationContext) : ReactContext
       }
       val oriented = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, m, true)
       val mpImage = BitmapImageBuilder(oriented).build()
+      sentSinceResult++
       lm.detectAsync(mpImage, SystemClock.uptimeMillis())
     } catch (e: Exception) {
       Log.w(TAG, "analyze failed", e)
