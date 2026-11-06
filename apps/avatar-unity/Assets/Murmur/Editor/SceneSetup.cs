@@ -29,12 +29,21 @@ namespace Murmur.Editor
             light.type = LightType.Directional;
             light.transform.rotation = Quaternion.Euler(30f, -20f, 0f);
 
+            var fill = new GameObject("Fill Light").AddComponent<Light>();
+            fill.type = LightType.Directional;
+            fill.intensity = 0.4f;
+            fill.transform.rotation = Quaternion.Euler(10f, 160f, 0f);
+
+            // 프리미티브 마스코트를 자동 로드한다 (VRM 로더가 붙기 전까지의 PoC 아바타).
             var local = new GameObject("Avatar.local").AddComponent<AvatarSlotController>();
-            SetSlot(local, "local");
+            local.gameObject.AddComponent<PrimitiveAvatarLoader>();
+            SetSlot(local, "local", "builtin/primitive");
             local.gameObject.SetActive(false); // 통화 화면은 상대 캐릭터만 크게 보여준다
 
             var remote = new GameObject("Avatar.remote").AddComponent<AvatarSlotController>();
-            SetSlot(remote, "remote");
+            remote.gameObject.AddComponent<PrimitiveAvatarLoader>();
+            SetSlot(remote, "remote", "builtin/primitive");
+            remote.transform.position = Vector3.zero; // 머리는 로더가 y=1.4 에 둔다. 카메라 (0,1.4,0.8) 이 정면을 본다
             remote.gameObject.AddComponent<FrameTimingProbe>();
 
             var bridgeGo = new GameObject(MurmurBridge.GameObjectName);
@@ -50,10 +59,11 @@ namespace Murmur.Editor
             Debug.Log($"saved {ScenePath}");
         }
 
-        private static void SetSlot(AvatarSlotController controller, string slot)
+        private static void SetSlot(AvatarSlotController controller, string slot, string autoLoadAssetKey)
         {
             var so = new SerializedObject(controller);
             so.FindProperty("slot").stringValue = slot;
+            so.FindProperty("autoLoadAssetKey").stringValue = autoLoadAssetKey;
             so.ApplyModifiedPropertiesWithoutUndo();
         }
     }

@@ -13,7 +13,9 @@ Unity 6 (6000.0.84f1) 프로젝트 뼈대. Unity Hub에서 이 폴더를 열면 
 | --- | --- |
 | `MurmurBridge.cs` | 네이티브가 `UnitySendMessage("MurmurBridge", …)`로 부르는 진입점. `OnFaceFrame("slot|base64")`, `LoadAvatar("slot|assetKey")`, `SetTheme("light"/"dark")` |
 | `FaceFrameReceiver.cs` | 슬롯별 최신 프레임 보관 (네이티브 스레드 → 메인 스레드, lock) |
-| `AvatarSlotController.cs` | 슬롯 하나의 아바타. 매 프레임 consumer에 전달, 수신 끊기면 표정 굳힘. `IAvatarLoader`(UniVRM 로더 자리) |
+| `AvatarSlotController.cs` | 슬롯 하나의 아바타. 매 프레임 consumer에 전달, 수신 끊기면 표정 굳힘. `IAvatarLoader`를 같은 오브젝트에서 찾고, `autoLoadAssetKey`가 있으면 Start에서 자동 로드 |
+| `PrimitiveAvatarLoader.cs` | VRM 없이 쓰는 프리미티브 마스코트 (`builtin/primitive`): 구 머리·눈·눈썹·입·혀. 토큰 색(Lavender/Night/Ink). `Build(parent)`는 테스트용 |
+| `PrimitiveExpressionDriver.cs` | 마스코트 표정: jawOpen→입 세로, smile/frown→입 가로·높이, blink/wide→눈, browInnerUp/browDown→눈썹, cheekPuff→머리 가로, tongueOut→혀. Lost면 중립으로 |
 | `BlendShapeDriver.cs` | ARKit 52개 → SkinnedMeshRenderer 블렌드셰이프 (이름 끝부분 매칭, 스무딩) |
 | `HeadPoseDriver.cs` | 쿼터니언 → 머리 본 (오른손→왼손 변환, 각도 clamp) |
 | `ThemeBackground.cs` | 카메라 배경 = `Tokens.{Light,Dark}.Night` |
@@ -22,7 +24,7 @@ Unity 6 (6000.0.84f1) 프로젝트 뼈대. Unity Hub에서 이 폴더를 열면 
 | `Editor/BuildLibrary.cs` | UaaL 내보내기 (Android: IL2CPP arm64+armv7, minSdk 29, gradle 프로젝트 / iOS: Device·Simulator Xcode 프로젝트) |
 | `Tests/EditMode/FaceProtocolTests.cs` | 코덱 라운드트립, 매직·버전 거부, 리시버, clamp |
 
-Packages/manifest.json에는 URP와 UniVRM(git)이 들어 있다. VRM 로더(`IAvatarLoader` 구현)와 VRM 1.0 Expression 매핑은 아직 없다.
+Packages/manifest.json에는 URP와 UniVRM(git)이 들어 있다. 통화 씬은 두 슬롯 모두 `PrimitiveAvatarLoader`로 `builtin/primitive`를 자동 로드한다. VRM 로더(`IAvatarLoader` 구현)와 VRM 1.0 Expression 매핑은 아직 없다.
 
 ## 생성물 (직접 수정 금지)
 

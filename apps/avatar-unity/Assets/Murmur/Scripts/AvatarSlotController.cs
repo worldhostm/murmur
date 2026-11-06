@@ -12,7 +12,8 @@ namespace Murmur
         [SerializeField] private string slot = "local";
         [Tooltip("이 시간(초) 넘게 프레임이 없으면 tracking=lost 로 간주한다.")]
         [SerializeField] private float staleAfterSeconds = 0.5f;
-        [SerializeField] private IAvatarLoader loaderOverride;
+        [Tooltip("비어 있지 않으면 Start 에서 이 에셋 키를 자동 로드한다 (예: builtin/primitive).")]
+        [SerializeField] private string autoLoadAssetKey = "";
 
         private readonly FaceFrame _frame = new FaceFrame();
         private IFaceFrameConsumer[] _consumers = System.Array.Empty<IFaceFrameConsumer>();
@@ -24,8 +25,13 @@ namespace Murmur
 
         private void Awake()
         {
-            _loader = loaderOverride ?? GetComponent<IAvatarLoader>();
+            _loader = GetComponent<IAvatarLoader>();
             RefreshConsumers();
+        }
+
+        private void Start()
+        {
+            if (!string.IsNullOrEmpty(autoLoadAssetKey) && LoadedAssetKey == null) Load(autoLoadAssetKey);
         }
 
         public void RefreshConsumers()
