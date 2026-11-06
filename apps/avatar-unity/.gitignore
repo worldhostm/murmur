@@ -11,3 +11,7 @@ Builds/
 .vs/
 .idea/
 # 생성물은 pnpm sync:unity 로 받는다
+
+# Unity 에디터가 만드는 로컬 파일
+.vscode/
+Builds/
