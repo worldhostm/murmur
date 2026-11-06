@@ -1,5 +1,7 @@
 {
-  "app": { "name": "Murmur" },
+  "app": {
+    "name": "Murmur"
+  },
   "common": {
     "aiCharacter": "AI 캐릭터",
     "next": "다음",
@@ -25,10 +27,26 @@
     "toneLight": "낮"
   },
   "character": {
-    "seo-doyoon": { "name": "서도윤", "tagline": "새벽 3시의 서울, 골목 끝 작은 바", "role": "하루 끝에 말없이 들어주는 사람" },
-    "leon-hart": { "name": "레온 하르트", "tagline": "은빛 가문, 몰락한 귀족가의 후계자", "role": "기분을 띄워 주는 사람" },
-    "han-seorin": { "name": "한서린", "tagline": "심야 라디오, 새벽 방송의 DJ", "role": "오늘 이야기를 정리해 주는 사람" },
-    "sera": { "name": "세라", "tagline": "네온 시티 2087, 프리랜서 해커", "role": "고민을 같이 풀어 주는 사람" }
+    "seo-doyoon": {
+      "name": "서도윤",
+      "tagline": "새벽 3시의 서울, 골목 끝 작은 바",
+      "role": "하루 끝에 말없이 들어주는 사람"
+    },
+    "leon-hart": {
+      "name": "레온 하르트",
+      "tagline": "은빛 가문, 몰락한 귀족가의 후계자",
+      "role": "기분을 띄워 주는 사람"
+    },
+    "han-seorin": {
+      "name": "한서린",
+      "tagline": "심야 라디오, 새벽 방송의 DJ",
+      "role": "오늘 이야기를 정리해 주는 사람"
+    },
+    "sera": {
+      "name": "세라",
+      "tagline": "네온 시티 2087, 프리랜서 해커",
+      "role": "고민을 같이 풀어 주는 사람"
+    }
   },
   "solo": {
     "greeting": "오늘 어땠어?",
@@ -63,5 +81,19 @@
     "matching": "이야기 나눌 사람을 찾는 중이에요",
     "roomCode": "방 코드",
     "aiNotice": "상대는 AI 캐릭터예요"
+  },
+  "device": {
+    "unsupportedTitle": "이 기기에서는 아직 쓸 수 없어요",
+    "unsupportedBody": "표정을 실시간으로 옮기려면 일정 수준의 카메라와 처리 성능이 필요해요. 그래서 지원 기기를 제한하고 있어요.",
+    "criteria": "지원 기기: Face ID가 있는 iPhone, 2020년 이후 출시된 Android(Android 10 이상)",
+    "reason": {
+      "ok": "",
+      "os-too-old": "Android 10 이상이 필요해요",
+      "launched-before-2020": "2020년 이전에 출시된 기기예요",
+      "no-front-camera": "전면 카메라가 필요해요",
+      "no-face-tracking": "Face ID가 있는 iPhone이 필요해요",
+      "no-64bit": "64비트 기기가 필요해요",
+      "unknown": "기기 정보를 확인하지 못했어요"
+    }
   }
 }

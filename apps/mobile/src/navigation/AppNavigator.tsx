@@ -1,7 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { ThemeProvider } from '../theme';
-import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen } from '../screens';
+import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen, UnsupportedDeviceScreen } from '../screens';
+import { getDeviceSupport } from '../device/deviceSupport';
+import type { DeviceSupport } from '../device/deviceSupport';
 import type { SoloMessage } from '../screens';
 
 /**
@@ -24,16 +26,44 @@ const SCREEN_KIND: Record<Route['name'], ScreenKind> = {
 export interface AppNavigatorProps {
   initialRoute?: Route;
   userPreference?: ThemePreference;
+  /** 테스트용. 지정하면 네이티브 판정을 건너뛴다. */
+  deviceSupportOverride?: DeviceSupport;
 }
 
-export function AppNavigator({ initialRoute = { name: 'onboarding' }, userPreference = 'system' }: AppNavigatorProps): React.JSX.Element {
+export function AppNavigator({
+  initialRoute = { name: 'onboarding' },
+  userPreference = 'system',
+  deviceSupportOverride,
+}: AppNavigatorProps): React.JSX.Element {
   const [route, setRoute] = useState<Route>(initialRoute);
   const [messages, setMessages] = useState<SoloMessage[]>([]);
+  const [support, setSupport] = useState<DeviceSupport | null>(deviceSupportOverride ?? null);
+
+  // 지원 기기 판정 (docs/specs/device-support.md). 판정 전에는 아무것도 그리지 않는다.
+  useEffect(() => {
+    if (deviceSupportOverride) return;
+    let alive = true;
+    getDeviceSupport().then((s) => alive && setSupport(s));
+    return () => {
+      alive = false;
+    };
+  }, [deviceSupportOverride]);
 
   const send = useCallback((text: string) => {
     // 실제 응답은 services/ai-character 연결 후. 지금은 사용자 메시지만 쌓는다.
     setMessages((prev) => [...prev, { id: String(prev.length + 1), from: 'me', text }]);
   }, []);
+
+  if (support === null) {
+    return <ThemeProvider screen="onboarding" userPreference={userPreference}>{null}</ThemeProvider>;
+  }
+  if (!support.supported) {
+    return (
+      <ThemeProvider screen="onboarding" userPreference={userPreference}>
+        <UnsupportedDeviceScreen support={support} />
+      </ThemeProvider>
+    );
+  }
 
   let content: React.JSX.Element;
   switch (route.name) {

@@ -1,5 +1,7 @@
 {
-  "app": { "name": "Murmur" },
+  "app": {
+    "name": "Murmur"
+  },
   "common": {
     "aiCharacter": "AI character",
     "next": "Next",
@@ -25,10 +27,26 @@
     "toneLight": "Day"
   },
   "character": {
-    "seo-doyoon": { "name": "Seo Doyoon", "tagline": "Seoul at 3 a.m., a small bar at the end of an alley", "role": "Someone who quietly listens at the end of the day" },
-    "leon-hart": { "name": "Leon Hart", "tagline": "House of Silver, heir to a fallen noble family", "role": "Someone who lifts your mood" },
-    "han-seorin": { "name": "Han Seorin", "tagline": "Late-night radio, DJ of the dawn broadcast", "role": "Someone who sums up your day" },
-    "sera": { "name": "Sera", "tagline": "Neon City 2087, freelance hacker", "role": "Someone who works through problems with you" }
+    "seo-doyoon": {
+      "name": "Seo Doyoon",
+      "tagline": "Seoul at 3 a.m., a small bar at the end of an alley",
+      "role": "Someone who quietly listens at the end of the day"
+    },
+    "leon-hart": {
+      "name": "Leon Hart",
+      "tagline": "House of Silver, heir to a fallen noble family",
+      "role": "Someone who lifts your mood"
+    },
+    "han-seorin": {
+      "name": "Han Seorin",
+      "tagline": "Late-night radio, DJ of the dawn broadcast",
+      "role": "Someone who sums up your day"
+    },
+    "sera": {
+      "name": "Sera",
+      "tagline": "Neon City 2087, freelance hacker",
+      "role": "Someone who works through problems with you"
+    }
   },
   "solo": {
     "greeting": "How was your day?",
@@ -63,5 +81,19 @@
     "matching": "Finding someone to talk with",
     "roomCode": "Room code",
     "aiNotice": "You're talking with an AI character"
+  },
+  "device": {
+    "unsupportedTitle": "This device isn't supported yet",
+    "unsupportedBody": "Moving your expressions in real time needs a certain level of camera and processing power, so we limit supported devices.",
+    "criteria": "Supported: iPhone with Face ID, Android devices launched in 2020 or later (Android 10+)",
+    "reason": {
+      "ok": "",
+      "os-too-old": "Android 10 or newer is required",
+      "launched-before-2020": "This device was launched before 2020",
+      "no-front-camera": "A front camera is required",
+      "no-face-tracking": "An iPhone with Face ID is required",
+      "no-64bit": "A 64-bit device is required",
+      "unknown": "We couldn't read the device information"
+    }
   }
 }
