@@ -1,3 +1,6 @@
 
 # MediaPipe 모델 (gradle이 내려받음)
 app/src/main/assets/face_landmarker.task
+
+# NDK/CMake 빌드 캐시
+app/.cxx/

@@ -7,7 +7,7 @@
 | # | 항목 | 상태 | 막힌 이유 |
 | --- | --- | --- | --- |
 | 1 | iOS 네이티브 빌드 (ARKit 트래커, Unity 브리지) | 코드 작성됨, **미컴파일** | 이 머신에 Xcode와 CocoaPods가 없음 (Command Line Tools만 있음) |
-| 2 | Unity 에디터에서 프로젝트 열기·패키지 해석·Test Runner | 뼈대 작성됨, C# 컴파일만 검증 | Unity 배치 모드 라이선스 없음 (Hub 로그인 필요) |
+| 2 | Unity 에디터에서 프로젝트 열기·패키지 해석·Test Runner | **완료** (Hub 로그인 후 배치 모드로 임포트, 씬 생성, EditMode 5개 통과) | — |
 | 3 | Unity as a Library 내보내기와 RN 연결 | 브리지 양쪽 코드 작성됨, **미연결** | Unity 에디터에 Android/iOS 빌드 모듈이 설치되어 있지 않음 (Mac Standalone만 있음) |
 | 4 | VRM 로더 (`IAvatarLoader` 구현)와 VRM 1.0 Expression 매핑 | 인터페이스만 | UniVRM 패키지 해석이 2번에 막힘 |
 | 5 | 2020년 보급형 Android 기기 트래킹 품질·지연 측정 | 측정 코드(FrameTimingProbe) 작성됨 | 연결된 기기 없음 (`adb devices` 비어 있음) |
@@ -24,15 +24,9 @@
   2. `xed apps/mobile/ios` 로 열어 빌드. 확인 지점: `import React` 모듈 맵, `RCT_EXTERN_METHOD` 셀렉터와 Swift 시그니처 일치, `ARFaceAnchor.BlendShapeLocation(rawValue:)`, `simd_quatf(simd_float4x4)`.
   3. Face ID 기기(실기기)에서 `MurmurFaceTracker.start()` → `murmur.faceFrame` 이벤트 30Hz 확인. 시뮬레이터는 ARKit 얼굴 추적을 지원하지 않는다.
 
-## 2. Unity 에디터
+## 2. Unity 에디터 — 완료
 
-- **해 둔 것**: `apps/avatar-unity/` 에 `ProjectSettings/ProjectVersion.txt`(6000.0.84f1), `Packages/manifest.json`(URP 17, Test Framework, UniVRM 0.128.3 git), 런타임·에디터·테스트 asmdef, 스크립트 8개, EditMode 테스트 5개. `pnpm unity:compile-check` 로 엔진 API 기준 컴파일을 검사했다.
-- **막힌 이유**: `Unity -batchmode -createProject` 가 "No valid Unity Editor license found" 로 종료. Unity Hub 에 로그인해 Personal 라이선스를 활성화해야 한다.
-- **이어서 할 일**
-  1. Unity Hub → 프로젝트 추가 → `apps/avatar-unity` 열기 (처음 열 때 Library 생성과 UniVRM git 패키지 내려받기).
-  2. 메뉴 `Murmur/Create Call Scene` 으로 `Assets/Murmur/Scenes/Call.unity` 생성 후 커밋.
-  3. Window → General → Test Runner → EditMode 에서 `FaceProtocolTests` 5개 통과 확인.
-  4. 배치 실행이 되면 CI 에 `-runTests -testPlatform EditMode` 를 붙인다.
+Hub 로그인 후 배치 모드가 동작했다. UniVRM 0.128.3은 `com.vrmc.vrmshaders` 경로가 없고(UniGLTF에 합쳐짐) `com.unity.timeline`을 요구해 매니페스트를 고쳤다. `Assets/Murmur/Scenes/Call.unity` 생성, EditMode 테스트 5개 통과. 로컬 실행 명령은 `pnpm unity:test`.
 
 ## 3. Unity as a Library 연결
 
