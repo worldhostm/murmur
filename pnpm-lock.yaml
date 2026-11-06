@@ -36,6 +36,16 @@ importers:
         specifier: ^2.1.4
         version: 2.1.9(@types/node@22.20.5)
 
+  packages/design-tokens: {}
+
+  packages/face-protocol: {}
+
+  packages/shared-types:
+    devDependencies:
+      '@murmur/design-tokens':
+        specifier: workspace:*
+        version: link:../design-tokens
+
 packages:
 
   '@esbuild/aix-ppc64@0.21.5':
