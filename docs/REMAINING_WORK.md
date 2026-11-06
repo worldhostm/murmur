@@ -6,7 +6,7 @@
 
 | # | 항목 | 상태 | 막힌 이유 |
 | --- | --- | --- | --- |
-| 1 | iOS 네이티브 빌드 (ARKit 트래커, Unity 브리지) | Xcode 27.2·CocoaPods 설치됨, **라이선스 동의 대기** | `sudo xcodebuild -license accept` 전에는 iphoneos SDK를 못 찾아 `pod install`이 실패한다 |
+| 1 | iOS 네이티브 빌드 (ARKit 트래커, Unity 브리지) | **완료** (시뮬레이터 빌드·실행 확인, 기기 게이트 동작). 실기기 ARKit 트래킹은 Face ID 기기 필요 | — |
 | 2 | Unity 에디터에서 프로젝트 열기·패키지 해석·Test Runner | **완료** (Hub 로그인 후 배치 모드로 임포트, 씬 생성, EditMode 5개 통과) | — |
 | 3 | Unity as a Library 내보내기와 RN 연결 | 브리지 양쪽 코드 작성됨, **미연결** | Unity 에디터에 Android/iOS 빌드 모듈이 설치되어 있지 않음 (Mac Standalone만 있음) |
 | 4 | VRM 로더 (`IAvatarLoader` 구현)와 VRM 1.0 Expression 매핑 | 인터페이스만 | UniVRM 패키지 해석이 2번에 막힘 |
@@ -16,7 +16,14 @@
 | 8 | Noto 글꼴 번들 | README만 | 글꼴 파일(수 MB)을 저장소에 넣을지 결정 필요 |
 | 9 | 카메라 권한 요청 UI (Android `PermissionsAndroid`, iOS 안내) | 네이티브는 거부 코드 반환 | 화면 설계 필요 (온보딩 어디에 넣을지) |
 
-## 1. iOS 네이티브 빌드
+## 1. iOS 네이티브 빌드 — 완료 (2026-11-06)
+
+- Xcode 27.2 + CocoaPods 1.17. RN 0.76.9가 고정한 fmt 11.0.2가 clang 21에서 깨져 `pnpm patch`로 11.2.0으로 올렸다.
+- iOS 27 SDK는 UIScene 생명주기 미채택 앱을 실행 직후 트랩으로 죽인다. `AppDelegate.mm`에 `SceneDelegate`를 넣고 `Info.plist`에 scene manifest를 추가했다. 번들 ID는 `com.murmur`.
+- 시뮬레이터(iPhone, iOS 27.2)에서 실행 확인: Face ID가 없어 "이 기기에서는 아직 쓸 수 없어요" 안내 화면이 뜬다(의도된 동작). 실기기에서 `MurmurFaceTracker.start()` → `murmur.faceFrame` 30Hz 확인은 남아 있다.
+- Unity를 포함한 시뮬레이터 실행은 **불가**: Unity 6의 시뮬레이터 라이브러리가 x86_64뿐이라 Apple Silicon의 iOS 27 시뮬레이터가 설치를 거부한다. 시뮬레이터 작업은 `MURMUR_NO_UNITY=1 pod install`로 Unity를 빼고 한다. Unity 포함 검증은 실기기에서 `pod install`(기본) → Xcode 실행.
+
+### (이전 기록)
 
 - **해 둔 것**: `apps/mobile/ios/Murmur/` 에 `MurmurFaceTracker.swift/.m`(ARKit, `RCTEventEmitter`), `MurmurUnityBridge.swift/.m`, `FaceFrameEncoder.swift`, `Generated/FaceProtocol.swift`, 브리징 헤더. `project.pbxproj` 에 파일과 `SWIFT_OBJC_BRIDGING_HEADER` 를 손으로 추가했고 `plutil -lint` 는 통과. `Info.plist` 에 `NSCameraUsageDescription` 추가.
 - **이어서 할 일**
@@ -34,7 +41,7 @@ Hub 로그인 후 배치 모드가 동작했다. UniVRM 0.128.3은 `com.vrmc.vrm
 - **이어서 할 일**
   1. Unity Hub 에서 에디터에 Android Build Support(+ OpenJDK, SDK/NDK 는 기존 것 사용), iOS Build Support 모듈 추가.
   2. Android: Export Project → `apps/avatar-unity/Builds/android/unityLibrary`. `apps/mobile/android/settings.gradle` 에 `include ':unityLibrary'`, `app/build.gradle` 에 `implementation project(':unityLibrary')`. `MainApplication` 에서 `UnityPlayerProxy.sender = { go, m, msg -> UnityPlayer.UnitySendMessage(go, m, msg) }`. 통화 화면의 `avatar-renderer` 자리에 `UnityPlayer` 뷰를 올리는 ViewManager 추가.
-  3. iOS: Export → `Unity-iPhone.xcodeproj` 를 워크스페이스에 추가, `UnityFramework.framework` 임베드, `MurmurUnityBridge.shared.proxy` 를 `UnityFramework` 로 교체.
+  3. iOS **빌드 수준 완료 (2026-11-06)**: `pnpm unity:export:ios` + `unity:export:ios-simulator` → `pnpm unity:framework:ios` 로 `UnityFramework.xcframework`(ios-arm64 + ios-x86_64-simulator, `Data` 포함)와 `MurmurUnity.podspec` 생성. Podfile 이 자동 포함하고, `DynamicUnityProxy` 가 런타임에 프레임워크를 로드한다. 시뮬레이터 Debug 빌드(x86_64) 성공, 앱 번들 `Frameworks/UnityFramework.framework/Data` 확인. 남은 것: (a) 시뮬레이터/기기에서 통화 화면 진입 시 Unity 가 실제로 뜨는지(`[MurmurUnity] UnityFramework running` 로그, rootView 표시), (b) Unity 시뮬레이터 슬라이스가 x86_64 뿐이라 Apple Silicon 시뮬레이터는 Rosetta 로 돈다 — Unity 가 arm64 시뮬레이터를 지원하면 `EXCLUDED_ARCHS` 를 제거, (c) 프레임워크 없이(podspec 삭제 후 `pod install`) 빌드되는지 재확인 (코드상 Unity 심볼 참조는 없다), (d) `setExecuteHeader:` 에 `_dyld_get_image_header(0)` 를 넘기는데 Xcode 의 debug dylib 구성에서 image 0 이 메인 실행 파일인지 기기에서 확인.
   4. 카메라 소유권 결정(ADR 0001 의 0단계 질문): 트래커(네이티브)가 카메라를 쥐고 Unity 는 프레임만 받는 현재 구조를 유지할지 확인. Unity 가 카메라를 쓰지 않으므로 충돌은 없어야 한다.
   5. 성능: `FrameTimingProbe` 로그로 프레임 시간과 수신→렌더 지연을 읽는다. 예산은 30fps, 지연 33ms 이내.
 

@@ -57,3 +57,11 @@ pnpm --filter @murmur/mobile typecheck
 - `pnpm unity:export:android` 로 `apps/avatar-unity/Builds/android/unityLibrary` 가 생기면 `settings.gradle` 이 자동으로 `:unityLibrary` 를 포함하고, `app/build.gradle` 이 `src/unity/java` 소스셋(UnityHost, UnityViewManager)을 켠다. 없으면 둘 다 빠져서 앱은 그대로 빌드된다.
 - `MainApplication` 은 리플렉션으로 `UnityHost.install()` 을 불러 `UnityPlayerProxy.sender/viewFactory/lifecycle` 를 연결한다. `MainActivity` 가 pause/resume/destroy 를 전달한다.
 - JS `UnityView` 는 네이티브 `MurmurUnityView` 가 등록돼 있으면 그리고, 아니면 자리 표시만 둔다. 통화 화면의 `renderer` 자리에 넣는다.
+
+### Unity as a Library (iOS)
+
+- `pnpm unity:export:ios` + `pnpm unity:export:ios-simulator` → `pnpm unity:framework:ios` 가 `apps/avatar-unity/Builds/ios/UnityFramework.xcframework`(Device arm64 + Simulator x86_64, 각 프레임워크 안에 `Data` 복사)와 `MurmurUnity.podspec` 을 만든다. `ios/Podfile` 은 그 podspec 이 있으면 `pod 'MurmurUnity'` 를 자동 포함한다. 없으면 앱은 Unity 없이 빌드된다.
+- Swift 는 `import UnityFramework` 를 하지 않는다. `MurmurUnityBridge.swift` 의 `DynamicUnityProxy` 가 런타임에 `Frameworks/UnityFramework.framework` 를 `Bundle.load()` 하고 ObjC 선택자(`getInstance`, `setExecuteHeader:`, `setDataBundleId:`, `runEmbeddedWithArgc:argv:appLaunchOpts:`, `sendMessageToGOWithName:functionName:message:`, `appController`, `pause:`)로 구동한다. 프레임워크가 없으면 `LoggingUnityProxy`.
+- `MurmurUnityViewManager`(네이티브 이름 `MurmurUnityView`) 가 Unity 의 `appController.rootView` 를 컨테이너에 넣고, 창에서 빠지면 `pause:`. JS 는 Android 와 같은 `<UnityView />`.
+- Unity 의 시뮬레이터 라이브러리는 x86_64 뿐이라 podspec 이 `EXCLUDED_ARCHS[sdk=iphonesimulator*]=arm64` 를 건다. Apple Silicon 에서는 시뮬레이터 앱이 x86_64(Rosetta)로 돌아간다. Unity 를 빼고 arm64 로 빌드하려면 podspec 을 지우고 `pod install`.
+- 빌드: `cd ios && pod install && xcodebuild -workspace Murmur.xcworkspace -scheme Murmur -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build`

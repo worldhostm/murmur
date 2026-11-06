@@ -1,4 +1,5 @@
 #import <React/RCTBridgeModule.h>
+#import <React/RCTViewManager.h>
 
 @interface RCT_EXTERN_MODULE(MurmurUnity, NSObject)
 
@@ -16,4 +17,7 @@ RCT_EXTERN_METHOD(dispose:(RCTPromiseResolveBlock)resolve
 
 + (BOOL)requiresMainQueueSetup { return YES; }
 
+@end
+
+@interface RCT_EXTERN_MODULE(MurmurUnityViewManager, RCTViewManager)
 @end

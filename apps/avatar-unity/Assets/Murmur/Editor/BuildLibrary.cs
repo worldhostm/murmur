@@ -43,11 +43,18 @@ namespace Murmur.Editor
         }
 
         [MenuItem("Murmur/Export iOS Project")]
-        public static void iOS()
+        public static void iOS() => ExportIos(iOSSdkVersion.DeviceSDK, "ios");
+
+        /// <summary>시뮬레이터 슬라이스. xcframework 를 만들 때 Device 슬라이스와 합친다 (scripts/unity-build-ios-framework.sh).</summary>
+        [MenuItem("Murmur/Export iOS Project (Simulator)")]
+        public static void iOSSimulator() => ExportIos(iOSSdkVersion.SimulatorSDK, "ios-simulator");
+
+        private static void ExportIos(iOSSdkVersion sdk, string folder)
         {
-            var output = Path.Combine(ProjectRoot(), "Builds", "ios");
+            var output = Path.Combine(ProjectRoot(), "Builds", folder);
             Directory.CreateDirectory(output);
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.iOS, "com.murmur.unity");
+            PlayerSettings.iOS.sdkVersion = sdk;
             PlayerSettings.iOS.targetOSVersionString = "15.0";
             // UaaL: 카메라를 쓰지 않으므로 권한 문구는 비워 둔다. 트래킹은 네이티브(ARKit)가 한다.
             PlayerSettings.iOS.cameraUsageDescription = "";

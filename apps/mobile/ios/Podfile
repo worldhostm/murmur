@@ -15,6 +15,14 @@ if linkage != nil
 end
 
 target 'Murmur' do
+  # Unity as a Library: pnpm unity:framework:ios 가 만든 podspec 이 있으면 포함한다 (없으면 앱은 Unity 없이 빌드된다).
+  unity_podspec = File.expand_path('../../avatar-unity/Builds/ios/MurmurUnity.podspec', __dir__)
+  # MURMUR_NO_UNITY=1 pod install → Unity 없이 (시뮬레이터: Unity 의 시뮬레이터 슬라이스가 x86_64 뿐이라 Apple Silicon 의 iOS 27 시뮬레이터에 설치되지 않는다)
+  if File.exist?(unity_podspec) && ENV['MURMUR_NO_UNITY'] != '1'
+    pod 'MurmurUnity', :path => File.dirname(unity_podspec)
+    puts 'Murmur: UnityFramework.xcframework 포함'
+  end
+
   config = use_native_modules!
 
   use_react_native!(
