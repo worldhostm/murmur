@@ -23,7 +23,9 @@
     "android:build": "cd apps/mobile/android && ./gradlew :app:assembleDebug",
     "unity:test": "sh scripts/unity-test.sh",
     "unity:export:android": "sh scripts/unity-export.sh android",
-    "unity:export:ios": "sh scripts/unity-export.sh ios"
+    "unity:export:ios": "sh scripts/unity-export.sh ios",
+    "unity:export:ios-simulator": "sh scripts/unity-export.sh ios-simulator",
+    "unity:framework:ios": "sh scripts/unity-build-ios-framework.sh"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",

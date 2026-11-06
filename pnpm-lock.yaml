@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  react-native@0.76.9:
+    hash: c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09
+    path: patches/react-native@0.76.9.patch
+
 importers:
 
   .:
@@ -61,10 +66,10 @@ importers:
         version: 18.3.1
       react-i18next:
         specifier: ^15.1.1
-        version: 15.7.4(i18next@23.16.8)(react-native@0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        version: 15.7.4(i18next@23.16.8)(react-native@0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       react-native:
         specifier: 0.76.9
-        version: 0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1)
+        version: 0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1)
     devDependencies:
       '@babel/core':
         specifier: ^7.26.0
@@ -98,7 +103,7 @@ importers:
         version: 0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))
       '@testing-library/react-native':
         specifier: ^12.9.0
-        version: 12.9.0(jest@29.7.0(@types/node@22.20.5))(react-native@0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react-test-renderer@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 12.9.0(jest@29.7.0(@types/node@22.20.5))(react-native@0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react-test-renderer@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -5495,12 +5500,12 @@ snapshots:
 
   '@react-native/normalize-colors@0.76.9': {}
 
-  '@react-native/virtualized-lists@0.76.9(@types/react@18.3.31)(react-native@0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)':
+  '@react-native/virtualized-lists@0.76.9(@types/react@18.3.31)(react-native@0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)':
     dependencies:
       invariant: 2.2.4
       nullthrows: 1.1.1
       react: 18.3.1
-      react-native: 0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1)
+      react-native: 0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.31
 
@@ -5600,12 +5605,12 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@testing-library/react-native@12.9.0(jest@29.7.0(@types/node@22.20.5))(react-native@0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react-test-renderer@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@testing-library/react-native@12.9.0(jest@29.7.0(@types/node@22.20.5))(react-native@0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react-test-renderer@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       jest-matcher-utils: 29.7.0
       pretty-format: 29.7.0
       react: 18.3.1
-      react-native: 0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1)
+      react-native: 0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1)
       react-test-renderer: 18.3.1(react@18.3.1)
       redent: 3.0.0
     optionalDependencies:
@@ -7647,21 +7652,21 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  react-i18next@15.7.4(i18next@23.16.8)(react-native@0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)(typescript@5.9.3):
+  react-i18next@15.7.4(i18next@23.16.8)(react-native@0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)(typescript@5.9.3):
     dependencies:
       '@babel/runtime': 7.29.13
       html-parse-stringify: 3.1.0
       i18next: 23.16.8
       react: 18.3.1
     optionalDependencies:
-      react-native: 0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1)
+      react-native: 0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1)
       typescript: 5.9.3
 
   react-is@17.0.2: {}
 
   react-is@18.3.1: {}
 
-  react-native@0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1):
+  react-native@0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1):
     dependencies:
       '@jest/create-cache-key-function': 29.7.0
       '@react-native/assets-registry': 0.76.9
@@ -7670,7 +7675,7 @@ snapshots:
       '@react-native/gradle-plugin': 0.76.9
       '@react-native/js-polyfills': 0.76.9
       '@react-native/normalize-colors': 0.76.9
-      '@react-native/virtualized-lists': 0.76.9(@types/react@18.3.31)(react-native@0.76.9(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)
+      '@react-native/virtualized-lists': 0.76.9(@types/react@18.3.31)(react-native@0.76.9(patch_hash=c7bd4bdce3a512d268db5fde3fe09ea785e7b98a1ffe3aa5c97de2d504e67c09)(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(@react-native-community/cli@15.0.1(typescript@5.9.3))(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)
       abort-controller: 3.0.0
       anser: 1.4.10
       ansi-regex: 5.0.1
