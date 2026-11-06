@@ -80,7 +80,15 @@
     "end": "통화 끝내기",
     "matching": "이야기 나눌 사람을 찾는 중이에요",
     "roomCode": "방 코드",
-    "aiNotice": "상대는 AI 캐릭터예요"
+    "aiNotice": "상대는 AI 캐릭터예요",
+    "tracking": {
+      "starting": "카메라를 준비하는 중이에요",
+      "tracking": "표정을 옮기는 중 · {{fps}}fps",
+      "limited": "얼굴을 찾는 중이에요",
+      "lost": "얼굴이 보이지 않아요",
+      "permissionDenied": "카메라 권한이 없어 표정을 옮길 수 없어요",
+      "error": "트래킹을 시작하지 못했어요"
+    }
   },
   "device": {
     "unsupportedTitle": "이 기기에서는 아직 쓸 수 없어요",

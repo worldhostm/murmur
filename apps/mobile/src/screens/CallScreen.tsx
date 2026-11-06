@@ -19,6 +19,8 @@ export interface CallScreenProps {
   onEnd: () => void;
   /** Unity 렌더 뷰가 들어갈 자리. 테스트에서는 비워 둔다. */
   renderer?: React.ReactNode;
+  /** 내 트래킹 상태 문구 (useFaceTracking 결과를 i18n 으로 옮긴 것). */
+  trackingLabel?: string | undefined;
 }
 
 /**
@@ -84,6 +86,11 @@ export function CallScreen(props: CallScreenProps): React.JSX.Element {
         {statusKey && (
           <AppText variant="bodySm" color="inkOnNight" maxFontSizeMultiplier={size.callOverlayMaxFontScale}>
             {t(statusKey)}
+          </AppText>
+        )}
+        {props.trackingLabel && (
+          <AppText testID="tracking-label" variant="caption" color="inkOnNight" maxFontSizeMultiplier={size.callOverlayMaxFontScale}>
+            {props.trackingLabel}
           </AppText>
         )}
       </View>

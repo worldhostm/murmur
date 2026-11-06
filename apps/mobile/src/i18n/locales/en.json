@@ -80,7 +80,15 @@
     "end": "End call",
     "matching": "Finding someone to talk with",
     "roomCode": "Room code",
-    "aiNotice": "You're talking with an AI character"
+    "aiNotice": "You're talking with an AI character",
+    "tracking": {
+      "starting": "Getting the camera ready",
+      "tracking": "Tracking expressions · {{fps}}fps",
+      "limited": "Looking for your face",
+      "lost": "Can't see your face",
+      "permissionDenied": "No camera permission, so expressions can't be tracked",
+      "error": "Couldn't start tracking"
+    }
   },
   "device": {
     "unsupportedTitle": "This device isn't supported yet",

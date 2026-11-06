@@ -4,6 +4,10 @@ import { ThemeProvider } from '../theme';
 import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen, UnsupportedDeviceScreen } from '../screens';
 import { getDeviceSupport } from '../device/deviceSupport';
 import { UnityView } from '../avatar/UnityView';
+import { useFaceTracking } from '../avatar/useFaceTracking';
+import type { FaceTrackingStatus } from '../avatar/useFaceTracking';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import type { DeviceSupport } from '../device/deviceSupport';
 import type { SoloMessage } from '../screens';
 
@@ -31,6 +35,21 @@ export interface AppNavigatorProps {
   deviceSupportOverride?: DeviceSupport;
 }
 
+const TRACKING_KEY: Record<FaceTrackingStatus, string | null> = {
+  idle: null,
+  starting: 'call.tracking.starting',
+  tracking: 'call.tracking.tracking',
+  limited: 'call.tracking.limited',
+  lost: 'call.tracking.lost',
+  'permission-denied': 'call.tracking.permissionDenied',
+  error: 'call.tracking.error',
+};
+
+function trackingLabel(t: TFunction, status: FaceTrackingStatus, fps: number): string | undefined {
+  const key = TRACKING_KEY[status];
+  return key ? t(key, { fps }) : undefined;
+}
+
 export function AppNavigator({
   initialRoute = { name: 'onboarding' },
   userPreference = 'system',
@@ -39,6 +58,9 @@ export function AppNavigator({
   const [route, setRoute] = useState<Route>(initialRoute);
   const [messages, setMessages] = useState<SoloMessage[]>([]);
   const [support, setSupport] = useState<DeviceSupport | null>(deviceSupportOverride ?? null);
+  const { t } = useTranslation();
+  // 통화 화면에 있을 때만 트래킹. PoC: 내 표정을 remote 슬롯(큰 아바타)에도 비춘다.
+  const tracking = useFaceTracking({ enabled: route.name === 'random-match', mirrorToRemote: true });
 
   // 지원 기기 판정 (docs/specs/device-support.md). 판정 전에는 아무것도 그리지 않는다.
   useEffect(() => {
@@ -96,6 +118,7 @@ export function AppNavigator({
           onReport={() => undefined}
           onEnd={() => setRoute({ name: 'character-select' })}
           renderer={<UnityView />}
+          trackingLabel={trackingLabel(t, tracking.status, tracking.fps)}
         />
       );
       break;
