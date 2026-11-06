@@ -28,6 +28,9 @@ namespace Murmur.Editor
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel29; // docs/specs/device-support.md
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.murmur.unity");
             PlayerSettings.Android.forceSDCardPermission = false;
+            // RN 오버레이(이름표·컨트롤) 위에 시스템 전체화면 안내가 뜨지 않도록 immersive 전환을 끈다.
+            PlayerSettings.Android.startInFullscreen = false;
+            PlayerSettings.Android.renderOutsideSafeArea = true;
             PlayerSettings.Android.forceInternetPermission = false;
             EditorUserBuildSettings.exportAsGoogleAndroidProject = true;
             EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle;
