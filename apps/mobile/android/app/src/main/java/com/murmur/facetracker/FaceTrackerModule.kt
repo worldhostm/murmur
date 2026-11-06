@@ -157,8 +157,18 @@ class FaceTrackerModule(private val ctx: ReactApplicationContext) : ReactContext
   @ReactMethod fun addListener(@Suppress("UNUSED_PARAMETER") eventName: String) {}
   @ReactMethod fun removeListeners(@Suppress("UNUSED_PARAMETER") count: Int) {}
 
+  /** GPU 델리게이트를 먼저 시도하고, 지원하지 않는 기기(일부 2020년 보급형)에서는 CPU 로 폴백한다. */
   private fun createLandmarker(): FaceLandmarker {
-    val base = BaseOptions.builder().setModelAssetPath(MODEL_ASSET).setDelegate(Delegate.GPU).build()
+    return try {
+      createLandmarker(Delegate.GPU).also { Log.i(TAG, "landmarker delegate=GPU") }
+    } catch (e: Exception) {
+      Log.w(TAG, "GPU delegate unavailable, falling back to CPU: ${e.message}")
+      createLandmarker(Delegate.CPU).also { Log.i(TAG, "landmarker delegate=CPU") }
+    }
+  }
+
+  private fun createLandmarker(delegate: Delegate): FaceLandmarker {
+    val base = BaseOptions.builder().setModelAssetPath(MODEL_ASSET).setDelegate(delegate).build()
     val options = FaceLandmarker.FaceLandmarkerOptions.builder()
       .setBaseOptions(base)
       .setRunningMode(RunningMode.LIVE_STREAM)
