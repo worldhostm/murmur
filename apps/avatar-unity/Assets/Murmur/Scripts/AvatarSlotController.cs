@@ -42,6 +42,8 @@ namespace Murmur
         public void Load(string assetKey)
         {
             LoadedAssetKey = assetKey;
+            // 비활성 상태로 시작한 슬롯(local)은 Awake 가 아직 안 돌았을 수 있다.
+            if (_loader == null) _loader = GetComponent<IAvatarLoader>();
             if (_loader == null)
             {
                 Debug.LogWarning($"[{slot}] IAvatarLoader 가 없어 '{assetKey}' 를 로드하지 못했다. (UniVRM 연결 전)");

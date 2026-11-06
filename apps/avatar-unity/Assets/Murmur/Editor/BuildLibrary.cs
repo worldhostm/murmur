@@ -19,6 +19,8 @@ namespace Murmur.Editor
         [MenuItem("Murmur/Export Android Library")]
         public static void Android()
         {
+            SceneSetup.EnsureRenderPipeline();
+            SceneSetup.EnsurePrimitiveMaterial();
             var output = Path.Combine(ProjectRoot(), "Builds", "android");
             if (Directory.Exists(output)) Directory.Delete(output, true);
             Directory.CreateDirectory(output);
@@ -54,6 +56,8 @@ namespace Murmur.Editor
 
         private static void ExportIos(iOSSdkVersion sdk, string folder)
         {
+            SceneSetup.EnsureRenderPipeline();
+            SceneSetup.EnsurePrimitiveMaterial();
             var output = Path.Combine(ProjectRoot(), "Builds", folder);
             Directory.CreateDirectory(output);
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.iOS, "com.murmur.unity");

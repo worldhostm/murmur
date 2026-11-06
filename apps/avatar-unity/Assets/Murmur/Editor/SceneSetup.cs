@@ -1,6 +1,8 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 namespace Murmur.Editor
@@ -12,10 +14,63 @@ namespace Murmur.Editor
     public static class SceneSetup
     {
         public const string ScenePath = "Assets/Murmur/Scenes/Call.unity";
+        /// <summary>프리미티브 마스코트가 쓰는 머티리얼. Resources 에 있어야 플레이어 빌드에 URP Lit 셰이더가 포함된다 (Shader.Find 만으로는 스트리핑되어 마젠타로 나온다).</summary>
+        public const string PrimitiveMaterialPath = "Assets/Murmur/Resources/" + PrimitiveAvatarLoader.MaterialResource + ".mat";
+
+        public const string PipelineAssetPath = "Assets/Murmur/Settings/MurmurURP.asset";
+        public const string RendererDataPath = "Assets/Murmur/Settings/MurmurURPRenderer.asset";
+
+        /// <summary>
+        /// URP 파이프라인 에셋을 만들고 Graphics/Quality 설정에 지정한다. 지정되지 않으면 빌트인 파이프라인으로 돌아
+        /// URP Lit 머티리얼이 전부 마젠타로 나온다 (에뮬레이터 점검에서 확인). 2020년 보급형 기준으로 MSAA·HDR 은 끈다.
+        /// </summary>
+        [MenuItem("Murmur/Ensure URP Pipeline")]
+        public static void EnsureRenderPipeline()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(PipelineAssetPath);
+            if (asset == null)
+            {
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(PipelineAssetPath));
+                var renderer = ScriptableObject.CreateInstance<UniversalRendererData>();
+                AssetDatabase.CreateAsset(renderer, RendererDataPath);
+                asset = UniversalRenderPipelineAsset.Create(renderer);
+                asset.msaaSampleCount = 1;
+                asset.supportsHDR = false;
+                asset.shadowDistance = 5f;
+                AssetDatabase.CreateAsset(asset, PipelineAssetPath);
+                Debug.Log($"created {PipelineAssetPath}");
+            }
+            var changed = false;
+            if (GraphicsSettings.defaultRenderPipeline != asset) { GraphicsSettings.defaultRenderPipeline = asset; changed = true; }
+            var current = QualitySettings.GetQualityLevel();
+            for (var i = 0; i < QualitySettings.names.Length; i++)
+            {
+                QualitySettings.SetQualityLevel(i, false);
+                if (QualitySettings.renderPipeline != asset) { QualitySettings.renderPipeline = asset; changed = true; }
+            }
+            QualitySettings.SetQualityLevel(current, false);
+            AssetDatabase.SaveAssets();
+            if (changed) Debug.Log("URP pipeline assigned to Graphics/Quality settings");
+        }
+
+        [MenuItem("Murmur/Create Primitive Material")]
+        public static void EnsurePrimitiveMaterial()
+        {
+            if (AssetDatabase.LoadAssetAtPath<Material>(PrimitiveMaterialPath) != null) return;
+            var shader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
+            if (shader == null) throw new System.InvalidOperationException("URP Lit 셰이더를 찾지 못했다");
+            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(PrimitiveMaterialPath));
+            var mat = new Material(shader) { color = Color.white };
+            AssetDatabase.CreateAsset(mat, PrimitiveMaterialPath);
+            AssetDatabase.SaveAssets();
+            Debug.Log($"created {PrimitiveMaterialPath}");
+        }
 
         [MenuItem("Murmur/Create Call Scene")]
         public static void CreateCallScene()
         {
+            EnsureRenderPipeline();
+            EnsurePrimitiveMaterial();
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             var camGo = new GameObject("Main Camera");

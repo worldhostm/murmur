@@ -30,6 +30,13 @@ namespace Murmur.Tests
             Assert.IsNotNull(driver.Mouth);
             Assert.AreEqual(PrimitiveAvatarLoader.RootName, root.name);
             Assert.AreEqual(1.4f, driver.Head.localPosition.y, 1e-4f);
+            // 피벗은 스케일 1, 구 메시만 HeadScale. 눈은 피벗의 자식이라 월드 단위 상수가 그대로 적용된다.
+            Assert.AreEqual(Vector3.one, driver.Head.localScale);
+            Assert.AreEqual(PrimitiveExpressionDriver.HeadScale, driver.HeadMesh.localScale.y, 1e-4f);
+            Assert.AreEqual(driver.Head, driver.EyeLeft.parent);
+            var headBounds = driver.HeadMesh.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
+            Assert.AreEqual(0.5f, headBounds.x, 1e-2f, "머리 메시는 반지름 0.5 (월드 0.15) 여야 눈·입이 표면에 놓인다");
+            Assert.Greater(driver.EyeLeft.position.z, driver.HeadMesh.position.z + PrimitiveExpressionDriver.HeadScale * 0.5f * 0.8f);
             Object.DestroyImmediate(parent.gameObject);
         }
 

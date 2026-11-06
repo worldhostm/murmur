@@ -5,23 +5,23 @@ Unity(URP) 아바타 렌더러. 앱(React Native)에 라이브러리(Unity as a 
 ## 상태
 
 Unity 6 (6000.0.84f1) 프로젝트 뼈대. Unity Hub에서 이 폴더를 열면 Library/ProjectSettings가 생성된다. 씬은 메뉴 `Murmur/Create Call Scene`(또는 `-executeMethod Murmur.Editor.SceneSetup.CreateCallScene`)으로 만든다.
-배치 모드: `pnpm unity:test`(EditMode), `pnpm unity:export:android`/`ios`/`ios-simulator`(Unity as a Library 내보내기, `Editor/BuildLibrary.cs`), `pnpm unity:framework:ios`(Device+Simulator 를 `Builds/ios/UnityFramework.xcframework` 로 합치고 `Data` 를 프레임워크 안에 복사, `MurmurUnity.podspec` 생성). 라이선스 없이 컴파일만 보려면 `pnpm unity:compile-check`.
+배치 모드: `pnpm unity:test`(EditMode), `pnpm unity:export:android`/`ios`/`ios-simulator`(Unity as a Library 내보내기, `Editor/BuildLibrary.cs`), `pnpm unity:framework:ios`(Device+Simulator 를 `Builds/ios/UnityFramework.xcframework` 로 합치고 `Data` 를 프레임워크 안에 복사, `MurmurUnity.podspec` 생성). 라이선스 없이 컴파일만 보려면 `pnpm unity:compile-check` (에디터 조건 + Android 플레이어 조건 두 번 컴파일).
 
 ## 스크립트 (Assets/Murmur/Scripts)
 
 | 파일 | 역할 |
 | --- | --- |
-| `MurmurBridge.cs` | 네이티브가 `UnitySendMessage("MurmurBridge", …)`로 부르는 진입점. `OnFaceFrame("slot|base64")`, `LoadAvatar("slot|assetKey")`, `SetTheme("light"/"dark")` |
+| `MurmurBridge.cs` | 네이티브가 `UnitySendMessage("MurmurBridge", …)`로 부르는 진입점. `OnFaceFrame("slot|base64")`, `LoadAvatar("slot|assetKey")`, `SetTheme("light"/"dark")`. `Start()`에서 Android `UnityPlayerProxy.onUnityReady()`를 불러 네이티브가 큐에 쌓아 둔 메시지를 흘려보내게 한다 (`com.unity.modules.androidjni` 필요) |
 | `FaceFrameReceiver.cs` | 슬롯별 최신 프레임 보관 (네이티브 스레드 → 메인 스레드, lock) |
 | `AvatarSlotController.cs` | 슬롯 하나의 아바타. 매 프레임 consumer에 전달, 수신 끊기면 표정 굳힘. `IAvatarLoader`를 같은 오브젝트에서 찾고, `autoLoadAssetKey`가 있으면 Start에서 자동 로드 |
-| `PrimitiveAvatarLoader.cs` | VRM 없이 쓰는 프리미티브 마스코트 (`builtin/primitive`): 구 머리·눈·눈썹·입·혀. 토큰 색(Lavender/Night/Ink). `Build(parent)`는 테스트용 |
+| `PrimitiveAvatarLoader.cs` | VRM 없이 쓰는 프리미티브 마스코트 (`builtin/primitive`): 구 머리·눈·눈썹·입·혀. 토큰 색(Lavender/Night/Ink). 내장 메시(`Resources.GetBuiltinResource`)로 만든다 — `CreatePrimitive` 는 플레이어 빌드에서 Collider 가 스트리핑되어 오류. 머티리얼은 `Resources/Murmur/PrimitiveLit` 복제. `Build(parent)`는 테스트용 |
 | `PrimitiveExpressionDriver.cs` | 마스코트 표정: jawOpen→입 세로, smile/frown→입 가로·높이, blink/wide→눈, browInnerUp/browDown→눈썹, cheekPuff→머리 가로, tongueOut→혀. Lost면 중립으로 |
 | `BlendShapeDriver.cs` | ARKit 52개 → SkinnedMeshRenderer 블렌드셰이프 (이름 끝부분 매칭, 스무딩) |
 | `HeadPoseDriver.cs` | 쿼터니언 → 머리 본 (오른손→왼손 변환, 각도 clamp) |
 | `ThemeBackground.cs` | 카메라 배경 = `Tokens.{Light,Dark}.Night` |
 | `FrameTimingProbe.cs` | 프레임 시간·수신→렌더 지연 로그 (0단계 성능 측정) |
-| `Editor/SceneSetup.cs` | 통화 씬 생성 |
-| `Editor/BuildLibrary.cs` | UaaL 내보내기 (Android: IL2CPP arm64+armv7, minSdk 29, gradle 프로젝트 / iOS: Device·Simulator Xcode 프로젝트) |
+| `Editor/SceneSetup.cs` | 통화 씬 생성. `EnsureRenderPipeline()`(URP 에셋 `Settings/MurmurURP.asset` 생성·Graphics/Quality 지정, 없으면 빌트인으로 떨어져 마젠타), `EnsurePrimitiveMaterial()`(`Resources/Murmur/PrimitiveLit.mat`, 플레이어 빌드에 URP Lit 셰이더를 포함시키는 용도) |
+| `Editor/BuildLibrary.cs` | UaaL 내보내기 (Android: IL2CPP arm64+armv7, minSdk 29, 전체화면(immersive) 끔, gradle 프로젝트 / iOS: Device·Simulator Xcode 프로젝트). 빌드 전에 URP 에셋·머티리얼을 보장한다 |
 | `Tests/EditMode/FaceProtocolTests.cs` | 코덱 라운드트립, 매직·버전 거부, 리시버, clamp |
 
 Packages/manifest.json에는 URP와 UniVRM(git)이 들어 있다. 통화 씬은 두 슬롯 모두 `PrimitiveAvatarLoader`로 `builtin/primitive`를 자동 로드한다. VRM 로더(`IAvatarLoader` 구현)와 VRM 1.0 Expression 매핑은 아직 없다.
@@ -34,6 +34,9 @@ Packages/manifest.json에는 URP와 UniVRM(git)이 들어 있다. 통화 씬은 
 - `Assets/Murmur/Generated/FaceProtocol.cs` ← packages/face-protocol/dist/generated/FaceProtocol.cs (`Murmur.FaceProtocol`, 144바이트 프레임 디코더 포함)
 
 ## 규칙
+
+- 런타임에서 `Shader.Find` 로만 쓰는 셰이더는 빌드에 안 들어간다. 머티리얼 에셋을 `Resources/` 에 두고 복제한다.
+- `GameObject.CreatePrimitive` 를 쓰지 않는다 (Physics 모듈 스트리핑). 내장 메시 `Sphere.fbx` 는 반지름 1 이므로 `PrimitiveAvatarLoader.BuiltinMesh` 의 정규화 복사본을 거친다.
 
 - 표정 입력은 `FaceFrameCodec.Decode`로 받은 프레임만 쓴다. 카메라에 접근하지 않는다.
 - 색은 `Murmur.Design.Tokens.Light/Dark`만 쓴다. 통화 화면 배경은 `Night`.

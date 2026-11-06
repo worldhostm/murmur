@@ -19,3 +19,7 @@ apps/avatar-unity/Temp/
 apps/avatar-unity/Logs/
 apps/avatar-unity/obj/
 apps/avatar-unity/UserSettings/
+
+# Unity 에디터가 실행 때마다 만드는 빈 폴더
+apps/avatar-unity/Assets/Resources/
+apps/avatar-unity/Assets/Resources.meta

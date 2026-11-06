@@ -11,7 +11,10 @@ namespace Murmur
     {
         [Range(0.05f, 1f)] [SerializeField] private float smoothing = 0.6f;
 
+        /// <summary>머리 피벗(회전·위치). 스케일은 건드리지 않는다.</summary>
         public Transform Head { get; private set; }
+        /// <summary>머리 구 메시. 볼 부풀리기는 이 스케일로 표현한다.</summary>
+        public Transform HeadMesh { get; private set; }
         public Transform EyeLeft { get; private set; }
         public Transform EyeRight { get; private set; }
         public Transform BrowLeft { get; private set; }
@@ -28,9 +31,9 @@ namespace Murmur
         // 현재(스무딩된) 값. 0..1
         private float _jaw, _smile, _frown, _blinkL, _blinkR, _wideL, _wideR, _browUp, _browDown, _cheek, _tongue;
 
-        public void Bind(Transform head, Transform eyeL, Transform eyeR, Transform browL, Transform browR, Transform mouth, Transform tongue)
+        public void Bind(Transform head, Transform headMesh, Transform eyeL, Transform eyeR, Transform browL, Transform browR, Transform mouth, Transform tongue)
         {
-            Head = head; EyeLeft = eyeL; EyeRight = eyeR; BrowLeft = browL; BrowRight = browR; Mouth = mouth; Tongue = tongue;
+            Head = head; HeadMesh = headMesh; EyeLeft = eyeL; EyeRight = eyeR; BrowLeft = browL; BrowRight = browR; Mouth = mouth; Tongue = tongue;
             ApplyValues();
         }
 
@@ -94,7 +97,7 @@ namespace Murmur
 
             // 볼: 부풀리면 머리가 가로로 10% 커진다.
             var puff = HeadScale * (1f + 0.1f * _cheek);
-            Head.localScale = new Vector3(puff, HeadScale, puff);
+            if (HeadMesh != null) HeadMesh.localScale = new Vector3(puff, HeadScale, puff);
 
             // 혀: 0.3 이상일 때만 보인다.
             if (Tongue != null)

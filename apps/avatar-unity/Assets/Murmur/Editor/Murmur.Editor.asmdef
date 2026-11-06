@@ -1,8 +1,14 @@
 {
   "name": "Murmur.Editor",
   "rootNamespace": "Murmur.Editor",
-  "references": ["Murmur.Runtime"],
-  "includePlatforms": ["Editor"],
+  "references": [
+    "Murmur.Runtime",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.RenderPipelines.Universal.Runtime"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
   "excludePlatforms": [],
   "allowUnsafeCode": false,
   "overrideReferences": false,
