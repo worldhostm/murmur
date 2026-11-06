@@ -1,0 +1,13 @@
+# Unity (루트 .gitignore 와 중복이지만 이 폴더 단독 clone 대비)
+Library/
+Temp/
+Logs/
+obj/
+UserSettings/
+Build/
+Builds/
+*.csproj
+*.sln
+.vs/
+.idea/
+# 생성물은 pnpm sync:unity 로 받는다
