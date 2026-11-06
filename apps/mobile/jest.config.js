@@ -1,7 +1,6 @@
 /** @type {import('jest').Config} */
 module.exports = {
   preset: 'react-native',
-  setupFilesAfterEach: undefined,
   setupFiles: ['<rootDir>/jest.setup.js'],
   testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
