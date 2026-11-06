@@ -1,3 +1,8 @@
 export type { FaceTrackerAdapter, AvatarRendererAdapter, AvatarSlot } from './types';
 export { FakeFaceTracker } from './FakeFaceTracker';
 export { FakeAvatarRenderer } from './FakeAvatarRenderer';
+export { NativeFaceTracker, FACE_TRACKER_MODULE, EVENT_FACE_FRAME, EVENT_TRACKING_STATE } from './NativeFaceTracker';
+export { UnityAvatarRenderer, UNITY_MODULE } from './UnityAvatarRenderer';
+export { createFaceTracker, createAvatarRenderer } from './createAdapters';
+export type { CreateFaceTrackerOptions, CreateAvatarRendererOptions } from './createAdapters';
+export { encodeBase64, decodeBase64 } from './base64';
