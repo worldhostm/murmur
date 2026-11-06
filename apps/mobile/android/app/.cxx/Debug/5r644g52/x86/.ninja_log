@@ -1,0 +1,5 @@
+# ninja log v5
+1	9	0	/Users/iesg/murmur/apps/mobile/android/app/.cxx/Debug/5r644g52/x86/CMakeFiles/cmake.verify_globs	129da5df94f7c393
+0	890	1793934815259291400	CMakeFiles/appmodules.dir/Users/iesg/murmur/apps/mobile/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	18e0c15209f41e11
+0	998	1793934815365971494	CMakeFiles/appmodules.dir/OnLoad.cpp.o	17e4b994966471a4
+998	1042	1793934815413246179	/Users/iesg/murmur/apps/mobile/android/app/build/intermediates/cxx/Debug/5r644g52/obj/x86/libappmodules.so	a69c82b2c46fa22d
