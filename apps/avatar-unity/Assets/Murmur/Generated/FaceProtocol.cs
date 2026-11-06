@@ -160,6 +160,7 @@ namespace Murmur.FaceProtocol
             return Decode(new ReadOnlySpan<byte>(bytes), into);
         }
 
+        // float/double 은 Int32/Int64 비트 변환으로 읽고 쓴다. Unity 의 .NET Standard 2.1 에는 Read/WriteSingleLittleEndian 이 없다.
         public static bool Decode(ReadOnlySpan<byte> b, FaceFrame into)
         {
             if (b.Length < FaceProtocol.FrameByteLength) return false;
@@ -170,19 +171,19 @@ namespace Murmur.FaceProtocol
 
             into.Version = version;
             into.Tracking = b[OffTracking];
-            into.TimestampMs = BinaryPrimitives.ReadDoubleLittleEndian(b.Slice(OffTimestamp, 8));
+            into.TimestampMs = BitConverter.Int64BitsToDouble(BinaryPrimitives.ReadInt64LittleEndian(b.Slice(OffTimestamp, 8)));
             for (int i = 0; i < FaceProtocol.BlendShapeCount; i++)
             {
                 ushort q = BinaryPrimitives.ReadUInt16LittleEndian(b.Slice(OffBlendShapes + i * 2, 2));
                 into.BlendShapes[i] = q / 65535f;
             }
-            into.Rx = BinaryPrimitives.ReadSingleLittleEndian(b.Slice(OffRotation, 4));
-            into.Ry = BinaryPrimitives.ReadSingleLittleEndian(b.Slice(OffRotation + 4, 4));
-            into.Rz = BinaryPrimitives.ReadSingleLittleEndian(b.Slice(OffRotation + 8, 4));
-            into.Rw = BinaryPrimitives.ReadSingleLittleEndian(b.Slice(OffRotation + 12, 4));
-            into.Px = BinaryPrimitives.ReadSingleLittleEndian(b.Slice(OffPosition, 4));
-            into.Py = BinaryPrimitives.ReadSingleLittleEndian(b.Slice(OffPosition + 4, 4));
-            into.Pz = BinaryPrimitives.ReadSingleLittleEndian(b.Slice(OffPosition + 8, 4));
+            into.Rx = BitConverter.Int32BitsToSingle(BinaryPrimitives.ReadInt32LittleEndian(b.Slice(OffRotation, 4)));
+            into.Ry = BitConverter.Int32BitsToSingle(BinaryPrimitives.ReadInt32LittleEndian(b.Slice(OffRotation + 4, 4)));
+            into.Rz = BitConverter.Int32BitsToSingle(BinaryPrimitives.ReadInt32LittleEndian(b.Slice(OffRotation + 8, 4)));
+            into.Rw = BitConverter.Int32BitsToSingle(BinaryPrimitives.ReadInt32LittleEndian(b.Slice(OffRotation + 12, 4)));
+            into.Px = BitConverter.Int32BitsToSingle(BinaryPrimitives.ReadInt32LittleEndian(b.Slice(OffPosition, 4)));
+            into.Py = BitConverter.Int32BitsToSingle(BinaryPrimitives.ReadInt32LittleEndian(b.Slice(OffPosition + 4, 4)));
+            into.Pz = BitConverter.Int32BitsToSingle(BinaryPrimitives.ReadInt32LittleEndian(b.Slice(OffPosition + 8, 4)));
             return true;
         }
 
@@ -194,7 +195,7 @@ namespace Murmur.FaceProtocol
             dest[1] = FaceProtocol.Magic1;
             dest[OffVersion] = (byte)FaceProtocol.Version;
             dest[OffTracking] = frame.Tracking;
-            BinaryPrimitives.WriteDoubleLittleEndian(dest.Slice(OffTimestamp, 8), frame.TimestampMs);
+            BinaryPrimitives.WriteInt64LittleEndian(dest.Slice(OffTimestamp, 8), BitConverter.DoubleToInt64Bits(frame.TimestampMs));
             for (int i = 0; i < FaceProtocol.BlendShapeCount; i++)
             {
                 float v = frame.BlendShapes[i];
@@ -202,13 +203,13 @@ namespace Murmur.FaceProtocol
                 if (v > 1f) v = 1f;
                 BinaryPrimitives.WriteUInt16LittleEndian(dest.Slice(OffBlendShapes + i * 2, 2), (ushort)Math.Round(v * 65535f));
             }
-            BinaryPrimitives.WriteSingleLittleEndian(dest.Slice(OffRotation, 4), frame.Rx);
-            BinaryPrimitives.WriteSingleLittleEndian(dest.Slice(OffRotation + 4, 4), frame.Ry);
-            BinaryPrimitives.WriteSingleLittleEndian(dest.Slice(OffRotation + 8, 4), frame.Rz);
-            BinaryPrimitives.WriteSingleLittleEndian(dest.Slice(OffRotation + 12, 4), frame.Rw);
-            BinaryPrimitives.WriteSingleLittleEndian(dest.Slice(OffPosition, 4), frame.Px);
-            BinaryPrimitives.WriteSingleLittleEndian(dest.Slice(OffPosition + 4, 4), frame.Py);
-            BinaryPrimitives.WriteSingleLittleEndian(dest.Slice(OffPosition + 8, 4), frame.Pz);
+            BinaryPrimitives.WriteInt32LittleEndian(dest.Slice(OffRotation, 4), BitConverter.SingleToInt32Bits(frame.Rx));
+            BinaryPrimitives.WriteInt32LittleEndian(dest.Slice(OffRotation + 4, 4), BitConverter.SingleToInt32Bits(frame.Ry));
+            BinaryPrimitives.WriteInt32LittleEndian(dest.Slice(OffRotation + 8, 4), BitConverter.SingleToInt32Bits(frame.Rz));
+            BinaryPrimitives.WriteInt32LittleEndian(dest.Slice(OffRotation + 12, 4), BitConverter.SingleToInt32Bits(frame.Rw));
+            BinaryPrimitives.WriteInt32LittleEndian(dest.Slice(OffPosition, 4), BitConverter.SingleToInt32Bits(frame.Px));
+            BinaryPrimitives.WriteInt32LittleEndian(dest.Slice(OffPosition + 4, 4), BitConverter.SingleToInt32Bits(frame.Py));
+            BinaryPrimitives.WriteInt32LittleEndian(dest.Slice(OffPosition + 8, 4), BitConverter.SingleToInt32Bits(frame.Pz));
             return FaceProtocol.FrameByteLength;
         }
     }
