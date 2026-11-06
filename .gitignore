@@ -1,0 +1,21 @@
+node_modules/
+dist/
+build/
+coverage/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+# React Native
+apps/mobile/ios/Pods/
+apps/mobile/ios/build/
+apps/mobile/android/build/
+apps/mobile/android/app/build/
+apps/mobile/android/.gradle/
+# Unity
+apps/avatar-unity/Library/
+apps/avatar-unity/Temp/
+apps/avatar-unity/Logs/
+apps/avatar-unity/obj/
+apps/avatar-unity/UserSettings/
