@@ -20,8 +20,28 @@ set -- \
   -r:"$U/Managed/UnityEngine/UnityEngine.AnimationModule.dll" \
   -r:"$U/Managed/UnityEngine/UnityEditor.CoreModule.dll" \
   -r:"$U/Resources/PackageManager/BuiltInPackages/com.unity.ext.nunit/net40/unity-custom/nunit.framework.dll"
-FILES="$(find "$ROOT/apps/avatar-unity/Assets/Murmur" -name '*.cs')"
+# Editor 스크립트는 URP API 를 쓴다. 에디터가 한 번이라도 프로젝트를 열었으면 Library/ScriptAssemblies 에 패키지 DLL 이 있다.
+SA="$ROOT/apps/avatar-unity/Library/ScriptAssemblies"
+if [ -f "$SA/Unity.RenderPipelines.Universal.Runtime.dll" ]; then
+  set -- "$@" -r:"$SA/Unity.RenderPipelines.Core.Runtime.dll" -r:"$SA/Unity.RenderPipelines.Universal.Runtime.dll"
+  FILES="$(find "$ROOT/apps/avatar-unity/Assets/Murmur" -name '*.cs')"
+else
+  echo "Library/ScriptAssemblies 에 URP DLL 이 없어 Editor/ 스크립트는 건너뛴다 (Unity 에디터로 프로젝트를 한 번 열면 포함된다)."
+  FILES="$(find "$ROOT/apps/avatar-unity/Assets/Murmur" -name '*.cs' -not -path '*/Editor/*')"
+fi
 # shellcheck disable=SC2086
 "$U/Tools/netcorerun/netcorerun" "$U/DotNetSdkRoslyn/csc.dll" -nologo -target:library -langversion:9.0 -nostdlib \
   -define:UNITY_EDITOR -define:UNITY_INCLUDE_TESTS -warn:3 -out:"$OUT/Murmur.dll" "$@" $FILES
-echo "Unity C# compile OK → $OUT/Murmur.dll"
+# 플레이어(Android) 빌드와 같은 조건으로 한 번 더: UNITY_EDITOR 없이, Editor/Tests 제외, AndroidJNI 모듈 참조.
+# `#if UNITY_ANDROID && !UNITY_EDITOR` 안의 코드는 위 패스에서 빠지므로 여기서 잡는다.
+PLAYER_FILES="$(find "$ROOT/apps/avatar-unity/Assets/Murmur" -name '*.cs' -not -path '*/Editor/*' -not -path '*/Tests/*')"
+# shellcheck disable=SC2086
+"$U/Tools/netcorerun/netcorerun" "$U/DotNetSdkRoslyn/csc.dll" -nologo -target:library -langversion:9.0 -nostdlib \
+  -define:UNITY_ANDROID -warn:3 -out:"$OUT/Murmur.Android.dll" \
+  -r:"$U/NetStandard/ref/2.1.0/netstandard.dll" \
+  -r:"$U/NetStandard/compat/2.1.0/shims/netfx/mscorlib.dll" \
+  -r:"$U/Managed/UnityEngine/UnityEngine.CoreModule.dll" \
+  -r:"$U/Managed/UnityEngine/UnityEngine.AnimationModule.dll" \
+  -r:"$U/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll" \
+  $PLAYER_FILES
+echo "Unity C# compile OK → $OUT/Murmur.dll, $OUT/Murmur.Android.dll"

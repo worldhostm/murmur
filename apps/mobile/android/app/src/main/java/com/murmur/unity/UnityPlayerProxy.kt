@@ -23,6 +23,27 @@ object UnityPlayerProxy {
 
   val isAttached: Boolean get() = sender != null
 
+  /** Unity 쪽 MurmurBridge.Start() 가 onUnityReady() 를 부르기 전까지 LoadAvatar/SetTheme 는 큐에 담는다 (프레임은 버린다). */
+  @Volatile private var ready = false
+  private val pending = ArrayDeque<Pair<String, String>>()
+  private const val PENDING_MAX = 32
+
+  @JvmStatic
+  fun onUnityReady() {
+    val flush: List<Pair<String, String>>
+    synchronized(pending) {
+      ready = true
+      flush = pending.toList()
+      pending.clear()
+    }
+    Log.i(TAG, "Unity ready, flushing ${flush.size} queued messages")
+    for ((method, message) in flush) sender?.invoke(GAME_OBJECT, method, message)
+  }
+
+  fun resetReady() {
+    synchronized(pending) { ready = false; pending.clear() }
+  }
+
   /** unityLibrary 가 포함된 빌드면 UnityHost.install() 을 리플렉션으로 부른다. 없으면 조용히 넘어간다. */
   fun attachIfAvailable() {
     try {
@@ -49,6 +70,16 @@ object UnityPlayerProxy {
     if (s == null) {
       if (method != "OnFaceFrame") Log.d(TAG, "(unity not attached) $method ${message.take(64)}")
       return
+    }
+    if (!ready) {
+      if (method == "OnFaceFrame") return // 준비 전 프레임은 의미가 없다
+      synchronized(pending) {
+        if (!ready) {
+          if (pending.size >= PENDING_MAX) pending.removeFirst()
+          pending.addLast(method to message)
+          return
+        }
+      }
     }
     s(GAME_OBJECT, method, message)
   }

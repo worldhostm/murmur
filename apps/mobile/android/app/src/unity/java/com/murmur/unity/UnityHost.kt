@@ -21,12 +21,13 @@ object UnityHost {
     UnityPlayerProxy.lifecycle = object : UnityPlayerProxy.Lifecycle {
       override fun pause() { player?.pause() }
       override fun resume() { player?.resume() }
-      override fun destroy() { player?.destroy(); player = null }
+      override fun destroy() { player?.destroy(); player = null; UnityPlayerProxy.resetReady() }
     }
   }
 
   private fun attach(activity: Activity): FrameLayout {
-    val p = player ?: UnityPlayerForActivityOrService(activity).also { player = it }
+    // 액티비티가 이미 resumed 상태에서 늦게 만들므로 resume() 을 직접 불러야 Unity 메인 루프(Start/Update)가 돈다.
+    val p = player ?: UnityPlayerForActivityOrService(activity).also { player = it; it.resume() }
     val view = p.frameLayout
     // 이미 다른 부모에 붙어 있으면 떼어 낸다 (화면 재진입).
     (view.parent as? ViewGroup)?.removeView(view)

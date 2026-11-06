@@ -26,6 +26,30 @@ namespace Murmur
             DontDestroyOnLoad(gameObject);
         }
 
+        private void Start()
+        {
+            NotifyNativeReady();
+        }
+
+        /// <summary>네이티브 프록시에 "메시지 받을 준비 됨"을 알린다. Android: UnityPlayerProxy.onUnityReady(). iOS: 추후 리스너.</summary>
+        private static void NotifyNativeReady()
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            try
+            {
+                using (var cls = new AndroidJavaClass("com.murmur.unity.UnityPlayerProxy"))
+                {
+                    cls.CallStatic("onUnityReady");
+                }
+                Debug.Log("[MurmurBridge] native ready notified (android)");
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("UnityPlayerProxy.onUnityReady 호출 실패: " + e.Message);
+            }
+#endif
+        }
+
         public void OnFaceFrame(string message)
         {
             if (!Split(message, out var slot, out var payload)) return;
