@@ -1,0 +1,67 @@
+{
+  "app": { "name": "Murmur" },
+  "common": {
+    "aiCharacter": "AI character",
+    "next": "Next",
+    "back": "Back",
+    "close": "Close",
+    "speaking": "Speaking",
+    "connecting": "Connecting",
+    "connected": "Connected",
+    "weakNetwork": "Weak network. Expressions may pause for a moment",
+    "reconnecting": "Reconnecting"
+  },
+  "onboarding": {
+    "headline": "Hide your face.\nKeep your expressions.",
+    "body": "Your expressions move to a character in real time. The raw video never leaves your device.",
+    "start": "Get started",
+    "privacyNote": "Only expression values and your voice are sent"
+  },
+  "characterSelect": {
+    "title": "Who would you like to talk with?",
+    "subtitle": "They are all AI characters. You can switch anytime",
+    "confirm": "Start with this character",
+    "toneNight": "Night",
+    "toneLight": "Day"
+  },
+  "character": {
+    "seo-doyoon": { "name": "Seo Doyoon", "tagline": "Seoul at 3 a.m., a small bar at the end of an alley", "role": "Someone who quietly listens at the end of the day" },
+    "leon-hart": { "name": "Leon Hart", "tagline": "House of Silver, heir to a fallen noble family", "role": "Someone who lifts your mood" },
+    "han-seorin": { "name": "Han Seorin", "tagline": "Late-night radio, DJ of the dawn broadcast", "role": "Someone who sums up your day" },
+    "sera": { "name": "Sera", "tagline": "Neon City 2087, freelance hacker", "role": "Someone who works through problems with you" }
+  },
+  "solo": {
+    "greeting": "How was your day?",
+    "inputPlaceholder": "Say anything",
+    "send": "Send",
+    "moodTitle": "Today in one line",
+    "moodPlaceholder": "Kept here so you can look back later",
+    "moodSave": "Keep it here",
+    "callFriend": "Call a friend",
+    "restTitle": "Take a short break?",
+    "restBody": "We've talked for a while. A glass of water sounds nice. I'll be right here",
+    "lateNightBody": "It's late. We can pick this up tomorrow",
+    "restOk": "I'll rest a bit",
+    "restContinue": "A little more"
+  },
+  "safety": {
+    "crisisTitle": "It sounds like things are really hard right now",
+    "crisisBody": "You don't have to carry this alone. You can talk to a professional counselor right away. The Korea suicide prevention line 109 is open 24 hours.",
+    "crisisCall": "Call 109",
+    "crisisBack": "Keep talking with the character",
+    "report": "Report",
+    "block": "Block",
+    "reportTitle": "What was uncomfortable?",
+    "reportDone": "We've received your report and will look right away"
+  },
+  "call": {
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "swapAvatar": "Change character",
+    "background": "Background",
+    "end": "End call",
+    "matching": "Finding someone to talk with",
+    "roomCode": "Room code",
+    "aiNotice": "You're talking with an AI character"
+  }
+}

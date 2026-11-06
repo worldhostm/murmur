@@ -1,0 +1,67 @@
+{
+  "app": { "name": "Murmur" },
+  "common": {
+    "aiCharacter": "AI 캐릭터",
+    "next": "다음",
+    "back": "뒤로",
+    "close": "닫기",
+    "speaking": "말하는 중",
+    "connecting": "연결하는 중이에요",
+    "connected": "연결됐어요",
+    "weakNetwork": "네트워크가 약해요. 표정이 잠시 멈출 수 있어요",
+    "reconnecting": "다시 연결하는 중이에요"
+  },
+  "onboarding": {
+    "headline": "얼굴은 감추고,\n표정은 그대로.",
+    "body": "카메라 속 표정이 캐릭터에 실시간으로 옮겨져요. 원본 영상은 기기 밖으로 나가지 않아요.",
+    "start": "시작하기",
+    "privacyNote": "전송되는 건 표정 수치와 목소리뿐이에요"
+  },
+  "characterSelect": {
+    "title": "누구와 이야기할까요?",
+    "subtitle": "모두 AI 캐릭터예요. 언제든 바꿀 수 있어요",
+    "confirm": "이 캐릭터와 시작하기",
+    "toneNight": "밤",
+    "toneLight": "낮"
+  },
+  "character": {
+    "seo-doyoon": { "name": "서도윤", "tagline": "새벽 3시의 서울, 골목 끝 작은 바", "role": "하루 끝에 말없이 들어주는 사람" },
+    "leon-hart": { "name": "레온 하르트", "tagline": "은빛 가문, 몰락한 귀족가의 후계자", "role": "기분을 띄워 주는 사람" },
+    "han-seorin": { "name": "한서린", "tagline": "심야 라디오, 새벽 방송의 DJ", "role": "오늘 이야기를 정리해 주는 사람" },
+    "sera": { "name": "세라", "tagline": "네온 시티 2087, 프리랜서 해커", "role": "고민을 같이 풀어 주는 사람" }
+  },
+  "solo": {
+    "greeting": "오늘 어땠어?",
+    "inputPlaceholder": "편하게 이야기해요",
+    "send": "보내기",
+    "moodTitle": "오늘 기분 한 줄",
+    "moodPlaceholder": "나중에 돌아볼 수 있게 남겨 둘게요",
+    "moodSave": "여기 남겨 둘게요",
+    "callFriend": "친구와 통화하기",
+    "restTitle": "잠깐 쉬어 갈까요?",
+    "restBody": "오래 이야기했어요. 물 한 잔 마시고 와도 좋아요. 여기 그대로 있을게요",
+    "lateNightBody": "늦은 시간이에요. 이야기는 내일 이어서 해도 괜찮아요",
+    "restOk": "조금 쉬고 올게요",
+    "restContinue": "조금만 더 이야기할래요"
+  },
+  "safety": {
+    "crisisTitle": "지금 많이 힘드신 것 같아요",
+    "crisisBody": "혼자 견디지 않아도 돼요. 전문 상담원과 바로 이야기할 수 있어요. 자살예방 상담전화 109는 24시간 열려 있어요.",
+    "crisisCall": "109에 전화하기",
+    "crisisBack": "캐릭터와 계속 이야기하기",
+    "report": "신고",
+    "block": "차단",
+    "reportTitle": "무엇이 불편했나요?",
+    "reportDone": "신고를 받았어요. 바로 확인할게요"
+  },
+  "call": {
+    "mute": "음소거",
+    "unmute": "음소거 해제",
+    "swapAvatar": "캐릭터 바꾸기",
+    "background": "배경",
+    "end": "통화 끝내기",
+    "matching": "이야기 나눌 사람을 찾는 중이에요",
+    "roomCode": "방 코드",
+    "aiNotice": "상대는 AI 캐릭터예요"
+  }
+}

@@ -19,6 +19,11 @@ export default tseslint.config(
     },
   },
   {
+    // CommonJS 설정 파일 (metro, babel, jest 등)은 require를 쓴다.
+    files: ['**/*.config.js', '**/jest.setup.js', '**/react-native.config.js', '**/index.js'],
+    rules: { '@typescript-eslint/no-require-imports': 'off' },
+  },
+  {
     // DESIGN_SYSTEM.md §0-1: 모바일 UI 코드에 색 리터럴을 쓰지 않는다. 토큰(useTheme)만 쓴다.
     files: ['apps/mobile/src/**/*.{ts,tsx}'],
     ignores: ['apps/mobile/src/**/*.test.{ts,tsx}'],

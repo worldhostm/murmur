@@ -1,0 +1,1835 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components snapshot (dark) CallControl default/end/report 1`] = `
+[
+  <View
+    accessibilityLabel="음소거"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={0}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "gap": 4,
+        "minWidth": 48,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      pointerEvents="none"
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "rgba(42, 32, 64, 0.8)",
+          "borderRadius": 999,
+          "height": 56,
+          "justifyContent": "center",
+          "width": 56,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 17,
+              "fontWeight": "600",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        🎙
+      </Text>
+    </View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#F2EDF8",
+          },
+          undefined,
+        ]
+      }
+    >
+      음소거
+    </Text>
+  </View>,
+  <View
+    accessibilityLabel="신고"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={0}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "gap": 4,
+        "minWidth": 48,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      pointerEvents="none"
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "rgba(42, 32, 64, 0.8)",
+          "borderRadius": 999,
+          "height": 56,
+          "justifyContent": "center",
+          "width": 56,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 17,
+              "fontWeight": "600",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#FF7B7B",
+            },
+            undefined,
+          ]
+        }
+      >
+        ⚑
+      </Text>
+    </View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#FF7B7B",
+          },
+          undefined,
+        ]
+      }
+    >
+      신고
+    </Text>
+  </View>,
+  <View
+    accessibilityLabel="통화 끝내기"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={0}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "gap": 4,
+        "minWidth": 48,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      pointerEvents="none"
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#FF7B7B",
+          "borderRadius": 999,
+          "height": 56,
+          "justifyContent": "center",
+          "width": 56,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 17,
+              "fontWeight": "600",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        ✕
+      </Text>
+    </View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#F2EDF8",
+          },
+          undefined,
+        ]
+      }
+    >
+      통화 끝내기
+    </Text>
+  </View>,
+]
+`;
+
+exports[`components snapshot (dark) CharacterCard 1`] = `
+<View
+  accessibilityLabel="서도윤"
+  accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": true,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#211A2C",
+      "borderColor": "#A98BFF",
+      "borderRadius": 24,
+      "borderWidth": 2,
+      "gap": 8,
+      "padding": 16,
+    }
+  }
+  testID="character-card-seo-doyoon"
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Serif KR",
+            "fontSize": 28,
+            "fontWeight": "600",
+            "lineHeight": 36,
+          },
+          {
+            "color": "#F2EDF8",
+          },
+          undefined,
+        ]
+      }
+    >
+      서도윤
+    </Text>
+    <View
+      accessibilityLabel="AI 캐릭터"
+      accessibilityRole="text"
+      style={
+        {
+          "alignSelf": "flex-start",
+          "backgroundColor": "#211A2C",
+          "borderColor": "#FF8FBE",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "paddingHorizontal": 8,
+          "paddingVertical": 4,
+        }
+      }
+      testID="ai-character-badge"
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+            },
+            {
+              "color": "#FF8FBE",
+            },
+            undefined,
+          ]
+        }
+      >
+        AI 캐릭터
+      </Text>
+    </View>
+  </View>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 13,
+          "fontWeight": "400",
+          "lineHeight": 20,
+        },
+        {
+          "color": "#B3A8C4",
+        },
+        undefined,
+      ]
+    }
+  >
+    새벽 3시의 서울, 골목 끝 작은 바
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 13,
+          "fontWeight": "400",
+          "lineHeight": 20,
+        },
+        {
+          "color": "#F2EDF8",
+        },
+        undefined,
+      ]
+    }
+  >
+    하루 끝에 말없이 들어주는 사람
+  </Text>
+  <View
+    style={
+      {
+        "alignSelf": "flex-start",
+        "backgroundColor": "#2C2142",
+        "borderRadius": 8,
+        "paddingHorizontal": 8,
+        "paddingVertical": 4,
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#A98BFF",
+          },
+          undefined,
+        ]
+      }
+    >
+      밤
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
+[
+  <View
+    style={
+      {
+        "alignItems": "flex-end",
+        "marginBottom": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#A98BFF",
+          "borderColor": "#2F2640",
+          "borderRadius": 16,
+          "borderWidth": 0,
+          "maxWidth": "80%",
+          "padding": 12,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 15,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#140E1F",
+            },
+            undefined,
+          ]
+        }
+      >
+        안녕
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      {
+        "alignItems": "flex-start",
+        "marginBottom": 8,
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#B3A8C4",
+          },
+          {
+            "marginBottom": 4,
+          },
+        ]
+      }
+    >
+      친구
+    </Text>
+    <View
+      style={
+        {
+          "backgroundColor": "#211A2C",
+          "borderColor": "#2F2640",
+          "borderRadius": 16,
+          "borderWidth": 1,
+          "maxWidth": "80%",
+          "padding": 12,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 15,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        안녕
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      {
+        "alignItems": "flex-start",
+        "marginBottom": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "marginBottom": 4,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+            },
+            {
+              "color": "#FF8FBE",
+            },
+            undefined,
+          ]
+        }
+      >
+        서도윤
+      </Text>
+      <View
+        accessibilityLabel="AI 캐릭터"
+        accessibilityRole="text"
+        style={
+          {
+            "alignSelf": "flex-start",
+            "backgroundColor": "#211A2C",
+            "borderColor": "#FF8FBE",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "paddingHorizontal": 8,
+            "paddingVertical": 4,
+          }
+        }
+        testID="ai-character-badge"
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              },
+              {
+                "color": "#FF8FBE",
+              },
+              undefined,
+            ]
+          }
+        >
+          AI 캐릭터
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "backgroundColor": "#211A2C",
+          "borderColor": "#2F2640",
+          "borderRadius": 16,
+          "borderWidth": 1,
+          "maxWidth": "80%",
+          "padding": 12,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 15,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        오늘 어땠어?
+      </Text>
+    </View>
+  </View>,
+]
+`;
+
+exports[`components snapshot (dark) MoodCard 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#2A2219",
+      "borderRadius": 16,
+      "gap": 8,
+      "padding": 16,
+    }
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 17,
+          "fontWeight": "600",
+          "lineHeight": 24,
+        },
+        {
+          "color": "#F2EDF8",
+        },
+        undefined,
+      ]
+    }
+  >
+    오늘 기분 한 줄
+  </Text>
+</View>
+`;
+
+exports[`components snapshot (dark) PrimaryButton 1`] = `
+<View
+  accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": false,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#A98BFF",
+      "borderRadius": 999,
+      "justifyContent": "center",
+      "minHeight": 52,
+      "opacity": 1,
+      "paddingHorizontal": 24,
+    }
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 15,
+          "fontWeight": "600",
+          "lineHeight": 20,
+        },
+        {
+          "color": "#140E1F",
+        },
+        undefined,
+      ]
+    }
+  >
+    시작하기
+  </Text>
+</View>
+`;
+
+exports[`components snapshot (dark) SecondaryButton 1`] = `
+<View
+  accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": false,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "borderColor": "#2F2640",
+      "borderRadius": 999,
+      "borderWidth": 1,
+      "justifyContent": "center",
+      "minHeight": 52,
+      "opacity": 1,
+      "paddingHorizontal": 24,
+    }
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 15,
+          "fontWeight": "600",
+          "lineHeight": 20,
+        },
+        {
+          "color": "#F2EDF8",
+        },
+        undefined,
+      ]
+    }
+  >
+    친구와 통화하기
+  </Text>
+</View>
+`;
+
+exports[`components snapshot (light) CallControl default/end/report 1`] = `
+[
+  <View
+    accessibilityLabel="음소거"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={0}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "gap": 4,
+        "minWidth": 48,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      pointerEvents="none"
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "rgba(26, 19, 36, 0.8)",
+          "borderRadius": 999,
+          "height": 56,
+          "justifyContent": "center",
+          "width": 56,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 17,
+              "fontWeight": "600",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        🎙
+      </Text>
+    </View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#F2EDF8",
+          },
+          undefined,
+        ]
+      }
+    >
+      음소거
+    </Text>
+  </View>,
+  <View
+    accessibilityLabel="신고"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={0}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "gap": 4,
+        "minWidth": 48,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      pointerEvents="none"
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "rgba(26, 19, 36, 0.8)",
+          "borderRadius": 999,
+          "height": 56,
+          "justifyContent": "center",
+          "width": 56,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 17,
+              "fontWeight": "600",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#B42E2E",
+            },
+            undefined,
+          ]
+        }
+      >
+        ⚑
+      </Text>
+    </View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#B42E2E",
+          },
+          undefined,
+        ]
+      }
+    >
+      신고
+    </Text>
+  </View>,
+  <View
+    accessibilityLabel="통화 끝내기"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={0}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "gap": 4,
+        "minWidth": 48,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      pointerEvents="none"
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#B42E2E",
+          "borderRadius": 999,
+          "height": 56,
+          "justifyContent": "center",
+          "width": 56,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 17,
+              "fontWeight": "600",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        ✕
+      </Text>
+    </View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#F2EDF8",
+          },
+          undefined,
+        ]
+      }
+    >
+      통화 끝내기
+    </Text>
+  </View>,
+]
+`;
+
+exports[`components snapshot (light) CharacterCard 1`] = `
+<View
+  accessibilityLabel="서도윤"
+  accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": true,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#FFFFFF",
+      "borderColor": "#6B3FD4",
+      "borderRadius": 24,
+      "borderWidth": 2,
+      "gap": 8,
+      "padding": 16,
+    }
+  }
+  testID="character-card-seo-doyoon"
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Serif KR",
+            "fontSize": 28,
+            "fontWeight": "600",
+            "lineHeight": 36,
+          },
+          {
+            "color": "#1E1729",
+          },
+          undefined,
+        ]
+      }
+    >
+      서도윤
+    </Text>
+    <View
+      accessibilityLabel="AI 캐릭터"
+      accessibilityRole="text"
+      style={
+        {
+          "alignSelf": "flex-start",
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#B8366E",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "paddingHorizontal": 8,
+          "paddingVertical": 4,
+        }
+      }
+      testID="ai-character-badge"
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+            },
+            {
+              "color": "#B8366E",
+            },
+            undefined,
+          ]
+        }
+      >
+        AI 캐릭터
+      </Text>
+    </View>
+  </View>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 13,
+          "fontWeight": "400",
+          "lineHeight": 20,
+        },
+        {
+          "color": "#5E5470",
+        },
+        undefined,
+      ]
+    }
+  >
+    새벽 3시의 서울, 골목 끝 작은 바
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 13,
+          "fontWeight": "400",
+          "lineHeight": 20,
+        },
+        {
+          "color": "#1E1729",
+        },
+        undefined,
+      ]
+    }
+  >
+    하루 끝에 말없이 들어주는 사람
+  </Text>
+  <View
+    style={
+      {
+        "alignSelf": "flex-start",
+        "backgroundColor": "#EBE3FD",
+        "borderRadius": 8,
+        "paddingHorizontal": 8,
+        "paddingVertical": 4,
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#6B3FD4",
+          },
+          undefined,
+        ]
+      }
+    >
+      밤
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
+[
+  <View
+    style={
+      {
+        "alignItems": "flex-end",
+        "marginBottom": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#6B3FD4",
+          "borderColor": "#E2DAF0",
+          "borderRadius": 16,
+          "borderWidth": 0,
+          "maxWidth": "80%",
+          "padding": 12,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 15,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#FFFFFF",
+            },
+            undefined,
+          ]
+        }
+      >
+        안녕
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      {
+        "alignItems": "flex-start",
+        "marginBottom": 8,
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+          },
+          {
+            "color": "#5E5470",
+          },
+          {
+            "marginBottom": 4,
+          },
+        ]
+      }
+    >
+      친구
+    </Text>
+    <View
+      style={
+        {
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#E2DAF0",
+          "borderRadius": 16,
+          "borderWidth": 1,
+          "maxWidth": "80%",
+          "padding": 12,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 15,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#1E1729",
+            },
+            undefined,
+          ]
+        }
+      >
+        안녕
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      {
+        "alignItems": "flex-start",
+        "marginBottom": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "marginBottom": 4,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+            },
+            {
+              "color": "#B8366E",
+            },
+            undefined,
+          ]
+        }
+      >
+        서도윤
+      </Text>
+      <View
+        accessibilityLabel="AI 캐릭터"
+        accessibilityRole="text"
+        style={
+          {
+            "alignSelf": "flex-start",
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#B8366E",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "paddingHorizontal": 8,
+            "paddingVertical": 4,
+          }
+        }
+        testID="ai-character-badge"
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              },
+              {
+                "color": "#B8366E",
+              },
+              undefined,
+            ]
+          }
+        >
+          AI 캐릭터
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#E2DAF0",
+          "borderRadius": 16,
+          "borderWidth": 1,
+          "maxWidth": "80%",
+          "padding": 12,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 15,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            {
+              "color": "#1E1729",
+            },
+            undefined,
+          ]
+        }
+      >
+        오늘 어땠어?
+      </Text>
+    </View>
+  </View>,
+]
+`;
+
+exports[`components snapshot (light) MoodCard 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#FFF6EA",
+      "borderRadius": 16,
+      "gap": 8,
+      "padding": 16,
+    }
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 17,
+          "fontWeight": "600",
+          "lineHeight": 24,
+        },
+        {
+          "color": "#1E1729",
+        },
+        undefined,
+      ]
+    }
+  >
+    오늘 기분 한 줄
+  </Text>
+</View>
+`;
+
+exports[`components snapshot (light) PrimaryButton 1`] = `
+<View
+  accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": false,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#6B3FD4",
+      "borderRadius": 999,
+      "justifyContent": "center",
+      "minHeight": 52,
+      "opacity": 1,
+      "paddingHorizontal": 24,
+    }
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 15,
+          "fontWeight": "600",
+          "lineHeight": 20,
+        },
+        {
+          "color": "#FFFFFF",
+        },
+        undefined,
+      ]
+    }
+  >
+    시작하기
+  </Text>
+</View>
+`;
+
+exports[`components snapshot (light) SecondaryButton 1`] = `
+<View
+  accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": false,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "borderColor": "#E2DAF0",
+      "borderRadius": 999,
+      "borderWidth": 1,
+      "justifyContent": "center",
+      "minHeight": 52,
+      "opacity": 1,
+      "paddingHorizontal": 24,
+    }
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 15,
+          "fontWeight": "600",
+          "lineHeight": 20,
+        },
+        {
+          "color": "#1E1729",
+        },
+        undefined,
+      ]
+    }
+  >
+    친구와 통화하기
+  </Text>
+</View>
+`;
