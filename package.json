@@ -15,9 +15,12 @@
     "lint:boundaries": "tsx scripts/check-boundaries.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generate:check": "pnpm -r run generate:check",
-    "sync:unity": "tsx scripts/sync-unity.ts",
-    "perf:budget": "tsx scripts/perf-budget.ts"
+    "generate:check": "pnpm -r run generate:check && pnpm run sync:generated:check",
+    "perf:budget": "tsx scripts/perf-budget.ts",
+    "sync:generated": "tsx scripts/sync-generated.ts",
+    "sync:generated:check": "tsx scripts/sync-generated.ts --check",
+    "unity:compile-check": "sh scripts/unity-compile-check.sh",
+    "android:build": "cd apps/mobile/android && ./gradlew :app:assembleDebug"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
