@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://murmur.app/schema/face-frame.v1.json",
+  "title": "FaceFrame",
+  "description": "Murmur face-protocol frame. 원본 영상 대신 표정 계수와 머리 포즈만 담는다. 이 파일이 TS/C#/Swift/Kotlin 타입 생성의 유일한 원본이다.",
+  "protocolVersion": 1,
+  "blendShapeNames": [
+    "eyeBlinkLeft", "eyeLookDownLeft", "eyeLookInLeft", "eyeLookOutLeft", "eyeLookUpLeft", "eyeSquintLeft", "eyeWideLeft",
+    "eyeBlinkRight", "eyeLookDownRight", "eyeLookInRight", "eyeLookOutRight", "eyeLookUpRight", "eyeSquintRight", "eyeWideRight",
+    "jawForward", "jawLeft", "jawRight", "jawOpen",
+    "mouthClose", "mouthFunnel", "mouthPucker", "mouthLeft", "mouthRight",
+    "mouthSmileLeft", "mouthSmileRight", "mouthFrownLeft", "mouthFrownRight",
+    "mouthDimpleLeft", "mouthDimpleRight", "mouthStretchLeft", "mouthStretchRight",
+    "mouthRollLower", "mouthRollUpper", "mouthShrugLower", "mouthShrugUpper",
+    "mouthPressLeft", "mouthPressRight", "mouthLowerDownLeft", "mouthLowerDownRight",
+    "mouthUpperUpLeft", "mouthUpperUpRight",
+    "browDownLeft", "browDownRight", "browInnerUp", "browOuterUpLeft", "browOuterUpRight",
+    "cheekPuff", "cheekSquintLeft", "cheekSquintRight",
+    "noseSneerLeft", "noseSneerRight",
+    "tongueOut"
+  ],
+  "trackingStates": ["tracked", "limited", "lost"],
+  "wire": {
+    "description": "Binary layout for version 1. Little-endian. Fixed 144 bytes per frame.",
+    "byteLength": 144,
+    "fields": [
+      { "name": "magic", "type": "u8[2]", "offset": 0, "bytes": 2, "value": "0x4D 0x46 ('MF')" },
+      { "name": "version", "type": "u8", "offset": 2, "bytes": 1 },
+      { "name": "tracking", "type": "u8", "offset": 3, "bytes": 1, "note": "index into trackingStates" },
+      { "name": "timestampMs", "type": "f64", "offset": 4, "bytes": 8, "note": "ms since session start" },
+      { "name": "blendShapes", "type": "u16[52]", "offset": 12, "bytes": 104, "note": "0..65535 ↔ 0.0..1.0, clamped" },
+      { "name": "rotation", "type": "f32[4]", "offset": 116, "bytes": 16, "note": "unit quaternion x,y,z,w" },
+      { "name": "position", "type": "f32[3]", "offset": 132, "bytes": 12, "note": "meters, relative to camera, x,y,z" }
+    ]
+  },
+  "type": "object",
+  "required": ["version", "timestampMs", "tracking", "blendShapes", "headPose"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "timestampMs": { "type": "number", "minimum": 0, "description": "ms since session start" },
+    "tracking": { "enum": ["tracked", "limited", "lost"] },
+    "blendShapes": {
+      "type": "array",
+      "minItems": 52,
+      "maxItems": 52,
+      "items": { "type": "number", "minimum": 0, "maximum": 1 },
+      "description": "52 ARKit blend shape coefficients in canonical order (blendShapeNames)."
+    },
+    "headPose": {
+      "type": "object",
+      "required": ["rotation", "position"],
+      "additionalProperties": false,
+      "properties": {
+        "rotation": {
+          "type": "object",
+          "required": ["x", "y", "z", "w"],
+          "properties": {
+            "x": { "type": "number" }, "y": { "type": "number" }, "z": { "type": "number" }, "w": { "type": "number" }
+          },
+          "description": "Unit quaternion (|q| ≈ 1, tolerance 1e-3)."
+        },
+        "position": {
+          "type": "object",
+          "required": ["x", "y", "z"],
+          "properties": { "x": { "type": "number" }, "y": { "type": "number" }, "z": { "type": "number" } },
+          "description": "Meters relative to camera; camera looks down -z."
+        }
+      }
+    }
+  }
+}
