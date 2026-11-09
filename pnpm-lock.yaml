@@ -141,6 +141,9 @@ importers:
 
   services/ai-character:
     dependencies:
+      '@murmur/expression-cues':
+        specifier: workspace:*
+        version: link:../../packages/expression-cues
       '@murmur/face-protocol':
         specifier: workspace:*
         version: link:../../packages/face-protocol

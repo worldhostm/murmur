@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@murmur/expression-cues": "workspace:*",
     "@murmur/face-protocol": "workspace:*",
     "@murmur/shared-types": "workspace:*"
   }
