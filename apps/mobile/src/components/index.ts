@@ -7,3 +7,4 @@ export { CallControl } from './CallControl';
 export { SpeakingIndicator } from './SpeakingIndicator';
 export { MoodCard } from './MoodCard';
 export { Screen } from './Screen';
+export { BackButton } from './BackButton';

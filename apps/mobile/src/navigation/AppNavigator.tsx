@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { BackHandler } from 'react-native';
 import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { cueFromText, reactionTo } from '@murmur/expression-cues';
 import type { SpriteExpression } from '@murmur/expression-cues';
@@ -105,6 +106,32 @@ export function AppNavigator({
     assetKey: avatarAssetKeyFor(characterId),
   });
 
+  // 뒤로가기: 화면 왼쪽 상단 버튼과 Android BACK 키가 같은 길을 간다. 솔로를 떠나면 대화는 비운다.
+  const goBack = useCallback((): boolean => {
+    switch (route.name) {
+      case 'character-select':
+        setRoute({ name: 'onboarding' });
+        return true;
+      case 'solo':
+        replySeq.current++;
+        setMessages([]);
+        setExpression('softSmile');
+        setSpeaking(false);
+        setRoute({ name: 'character-select' });
+        return true;
+      case 'random-match':
+        setRoute({ name: 'character-select' });
+        return true;
+      default:
+        return false; // 온보딩: 기본 동작(앱 나가기)
+    }
+  }, [route.name]);
+
+  useEffect(() => {
+    const sub = BackHandler.addEventListener('hardwareBackPress', goBack);
+    return () => sub.remove();
+  }, [goBack]);
+
   // 지원 기기 판정 (docs/specs/device-support.md). 판정 전에는 아무것도 그리지 않는다.
   useEffect(() => {
     if (deviceSupportOverride) return;
@@ -164,6 +191,8 @@ export function AppNavigator({
     case 'character-select':
       content = (
         <CharacterSelectScreen
+          initial={characterId}
+          onBack={goBack}
           onConfirm={(id) => {
             setCharacterId(id);
             setRoute({ name: 'solo', characterId: id });
@@ -178,6 +207,7 @@ export function AppNavigator({
           messages={messages}
           speaking={speaking}
           renderer={<UnityView />}
+          onBack={goBack}
           onSend={send}
           onSaveMood={() => undefined}
           onCallFriend={() => setRoute({ name: 'random-match' })}

@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { BackHandler } from 'react-native';
 import { AppNavigator } from './AppNavigator';
 import type { ChatReplyAdapter } from '../chat';
 
@@ -34,6 +35,34 @@ describe('AppNavigator', () => {
     expect(screen.getByTestId('screen-solo')).toBeTruthy();
     fireEvent.press(screen.getByTestId('solo-call-friend'));
     expect(screen.getByTestId('screen-call')).toBeTruthy();
+  });
+
+  it('back buttons walk solo → character select → onboarding, and Android BACK does the same', () => {
+    const addListener = jest.spyOn(BackHandler, 'addEventListener');
+    render(
+      <AppNavigator
+        deviceSupportOverride={supported}
+        initialRoute={{ name: 'solo', characterId: 'sera' }}
+      />,
+    );
+    fireEvent.press(screen.getByTestId('back-button'));
+    expect(screen.getByTestId('screen-character-select')).toBeTruthy();
+    fireEvent.press(screen.getByTestId('back-button'));
+    expect(screen.getByTestId('screen-onboarding')).toBeTruthy();
+    expect(screen.queryByTestId('back-button')).toBeNull();
+
+    fireEvent.press(screen.getByTestId('onboarding-start'));
+    expect(screen.getByTestId('screen-character-select')).toBeTruthy();
+    const hardwareBack = addListener.mock.calls[
+      addListener.mock.calls.length - 1
+    ]![1] as () => boolean;
+    let handled = false;
+    act(() => {
+      handled = hardwareBack();
+    });
+    expect(handled).toBe(true);
+    expect(screen.getByTestId('screen-onboarding')).toBeTruthy();
+    addListener.mockRestore();
   });
 
   it('solo chat: my message gets a character reply from the adapter, with the avatar card on screen', async () => {

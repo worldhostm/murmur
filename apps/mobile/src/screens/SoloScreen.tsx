@@ -34,6 +34,8 @@ export interface SoloScreenProps {
   onDismissRest?: () => void;
   /** 캐릭터 아바타 렌더 영역(통화 화면과 같은 UnityView). 있으면 상단에 초상 카드로 보인다. */
   renderer?: React.ReactNode;
+  /** 왼쪽 상단 뒤로가기 (캐릭터 고르기로). */
+  onBack?: () => void;
 }
 
 /**
@@ -51,7 +53,7 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
   const rest = props.restSuggestion ?? 'none';
 
   return (
-    <Screen testID="screen-solo">
+    <Screen testID="screen-solo" onBack={props.onBack}>
       {props.renderer !== undefined && (
         <View
           testID="solo-avatar"

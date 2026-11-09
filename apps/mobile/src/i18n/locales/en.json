@@ -68,8 +68,14 @@
         "Rough day. You don't have to explain. Just sit here.",
         "Some days are like that. Take your time. I'm listening."
       ],
-      "up": ["Good. Haven't seen that face in a while.", "Glad to hear it. That's good."],
-      "neutral": ["You're here. Sit down. How was today?", "Mm. Go on."]
+      "up": [
+        "Good. Haven't seen that face in a while.",
+        "Glad to hear it. That's good."
+      ],
+      "neutral": [
+        "You're here. Sit down. How was today?",
+        "Mm. Go on."
+      ]
     },
     "leon-hart": {
       "down": [
@@ -104,8 +110,14 @@
         "Okay. What's blocking you? One thing at a time.",
         "I get that it's hard. Split it in three. Start with the first."
       ],
-      "up": ["Oh, nice. You actually pulled it off.", "Good. Keep that momentum for the next one."],
-      "neutral": ["You're here? What's today's task?", "Go on. I'm listening."]
+      "up": [
+        "Oh, nice. You actually pulled it off.",
+        "Good. Keep that momentum for the next one."
+      ],
+      "neutral": [
+        "You're here? What's today's task?",
+        "Go on. I'm listening."
+      ]
     }
   },
   "safety": {

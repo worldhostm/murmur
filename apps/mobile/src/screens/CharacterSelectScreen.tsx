@@ -8,15 +8,21 @@ import { useTheme } from '../theme';
 
 export interface CharacterSelectScreenProps {
   onConfirm: (id: AiCharacterId) => void;
-  initial?: AiCharacterId;
+  initial?: AiCharacterId | undefined;
+  /** 왼쪽 상단 뒤로가기 (온보딩으로). */
+  onBack?: () => void;
 }
 
-export function CharacterSelectScreen({ onConfirm, initial }: CharacterSelectScreenProps): React.JSX.Element {
+export function CharacterSelectScreen({
+  onConfirm,
+  initial,
+  onBack,
+}: CharacterSelectScreenProps): React.JSX.Element {
   const { t } = useTranslation();
   const { space } = useTheme();
   const [selected, setSelected] = useState<AiCharacterId | undefined>(initial);
   return (
-    <Screen testID="screen-character-select">
+    <Screen testID="screen-character-select" onBack={onBack}>
       <View style={{ gap: space[2] }}>
         <AppText variant="title">{t('characterSelect.title')}</AppText>
         <AppText variant="bodySm" color="inkMuted">
@@ -25,7 +31,12 @@ export function CharacterSelectScreen({ onConfirm, initial }: CharacterSelectScr
       </View>
       <View style={{ gap: space[3] }}>
         {AI_CHARACTERS.map((c) => (
-          <CharacterCard key={c.id} character={c} selected={selected === c.id} onPress={() => setSelected(c.id)} />
+          <CharacterCard
+            key={c.id}
+            character={c}
+            selected={selected === c.id}
+            onPress={() => setSelected(c.id)}
+          />
         ))}
       </View>
       <PrimaryButton
