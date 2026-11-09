@@ -17,7 +17,8 @@ export interface ExpressionFeatures {
 }
 
 export function featuresFromFrame(frame: FaceFrame): ExpressionFeatures {
-  const b = (name: Parameters<typeof blendShapeIndex>[0]): number => frame.blendShapes[blendShapeIndex(name)] ?? 0;
+  const b = (name: Parameters<typeof blendShapeIndex>[0]): number =>
+    frame.blendShapes[blendShapeIndex(name)] ?? 0;
   return {
     smile: (b('mouthSmileLeft') + b('mouthSmileRight')) * 0.5,
     frown: (b('mouthFrownLeft') + b('mouthFrownRight')) * 0.5,
