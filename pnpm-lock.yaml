@@ -125,6 +125,12 @@ importers:
 
   packages/design-tokens: {}
 
+  packages/expression-cues:
+    dependencies:
+      '@murmur/face-protocol':
+        specifier: workspace:*
+        version: link:../face-protocol
+
   packages/face-protocol: {}
 
   packages/shared-types:
