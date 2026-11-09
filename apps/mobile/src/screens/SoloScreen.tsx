@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { Pressable, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AI_CHARACTERS } from '@murmur/shared-types';
 import type { AiCharacterId } from '@murmur/shared-types';
@@ -36,6 +36,8 @@ export interface SoloScreenProps {
   renderer?: React.ReactNode;
   /** 왼쪽 상단 뒤로가기 (캐릭터 고르기로). */
   onBack?: () => void;
+  /** 표정 반응을 눌러서 확인하는 예시 문장 칩 (개발 빌드 전용). 누르면 그대로 보낸다. */
+  samplePrompts?: readonly string[] | undefined;
 }
 
 /**
@@ -119,6 +121,34 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
         )}
       </View>
 
+      {props.samplePrompts && props.samplePrompts.length > 0 && (
+        <View
+          testID="solo-samples"
+          style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space[2] }}
+        >
+          {props.samplePrompts.map((sample) => (
+            <Pressable
+              key={sample}
+              accessibilityRole="button"
+              testID="solo-sample"
+              onPress={() => props.onSend(sample)}
+              style={({ pressed }) => ({
+                paddingHorizontal: space[3],
+                paddingVertical: space[1],
+                borderRadius: radius.pill,
+                borderWidth: 1,
+                borderColor: color.border,
+                backgroundColor: color.surface200,
+                opacity: pressed ? 0.6 : 1,
+              })}
+            >
+              <AppText variant="caption" color="inkMuted">
+                {sample}
+              </AppText>
+            </Pressable>
+          ))}
+        </View>
+      )}
       <View style={{ flexDirection: 'row', gap: space[2], alignItems: 'center' }}>
         <TextInput
           testID="solo-input"

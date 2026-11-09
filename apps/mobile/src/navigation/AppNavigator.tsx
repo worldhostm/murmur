@@ -24,6 +24,8 @@ import type { TFunction } from 'i18next';
 import type { DeviceSupport } from '../device/deviceSupport';
 import type { SoloMessage } from '../screens';
 
+declare const __DEV__: boolean | undefined;
+
 /**
  * 임시 내비게이터. 네이티브 프로젝트 생성 후 react-navigation으로 바꾼다 (화면 컴포넌트는 그대로).
  * 화면 종류(ScreenKind)가 테마를 결정하므로 ThemeProvider를 여기서 감싼다.
@@ -208,6 +210,11 @@ export function AppNavigator({
           speaking={speaking}
           renderer={<UnityView />}
           onBack={goBack}
+          samplePrompts={
+            typeof __DEV__ !== 'undefined' && __DEV__
+              ? (t('solo.samples', { returnObjects: true }) as string[])
+              : undefined
+          }
           onSend={send}
           onSaveMood={() => undefined}
           onCallFriend={() => setRoute({ name: 'random-match' })}

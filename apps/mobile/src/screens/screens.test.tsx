@@ -103,6 +103,21 @@ describe('SoloScreen', () => {
     expect(screen.getByLabelText('뒤로')).toBeTruthy();
   });
 
+  it('sends a sample prompt chip as-is (dev-only expression test aid)', () => {
+    const onSend = jest.fn();
+    renderWithTheme(
+      <SoloScreen
+        {...base}
+        onSend={onSend}
+        messages={[]}
+        samplePrompts={['오늘 너무 힘들었어', 'ㅋㅋㅋ 완전 좋아']}
+      />,
+    );
+    expect(screen.getAllByTestId('solo-sample')).toHaveLength(2);
+    fireEvent.press(screen.getByText('ㅋㅋㅋ 완전 좋아'));
+    expect(onSend).toHaveBeenCalledWith('ㅋㅋㅋ 완전 좋아');
+  });
+
   it('has no back button without onBack', () => {
     renderWithTheme(<SoloScreen {...base} messages={[]} />);
     expect(screen.queryByTestId('back-button')).toBeNull();

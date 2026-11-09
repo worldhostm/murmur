@@ -79,14 +79,14 @@ describe('AppNavigator', () => {
       />,
     );
     expect(screen.getByTestId('solo-avatar')).toBeTruthy();
-    fireEvent.changeText(screen.getByTestId('solo-input'), '오늘 너무 힘들었어');
+    fireEvent.changeText(screen.getByTestId('solo-input'), '오늘 좀 힘들었어');
     fireEvent.press(screen.getByTestId('solo-send'));
-    expect(screen.getByText('오늘 너무 힘들었어')).toBeTruthy();
+    expect(screen.getByText('오늘 좀 힘들었어')).toBeTruthy();
     await waitFor(() => expect(screen.getByText('됐고. 뭐가 막혔는데.')).toBeTruthy());
     expect(reply).toHaveBeenCalledWith({
       characterId: 'sera',
       history: [],
-      text: '오늘 너무 힘들었어',
+      text: '오늘 좀 힘들었어',
     });
     expect(screen.getAllByTestId('ai-character-badge').length).toBeGreaterThanOrEqual(1);
   });
