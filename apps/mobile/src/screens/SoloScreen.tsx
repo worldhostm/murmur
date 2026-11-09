@@ -32,6 +32,8 @@ export interface SoloScreenProps {
   onCallFriend: () => void;
   onRest?: () => void;
   onDismissRest?: () => void;
+  /** 캐릭터 아바타 렌더 영역(통화 화면과 같은 UnityView). 있으면 상단에 초상 카드로 보인다. */
+  renderer?: React.ReactNode;
 }
 
 /**
@@ -50,11 +52,29 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
 
   return (
     <Screen testID="screen-solo">
+      {props.renderer !== undefined && (
+        <View
+          testID="solo-avatar"
+          style={{
+            height: space[12] * 5,
+            borderRadius: radius.lg,
+            overflow: 'hidden',
+            backgroundColor: color.lavender,
+          }}
+        >
+          {props.renderer}
+        </View>
+      )}
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[3] }}>
         <SpeakingIndicator speaking={!!props.speaking} diameter={48}>
           <View
             testID="avatar-placeholder"
-            style={{ width: 40, height: 40, borderRadius: radius.pill, backgroundColor: color.lavender }}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: radius.pill,
+              backgroundColor: color.lavender,
+            }}
           />
         </SpeakingIndicator>
         <View style={{ gap: space[1] }}>
@@ -66,7 +86,12 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
       {rest !== 'none' && (
         <View
           testID="rest-suggestion"
-          style={{ padding: space[4], borderRadius: radius.md, backgroundColor: color.brandSoft, gap: space[3] }}
+          style={{
+            padding: space[4],
+            borderRadius: radius.md,
+            backgroundColor: color.brandSoft,
+            gap: space[3],
+          }}
         >
           <AppText variant="heading">{t('solo.restTitle')}</AppText>
           <AppText variant="bodySm" color="inkMuted">
@@ -80,7 +105,9 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
       )}
 
       <View>
-        {props.messages.length === 0 && <ChatBubble side="other" isAi name={name} text={t('solo.greeting')} />}
+        {props.messages.length === 0 && (
+          <ChatBubble side="other" isAi name={name} text={t('solo.greeting')} />
+        )}
         {props.messages.map((m) =>
           m.from === 'me' ? (
             <ChatBubble key={m.id} side="me" text={m.text} />
@@ -138,7 +165,11 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
         />
       </MoodCard>
 
-      <SecondaryButton label={t('solo.callFriend')} onPress={props.onCallFriend} testID="solo-call-friend" />
+      <SecondaryButton
+        label={t('solo.callFriend')}
+        onPress={props.onCallFriend}
+        testID="solo-call-friend"
+      />
     </Screen>
   );
 }

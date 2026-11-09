@@ -10,7 +10,8 @@ React Native 앱 셸. 일반 화면 전부를 TypeScript로 만든다. 아바타
 - `src/screens/` Onboarding, CharacterSelect, Solo, Call
 - `src/navigation/AppNavigator.tsx` 임시 내비게이터. 네이티브 프로젝트 생성 후 react-navigation으로 교체
 - `src/test/render.tsx` 두 테마로 렌더하는 테스트 헬퍼
-- `src/avatar/` 트래커·렌더러 어댑터. `createFaceTracker()`/`createAvatarRenderer()`가 네이티브 모듈이 있으면 `NativeFaceTracker`/`UnityAvatarRenderer`, 없으면(개발 빌드) 가짜 구현을 돌려준다. `base64.ts`는 의존성 없는 base64
+- `src/avatar/` 트래커·렌더러 어댑터. `createFaceTracker()`/`createAvatarRenderer()`가 네이티브 모듈이 있으면 `NativeFaceTracker`/`UnityAvatarRenderer`, 없으면(개발 빌드) 가짜 구현을 돌려준다. `base64.ts`는 의존성 없는 base64. `useFaceTracking`은 통화 화면(카메라 → 프레임), `useAvatarExpression`은 솔로 화면(표정 이름 → `@murmur/expression-cues` 프리셋 프레임, 카메라 없음). 둘 다 `remote` 슬롯이 화면에 보이는 슬롯이다
+- `src/chat/` 솔로 채팅 답 어댑터 `ChatReplyAdapter`. `ScriptedReplyAdapter`는 ai-character 서비스가 붙기 전 자리표시자로, i18n `reply.<id>.<down|up|neutral>` 대사를 사용자 말의 단서 그룹에 맞춰 돌려주고 위기 키워드엔 `safety.crisisBody`를 낸다
 
 ## 네이티브 모듈
 

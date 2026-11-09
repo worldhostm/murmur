@@ -1,14 +1,21 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { AppNavigator } from './AppNavigator';
+import type { ChatReplyAdapter } from '../chat';
 
 const supported = { supported: true, reason: 'ok' as const, details: {} };
 
 describe('AppNavigator', () => {
   it('shows the unsupported-device screen and nothing else when the device fails the gate', () => {
-    render(<AppNavigator deviceSupportOverride={{ supported: false, reason: 'launched-before-2020', details: {} }} />);
+    render(
+      <AppNavigator
+        deviceSupportOverride={{ supported: false, reason: 'launched-before-2020', details: {} }}
+      />,
+    );
     expect(screen.getByTestId('screen-unsupported-device')).toBeTruthy();
-    expect(screen.getByTestId('unsupported-reason').props.children).toBe('2020년 이전에 출시된 기기예요');
+    expect(screen.getByTestId('unsupported-reason').props.children).toBe(
+      '2020년 이전에 출시된 기기예요',
+    );
     expect(screen.queryByTestId('screen-onboarding')).toBeNull();
   });
 
@@ -27,5 +34,45 @@ describe('AppNavigator', () => {
     expect(screen.getByTestId('screen-solo')).toBeTruthy();
     fireEvent.press(screen.getByTestId('solo-call-friend'));
     expect(screen.getByTestId('screen-call')).toBeTruthy();
+  });
+
+  it('solo chat: my message gets a character reply from the adapter, with the avatar card on screen', async () => {
+    const reply = jest.fn(async () => ({
+      text: '됐고. 뭐가 막혔는데.',
+      expression: 'serious' as const,
+    }));
+    const adapter: ChatReplyAdapter = { kind: 'scripted', reply };
+    render(
+      <AppNavigator
+        deviceSupportOverride={supported}
+        initialRoute={{ name: 'solo', characterId: 'sera' }}
+        replyAdapter={adapter}
+      />,
+    );
+    expect(screen.getByTestId('solo-avatar')).toBeTruthy();
+    fireEvent.changeText(screen.getByTestId('solo-input'), '오늘 너무 힘들었어');
+    fireEvent.press(screen.getByTestId('solo-send'));
+    expect(screen.getByText('오늘 너무 힘들었어')).toBeTruthy();
+    await waitFor(() => expect(screen.getByText('됐고. 뭐가 막혔는데.')).toBeTruthy());
+    expect(reply).toHaveBeenCalledWith({
+      characterId: 'sera',
+      history: [],
+      text: '오늘 너무 힘들었어',
+    });
+    expect(screen.getAllByTestId('ai-character-badge').length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('solo chat: the default scripted adapter answers in the character voice', async () => {
+    render(
+      <AppNavigator
+        deviceSupportOverride={supported}
+        initialRoute={{ name: 'solo', characterId: 'sera' }}
+      />,
+    );
+    fireEvent.changeText(screen.getByTestId('solo-input'), 'ㅋㅋㅋ 완전 좋아');
+    fireEvent.press(screen.getByTestId('solo-send'));
+    await waitFor(() => expect(screen.getByText('오, 됐네. 그거 해냈잖아.')).toBeTruthy(), {
+      timeout: 3000,
+    });
   });
 });

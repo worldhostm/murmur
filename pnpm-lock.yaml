@@ -52,6 +52,9 @@ importers:
       '@murmur/design-tokens':
         specifier: workspace:*
         version: link:../../packages/design-tokens
+      '@murmur/expression-cues':
+        specifier: workspace:*
+        version: link:../../packages/expression-cues
       '@murmur/face-protocol':
         specifier: workspace:*
         version: link:../../packages/face-protocol

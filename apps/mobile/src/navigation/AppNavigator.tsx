@@ -1,11 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-types';
+import { cueFromText, reactionTo } from '@murmur/expression-cues';
+import type { SpriteExpression } from '@murmur/expression-cues';
 import { ThemeProvider } from '../theme';
-import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen, UnsupportedDeviceScreen } from '../screens';
+import {
+  CallScreen,
+  CharacterSelectScreen,
+  OnboardingScreen,
+  SoloScreen,
+  UnsupportedDeviceScreen,
+} from '../screens';
 import { getDeviceSupport } from '../device/deviceSupport';
 import { UnityView } from '../avatar/UnityView';
 import { useFaceTracking } from '../avatar/useFaceTracking';
+import { useAvatarExpression } from '../avatar/useAvatarExpression';
 import { avatarAssetKeyFor } from '../avatar/characterAsset';
+import { ScriptedReplyAdapter } from '../chat';
+import type { ChatReplyAdapter, ChatTurn } from '../chat';
 import type { FaceTrackingStatus } from '../avatar/useFaceTracking';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -34,6 +45,8 @@ export interface AppNavigatorProps {
   userPreference?: ThemePreference;
   /** 테스트용. 지정하면 네이티브 판정을 건너뛴다. */
   deviceSupportOverride?: DeviceSupport;
+  /** 솔로 채팅 답 어댑터. 기본은 i18n 대사를 쓰는 ScriptedReplyAdapter (ai-character 서비스 연결 전). */
+  replyAdapter?: ChatReplyAdapter;
 }
 
 const TRACKING_KEY: Record<FaceTrackingStatus, string | null> = {
@@ -55,6 +68,7 @@ export function AppNavigator({
   initialRoute = { name: 'onboarding' },
   userPreference = 'system',
   deviceSupportOverride,
+  replyAdapter,
 }: AppNavigatorProps): React.JSX.Element {
   const [route, setRoute] = useState<Route>(initialRoute);
   // 마지막으로 고른 AI 캐릭터. 통화 화면의 아바타 에셋 키가 된다.
@@ -62,8 +76,28 @@ export function AppNavigator({
     initialRoute.name === 'solo' ? initialRoute.characterId : undefined,
   );
   const [messages, setMessages] = useState<SoloMessage[]>([]);
+  // 솔로 채팅: 캐릭터가 지금 짓는 표정과 답을 만드는 중인지. 내 말에는 듣는 표정으로, 답에는 답의 표정으로 바뀐다.
+  const [expression, setExpression] = useState<SpriteExpression>('softSmile');
+  const [speaking, setSpeaking] = useState(false);
   const [support, setSupport] = useState<DeviceSupport | null>(deviceSupportOverride ?? null);
   const { t } = useTranslation();
+  const replySeq = useRef(0);
+  const nextId = useRef(0);
+  const adapter = useMemo<ChatReplyAdapter>(
+    () =>
+      replyAdapter ??
+      new ScriptedReplyAdapter({
+        lines: (id, group) => t(`reply.${id}.${group}`, { returnObjects: true }) as string[],
+        crisisText: () => t('safety.crisisBody'),
+      }),
+    [replyAdapter, t],
+  );
+  // 솔로 화면에 있을 때만 카메라 없이 표정만 구동한다 (docs/specs/chat-expression.md).
+  useAvatarExpression({
+    enabled: route.name === 'solo',
+    assetKey: avatarAssetKeyFor(characterId),
+    expression,
+  });
   // 통화 화면에 있을 때만 트래킹. PoC: 내 표정을 remote 슬롯(큰 아바타)에도 비춘다.
   const tracking = useFaceTracking({
     enabled: route.name === 'random-match',
@@ -81,13 +115,38 @@ export function AppNavigator({
     };
   }, [deviceSupportOverride]);
 
-  const send = useCallback((text: string) => {
-    // 실제 응답은 services/ai-character 연결 후. 지금은 사용자 메시지만 쌓는다.
-    setMessages((prev) => [...prev, { id: String(prev.length + 1), from: 'me', text }]);
-  }, []);
+  const send = useCallback(
+    (text: string) => {
+      if (route.name !== 'solo') return;
+      const history: ChatTurn[] = messages.map((m) => ({ from: m.from, text: m.text }));
+      setMessages((prev) => [...prev, { id: String(++nextId.current), from: 'me', text }]);
+      setExpression(reactionTo(cueFromText(text)));
+      setSpeaking(true);
+      const seq = ++replySeq.current;
+      adapter
+        .reply({ characterId: route.characterId, history, text })
+        .then((reply) => {
+          if (seq !== replySeq.current) return; // 더 최신 메시지가 있으면 이 답은 버린다
+          setMessages((prev) => [
+            ...prev,
+            { id: String(++nextId.current), from: 'character', text: reply.text },
+          ]);
+          setExpression(reply.expression ?? cueFromText(reply.text));
+        })
+        .catch(() => setExpression('softSmile'))
+        .finally(() => {
+          if (seq === replySeq.current) setSpeaking(false);
+        });
+    },
+    [adapter, messages, route],
+  );
 
   if (support === null) {
-    return <ThemeProvider screen="onboarding" userPreference={userPreference}>{null}</ThemeProvider>;
+    return (
+      <ThemeProvider screen="onboarding" userPreference={userPreference}>
+        {null}
+      </ThemeProvider>
+    );
   }
   if (!support.supported) {
     return (
@@ -117,6 +176,8 @@ export function AppNavigator({
         <SoloScreen
           characterId={route.characterId}
           messages={messages}
+          speaking={speaking}
+          renderer={<UnityView />}
           onSend={send}
           onSaveMood={() => undefined}
           onCallFriend={() => setRoute({ name: 'random-match' })}

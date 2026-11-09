@@ -62,6 +62,52 @@
     "restOk": "I'll rest a bit",
     "restContinue": "A little more"
   },
+  "reply": {
+    "seo-doyoon": {
+      "down": [
+        "Rough day. You don't have to explain. Just sit here.",
+        "Some days are like that. Take your time. I'm listening."
+      ],
+      "up": ["Good. Haven't seen that face in a while.", "Glad to hear it. That's good."],
+      "neutral": ["You're here. Sit down. How was today?", "Mm. Go on."]
+    },
+    "leon-hart": {
+      "down": [
+        "It's not that you're lacking; the world just has no eye. Tell me slowly.",
+        "Today I shall do the listening. Consider it an honor… kidding. What happened?"
+      ],
+      "up": [
+        "As expected of someone I noticed. Keep that mood going.",
+        "I like that look. You could ride it all day, couldn't you?"
+      ],
+      "neutral": [
+        "Standing before me again, I see. So, what's going on?",
+        "Hm, intriguing. Do go on."
+      ]
+    },
+    "han-seorin": {
+      "down": [
+        "Tonight's story… mm, not an easy day. Tell me a little more.",
+        "You can leave that feeling here. Let's sort through it slowly."
+      ],
+      "up": [
+        "What a nice story. On a day like this I'd play something bright for you.",
+        "Why not keep that feeling as today's one line?"
+      ],
+      "neutral": [
+        "Welcome to the late-night show. Tell me about your day.",
+        "Mm, let me put it this way. Could you tell me a bit more?"
+      ]
+    },
+    "sera": {
+      "down": [
+        "Okay. What's blocking you? One thing at a time.",
+        "I get that it's hard. Split it in three. Start with the first."
+      ],
+      "up": ["Oh, nice. You actually pulled it off.", "Good. Keep that momentum for the next one."],
+      "neutral": ["You're here? What's today's task?", "Go on. I'm listening."]
+    }
+  },
   "safety": {
     "crisisTitle": "It sounds like things are really hard right now",
     "crisisBody": "You don't have to carry this alone. You can talk to a professional counselor right away. The Korea suicide prevention line 109 is open 24 hours.",
