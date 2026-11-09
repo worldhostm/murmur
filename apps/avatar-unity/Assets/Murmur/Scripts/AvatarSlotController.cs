@@ -17,7 +17,7 @@ namespace Murmur
 
         private readonly FaceFrame _frame = new FaceFrame();
         private IFaceFrameConsumer[] _consumers = System.Array.Empty<IFaceFrameConsumer>();
-        private IAvatarLoader _loader;
+        private IAvatarLoader[] _loaders = System.Array.Empty<IAvatarLoader>();
 
         public string Slot => slot;
         public string LoadedAssetKey { get; private set; }
@@ -25,7 +25,7 @@ namespace Murmur
 
         private void Awake()
         {
-            _loader = GetComponent<IAvatarLoader>();
+            _loaders = GetComponents<IAvatarLoader>();
             RefreshConsumers();
         }
 
@@ -43,13 +43,15 @@ namespace Murmur
         {
             LoadedAssetKey = assetKey;
             // 비활성 상태로 시작한 슬롯(local)은 Awake 가 아직 안 돌았을 수 있다.
-            if (_loader == null) _loader = GetComponent<IAvatarLoader>();
-            if (_loader == null)
+            if (_loaders.Length == 0) _loaders = GetComponents<IAvatarLoader>();
+            IAvatarLoader loader = null;
+            foreach (var l in _loaders) if (l.CanLoad(assetKey)) { loader = l; break; }
+            if (loader == null)
             {
-                Debug.LogWarning($"[{slot}] IAvatarLoader 가 없어 '{assetKey}' 를 로드하지 못했다. (UniVRM 연결 전)");
+                Debug.LogWarning($"[{slot}] '{assetKey}' 를 로드할 IAvatarLoader 가 없다 (로더 {_loaders.Length}개)");
                 return;
             }
-            _loader.Load(assetKey, this);
+            loader.Load(assetKey, this);
         }
 
         private void Update()
@@ -64,6 +66,8 @@ namespace Murmur
     /// <summary>에셋 키(예: characters/sera/front, builtin/base)로 아바타를 만들어 슬롯에 붙인다. UniVRM 로더가 구현한다.</summary>
     public interface IAvatarLoader
     {
+        /// <summary>이 로더가 처리하는 에셋 키인지. 슬롯은 같은 오브젝트의 로더 중 처음으로 true 를 돌려주는 것을 쓴다.</summary>
+        bool CanLoad(string assetKey);
         void Load(string assetKey, AvatarSlotController slot);
     }
 }

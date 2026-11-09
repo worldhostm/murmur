@@ -5,6 +5,7 @@ import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen, Unsupp
 import { getDeviceSupport } from '../device/deviceSupport';
 import { UnityView } from '../avatar/UnityView';
 import { useFaceTracking } from '../avatar/useFaceTracking';
+import { avatarAssetKeyFor } from '../avatar/characterAsset';
 import type { FaceTrackingStatus } from '../avatar/useFaceTracking';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -56,11 +57,19 @@ export function AppNavigator({
   deviceSupportOverride,
 }: AppNavigatorProps): React.JSX.Element {
   const [route, setRoute] = useState<Route>(initialRoute);
+  // 마지막으로 고른 AI 캐릭터. 통화 화면의 아바타 에셋 키가 된다.
+  const [characterId, setCharacterId] = useState<AiCharacterId | undefined>(
+    initialRoute.name === 'solo' ? initialRoute.characterId : undefined,
+  );
   const [messages, setMessages] = useState<SoloMessage[]>([]);
   const [support, setSupport] = useState<DeviceSupport | null>(deviceSupportOverride ?? null);
   const { t } = useTranslation();
   // 통화 화면에 있을 때만 트래킹. PoC: 내 표정을 remote 슬롯(큰 아바타)에도 비춘다.
-  const tracking = useFaceTracking({ enabled: route.name === 'random-match', mirrorToRemote: true });
+  const tracking = useFaceTracking({
+    enabled: route.name === 'random-match',
+    mirrorToRemote: true,
+    assetKey: avatarAssetKeyFor(characterId),
+  });
 
   // 지원 기기 판정 (docs/specs/device-support.md). 판정 전에는 아무것도 그리지 않는다.
   useEffect(() => {
@@ -94,7 +103,14 @@ export function AppNavigator({
       content = <OnboardingScreen onStart={() => setRoute({ name: 'character-select' })} />;
       break;
     case 'character-select':
-      content = <CharacterSelectScreen onConfirm={(characterId) => setRoute({ name: 'solo', characterId })} />;
+      content = (
+        <CharacterSelectScreen
+          onConfirm={(id) => {
+            setCharacterId(id);
+            setRoute({ name: 'solo', characterId: id });
+          }}
+        />
+      );
       break;
     case 'solo':
       content = (

@@ -13,12 +13,16 @@ namespace Murmur
         /// <summary>Resources.Load 경로. 에셋은 Editor/SceneSetup.EnsurePrimitiveMaterial 이 만든다.</summary>
         public const string MaterialResource = "Murmur/PrimitiveLit";
 
+        public const string AssetKey = "builtin/primitive";
+
+        public bool CanLoad(string assetKey) => assetKey == AssetKey;
+
         public void Load(string assetKey, AvatarSlotController slot)
         {
-            var old = slot.transform.Find(RootName);
-            if (old != null)
+            foreach (var name in new[] { RootName, SpriteSheetAvatarLoader.RootName })
             {
-                if (Application.isPlaying) Destroy(old.gameObject); else DestroyImmediate(old.gameObject);
+                var old = slot.transform.Find(name);
+                if (old != null) { if (Application.isPlaying) Destroy(old.gameObject); else DestroyImmediate(old.gameObject); }
             }
             var root = Build(slot.transform);
             slot.RefreshConsumers();

@@ -66,11 +66,28 @@ namespace Murmur.Editor
             Debug.Log($"created {PrimitiveMaterialPath}");
         }
 
+        public const string SpriteMaterialPath = "Assets/Murmur/Resources/" + SpriteSheetAvatarLoader.MaterialResource + ".mat";
+
+        /// <summary>표정 시트 쿼드용 URP Unlit 머티리얼. Resources 에 있어야 빌드에 셰이더가 포함된다.</summary>
+        [MenuItem("Murmur/Create Sprite Material")]
+        public static void EnsureSpriteMaterial()
+        {
+            if (AssetDatabase.LoadAssetAtPath<Material>(SpriteMaterialPath) != null) return;
+            var shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Texture");
+            if (shader == null) throw new System.InvalidOperationException("URP Unlit 셰이더를 찾지 못했다");
+            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(SpriteMaterialPath));
+            var mat = new Material(shader) { color = Color.white };
+            AssetDatabase.CreateAsset(mat, SpriteMaterialPath);
+            AssetDatabase.SaveAssets();
+            Debug.Log($"created {SpriteMaterialPath}");
+        }
+
         [MenuItem("Murmur/Create Call Scene")]
         public static void CreateCallScene()
         {
             EnsureRenderPipeline();
             EnsurePrimitiveMaterial();
+            EnsureSpriteMaterial();
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             var camGo = new GameObject("Main Camera");
@@ -92,11 +109,13 @@ namespace Murmur.Editor
             // 프리미티브 마스코트를 자동 로드한다 (VRM 로더가 붙기 전까지의 PoC 아바타).
             var local = new GameObject("Avatar.local").AddComponent<AvatarSlotController>();
             local.gameObject.AddComponent<PrimitiveAvatarLoader>();
+            local.gameObject.AddComponent<SpriteSheetAvatarLoader>();
             SetSlot(local, "local", "builtin/primitive");
             local.gameObject.SetActive(false); // 통화 화면은 상대 캐릭터만 크게 보여준다
 
             var remote = new GameObject("Avatar.remote").AddComponent<AvatarSlotController>();
             remote.gameObject.AddComponent<PrimitiveAvatarLoader>();
+            remote.gameObject.AddComponent<SpriteSheetAvatarLoader>(); // characters/<id>/front
             SetSlot(remote, "remote", "builtin/primitive");
             remote.transform.position = Vector3.zero; // 머리는 로더가 y=1.4 에 둔다. 카메라 (0,1.4,0.8) 이 정면을 본다
             remote.gameObject.AddComponent<FrameTimingProbe>();
