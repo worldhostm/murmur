@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Image, Pressable, TextInput, View } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Image, Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AI_CHARACTERS } from '@murmur/shared-types';
 import type { AiCharacterId } from '@murmur/shared-types';
@@ -13,7 +13,7 @@ import {
   SecondaryButton,
   SpeakingIndicator,
 } from '../components';
-import { useTheme } from '../theme';
+import { useTheme, withAlpha } from '../theme';
 import { characterPortrait } from '../avatar/characterImages';
 
 export interface SoloMessage {
@@ -39,6 +39,8 @@ export interface SoloScreenProps {
   onBack?: () => void;
   /** 표정 반응을 눌러서 확인하는 예시 문장 칩 (개발 빌드 전용). 누르면 그대로 보낸다. */
   samplePrompts?: readonly string[] | undefined;
+  /** 아바타 카드를 상단에 고정할지(기본 true). 해제하면 대화와 같이 스크롤된다. 카드의 토글로 바꾼다. */
+  defaultAvatarPinned?: boolean;
 }
 
 /**
@@ -48,28 +50,60 @@ export interface SoloScreenProps {
  */
 export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
   const { t } = useTranslation();
-  const { color, space, radius, text } = useTheme();
+  const { color, space, radius, text, reduceMotion } = useTheme();
   const [draft, setDraft] = useState('');
   const [mood, setMood] = useState('');
+  const [pinned, setPinned] = useState(props.defaultAvatarPinned ?? true);
+  const scrollRef = useRef<ScrollView>(null);
+  const hasAvatar = props.renderer !== undefined;
+  const fixedAvatar = hasAvatar && pinned;
   const character = AI_CHARACTERS.find((c) => c.id === props.characterId) ?? AI_CHARACTERS[0]!;
   const name = t(character.nameKey);
   const rest = props.restSuggestion ?? 'none';
 
-  return (
-    <Screen testID="screen-solo" onBack={props.onBack}>
-      {props.renderer !== undefined && (
-        <View
-          testID="solo-avatar"
-          style={{
-            height: space[12] * 5,
-            borderRadius: radius.lg,
-            overflow: 'hidden',
-            backgroundColor: color.lavender,
-          }}
-        >
-          {props.renderer}
-        </View>
-      )}
+  const avatarCard = hasAvatar ? (
+    <View
+      testID="solo-avatar"
+      style={{
+        height: space[12] * 5,
+        borderRadius: radius.lg,
+        overflow: 'hidden',
+        backgroundColor: color.lavender,
+      }}
+    >
+      {props.renderer}
+      <Pressable
+        accessibilityRole="switch"
+        accessibilityState={{ checked: pinned }}
+        accessibilityLabel={pinned ? t('solo.avatarPinned') : t('solo.avatarScrolls')}
+        testID={pinned ? 'solo-avatar-pin-on' : 'solo-avatar-pin-off'}
+        onPress={() => setPinned((v) => !v)}
+        style={({ pressed }) => ({
+          position: 'absolute',
+          top: space[2],
+          right: space[2],
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: space[1],
+          paddingHorizontal: space[3],
+          paddingVertical: space[1],
+          borderRadius: radius.pill,
+          backgroundColor: withAlpha(color.night, 0.8),
+          opacity: pressed ? 0.7 : 1,
+        })}
+      >
+        <AppText variant="caption" color="inkOnNight">
+          {pinned ? '📌' : '↕'}
+        </AppText>
+        <AppText variant="caption" color="inkOnNight">
+          {pinned ? t('solo.avatarPinned') : t('solo.avatarScrolls')}
+        </AppText>
+      </Pressable>
+    </View>
+  ) : null;
+
+  const body = (
+    <>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[3] }}>
         <SpeakingIndicator speaking={!!props.speaking} diameter={48}>
           <Image
@@ -206,6 +240,31 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
         onPress={props.onCallFriend}
         testID="solo-call-friend"
       />
+    </>
+  );
+
+  if (fixedAvatar) {
+    // 고정: 아바타는 스크롤 밖 상단, 나머지는 아래 ScrollView. 새 말풍선이 생기면 끝으로 내린다.
+    return (
+      <Screen testID="screen-solo" onBack={props.onBack} fill>
+        {avatarCard}
+        <ScrollView
+          ref={scrollRef}
+          testID="solo-scroll"
+          style={{ flex: 1 }}
+          contentContainerStyle={{ gap: space[6], paddingBottom: space[6] }}
+          keyboardShouldPersistTaps="handled"
+          onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: !reduceMotion })}
+        >
+          {body}
+        </ScrollView>
+      </Screen>
+    );
+  }
+  return (
+    <Screen testID="screen-solo" onBack={props.onBack}>
+      {avatarCard}
+      {body}
     </Screen>
   );
 }

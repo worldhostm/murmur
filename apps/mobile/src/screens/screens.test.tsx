@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { fireEvent, screen } from '@testing-library/react-native';
 import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen } from './index';
 import { renderWithTheme, THEMES } from '../test/render';
@@ -123,6 +124,27 @@ describe('SoloScreen', () => {
     expect(screen.getAllByTestId('solo-sample')).toHaveLength(2);
     fireEvent.press(screen.getByText('ㅋㅋㅋ 완전 좋아'));
     expect(onSend).toHaveBeenCalledWith('ㅋㅋㅋ 완전 좋아');
+  });
+
+  it('pins the avatar above a scroll view by default and lets the user toggle it to scroll along', () => {
+    renderWithTheme(
+      <SoloScreen {...base} messages={[]} renderer={<View testID="fake-renderer" />} />,
+    );
+    expect(screen.getByTestId('solo-avatar')).toBeTruthy();
+    expect(screen.getByTestId('solo-scroll')).toBeTruthy();
+    expect(screen.getByTestId('solo-avatar-pin-on')).toBeTruthy();
+    fireEvent.press(screen.getByTestId('solo-avatar-pin-on'));
+    expect(screen.getByTestId('solo-avatar-pin-off')).toBeTruthy();
+    expect(screen.queryByTestId('solo-scroll')).toBeNull();
+    expect(screen.getByTestId('solo-avatar')).toBeTruthy();
+    expect(screen.getByTestId('solo-input')).toBeTruthy();
+    expect(screen.getByTestId('solo-call-friend')).toBeTruthy();
+  });
+
+  it('shows no pin toggle and no inner scroll view without a renderer', () => {
+    renderWithTheme(<SoloScreen {...base} messages={[]} />);
+    expect(screen.queryByTestId('solo-avatar-pin-on')).toBeNull();
+    expect(screen.queryByTestId('solo-scroll')).toBeNull();
   });
 
   it('has no back button without onBack', () => {

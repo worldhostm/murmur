@@ -71,7 +71,9 @@
       "oops, that was awkward",
       "this is an important decision",
       "what should I eat today"
-    ]
+    ],
+    "avatarPinned": "Pinned",
+    "avatarScrolls": "Scrolls along"
   },
   "reply": {
     "seo-doyoon": {
