@@ -11,7 +11,8 @@ React Native 앱 셸. 일반 화면 전부를 TypeScript로 만든다. 아바타
 - `src/navigation/AppNavigator.tsx` 임시 내비게이터. 네이티브 프로젝트 생성 후 react-navigation으로 교체
 - `src/test/render.tsx` 두 테마로 렌더하는 테스트 헬퍼
 - `src/avatar/` 트래커·렌더러 어댑터. `createFaceTracker()`/`createAvatarRenderer()`가 네이티브 모듈이 있으면 `NativeFaceTracker`/`UnityAvatarRenderer`, 없으면(개발 빌드) 가짜 구현을 돌려준다. `base64.ts`는 의존성 없는 base64. `useFaceTracking`은 통화 화면(카메라 → 프레임), `useAvatarExpression`은 솔로 화면(표정 이름 → `@murmur/expression-cues` 프리셋 프레임, 카메라 없음). 둘 다 `remote` 슬롯이 화면에 보이는 슬롯이다
-- `src/chat/` 솔로 채팅 답 어댑터 `ChatReplyAdapter`. `ScriptedReplyAdapter`는 ai-character 서비스가 붙기 전 자리표시자로, i18n `reply.<id>.<down|up|neutral>` 대사를 사용자 말의 단서 그룹에 맞춰 돌려주고 위기 키워드엔 `safety.crisisBody`를 낸다
+- `src/chat/` 솔로 채팅 답 어댑터 `ChatReplyAdapter`. `RemoteReplyAdapter`는 ai-character 서버의 `POST /chat`을 부른다(세션 id 로 서버가 기록을 잇는다). `ScriptedReplyAdapter`는 서버가 없을 때의 자리표시자로, i18n `reply.<id>.<down|up|neutral>` 대사를 사용자 말의 단서 그룹에 맞춰 돌려주고 위기 키워드엔 `safety.crisisBody`를 낸다. `FallbackReplyAdapter(remote, scripted)`가 원격 실패 시 경고 로그 후 스크립트로 넘어간다
+- `src/config.ts` `AI_CHARACTER_URL`. 개발 빌드는 Android 에뮬레이터 `http://10.0.2.2:8787`, iOS 시뮬레이터 `http://localhost:8787`. 실기기는 Mac 의 LAN IP 로 바꾼다. 릴리스는 비어 있으면 스크립트 답만
 
 ## 네이티브 모듈
 

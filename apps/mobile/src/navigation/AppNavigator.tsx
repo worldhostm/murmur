@@ -16,8 +16,9 @@ import { UnityView } from '../avatar/UnityView';
 import { useFaceTracking } from '../avatar/useFaceTracking';
 import { useAvatarExpression } from '../avatar/useAvatarExpression';
 import { avatarAssetKeyFor } from '../avatar/characterAsset';
-import { ScriptedReplyAdapter } from '../chat';
+import { FallbackReplyAdapter, RemoteReplyAdapter, ScriptedReplyAdapter } from '../chat';
 import type { ChatReplyAdapter, ChatTurn } from '../chat';
+import { AI_CHARACTER_URL } from '../config';
 import type { FaceTrackingStatus } from '../avatar/useFaceTracking';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -86,15 +87,20 @@ export function AppNavigator({
   const { t } = useTranslation();
   const replySeq = useRef(0);
   const nextId = useRef(0);
-  const adapter = useMemo<ChatReplyAdapter>(
-    () =>
-      replyAdapter ??
-      new ScriptedReplyAdapter({
-        lines: (id, group) => t(`reply.${id}.${group}`, { returnObjects: true }) as string[],
-        crisisText: () => t('safety.crisisBody'),
-      }),
-    [replyAdapter, t],
-  );
+  // 답 어댑터: 서버 주소가 있으면 원격(ai-character) → 실패 시 스크립트 폴백, 없으면 스크립트만.
+  // 캐릭터가 바뀌면 원격 세션(대화 기록)도 새로 시작한다.
+  const adapter = useMemo<ChatReplyAdapter>(() => {
+    if (replyAdapter) return replyAdapter;
+    const scripted = new ScriptedReplyAdapter({
+      lines: (id, group) => t(`reply.${id}.${group}`, { returnObjects: true }) as string[],
+      crisisText: () => t('safety.crisisBody'),
+    });
+    if (!AI_CHARACTER_URL) return scripted;
+    return new FallbackReplyAdapter(
+      new RemoteReplyAdapter({ baseUrl: AI_CHARACTER_URL }),
+      scripted,
+    );
+  }, [replyAdapter, t, characterId]);
   // 솔로 화면에 있을 때만 카메라 없이 표정만 구동한다 (docs/specs/chat-expression.md).
   useAvatarExpression({
     enabled: route.name === 'solo',

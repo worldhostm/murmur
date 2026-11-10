@@ -75,6 +75,8 @@ adb shell am start -n com.murmur/.MainActivity
 
 온보딩 → 캐릭터 선택 → "랜덤 매칭" 으로 통화 화면 진입. 카메라 권한 프롬프트에서 허용. 에뮬레이터 자동화에 쓴 `uiautomator dump` + `input tap` 방식은 실기기에서도 같다.
 
+솔로 채팅의 실제 LLM 답은 Mac 에서 `pnpm --filter @murmur/ai-character dev` 를 띄운 뒤, 실기기에서는 `apps/mobile/src/config.ts` 의 `AI_CHARACTER_URL` 을 Mac 의 LAN IP(`http://192.168.x.x:8787`)로 바꿔야 닿는다 (에뮬레이터는 `10.0.2.2` 로 자동).
+
 ### 확인 항목과 로그
 
 ```sh

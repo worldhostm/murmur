@@ -1,6 +1,6 @@
 # 솔로 채팅 OpenAI 연동
 
-작성: 2026-11-10. 상태: 계획(승인 대기).
+작성: 2026-11-10. 상태: 구현됨. 실제 OpenAI 키로의 확인은 사용자가 `.env` 에 키를 넣은 뒤 진행.
 
 ## 목적
 
@@ -18,7 +18,7 @@
 
 ### 2. ai-character: HTTP 서버
 
-- `src/server.ts`: `createChatServer(deps)` 가 `node:http` 서버를 돌려준다 (프레임워크 없음).
+- `src/server.ts`: `ChatServer` 가 세션과 요청 처리를 맡고 `createHttpServer()` 가 `node:http` 서버를 돌려준다 (프레임워크 없음).
   - `POST /chat` 요청 `{ sessionId, characterId, text, adultVerified? }` → 응답 `{ text, expression, crisis }`. `sessionId` 별로 `ConversationPipeline` 을 메모리에 유지해 대화 기록(최근 40개)을 잇는다. 30분 비활성 세션은 지운다.
   - `GET /health` → `{ ok: true, model }`.
   - 잘못된 본문·모르는 `characterId` 는 400, LLM 오류는 502 와 `{ error }`.
@@ -49,9 +49,9 @@
 
 ## 완료 조건
 
-- [ ] `pnpm --filter @murmur/ai-character test`: OpenAiLlm(가짜 fetch), 서버(FakeLlm) 테스트 통과.
-- [ ] `pnpm --filter @murmur/mobile test`: 원격·폴백 어댑터 테스트 통과.
-- [ ] `pnpm lint`, `pnpm typecheck` 통과. 앱은 `services/*` 를 import 하지 않는다(HTTP 로만 연결).
+- [x] `pnpm --filter @murmur/ai-character test`: OpenAiLlm(가짜 fetch), 서버(FakeLlm) 테스트 통과.
+- [x] `pnpm --filter @murmur/mobile test`: 원격·폴백 어댑터 테스트 통과.
+- [x] `pnpm lint`, `pnpm typecheck` 통과. 앱은 `services/*` 를 import 하지 않는다(HTTP 로만 연결).
 - [ ] 실제 키로: `services/ai-character/.env` 에 `OPENAI_API_KEY` 를 넣고 `pnpm --filter @murmur/ai-character dev` → 에뮬레이터 솔로 채팅에서 캐릭터 말투의 실제 답이 오고 답에 맞는 표정으로 바뀐다. 서버를 끄면 경고 로그 후 스크립트 답으로 이어진다.
 
 ## 열린 질문

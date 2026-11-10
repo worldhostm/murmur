@@ -2,6 +2,9 @@ import React from 'react';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { BackHandler } from 'react-native';
 import { AppNavigator } from './AppNavigator';
+
+// 테스트는 서버 없이 스크립트 답만 쓴다.
+jest.mock('../config', () => ({ AI_CHARACTER_URL: undefined }));
 import type { ChatReplyAdapter } from '../chat';
 
 const supported = { supported: true, reason: 'ok' as const, details: {} };
