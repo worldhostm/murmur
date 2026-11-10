@@ -1,5 +1,6 @@
 export * from './adapters/types';
 export * from './adapters/fake';
+export * from './adapters/openai';
 export { expressionSignalsFromFrame, smoothSignals, NEUTRAL_SIGNALS } from './signals';
 export { visemesToFaceFrames, VISEME_TABLE } from './visemeToFace';
 export type { VisemeToFaceOptions } from './visemeToFace';
