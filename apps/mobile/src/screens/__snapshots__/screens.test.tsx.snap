@@ -928,7 +928,14 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
           }
           testID="speaking-indicator"
         >
-          <View
+          <Image
+            accessible={false}
+            resizeMode="cover"
+            source={
+              {
+                "testUri": "../../../apps/mobile/assets/characters/han-seorin.png",
+              }
+            }
             style={
               {
                 "backgroundColor": "#5B45A0",
@@ -937,7 +944,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                 "width": 40,
               }
             }
-            testID="avatar-placeholder"
+            testID="solo-portrait"
           />
         </View>
         <View
@@ -2318,7 +2325,14 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
           }
           testID="speaking-indicator"
         >
-          <View
+          <Image
+            accessible={false}
+            resizeMode="cover"
+            source={
+              {
+                "testUri": "../../../apps/mobile/assets/characters/han-seorin.png",
+              }
+            }
             style={
               {
                 "backgroundColor": "#D9CCFF",
@@ -2327,7 +2341,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                 "width": 40,
               }
             }
-            testID="avatar-placeholder"
+            testID="solo-portrait"
           />
         </View>
         <View

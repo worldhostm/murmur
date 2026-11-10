@@ -1,10 +1,11 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { Image, Pressable, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import type { AiCharacterSummary } from '@murmur/shared-types';
 import { AppText } from './AppText';
 import { AiCharacterBadge } from './AiCharacterBadge';
 import { useTheme } from '../theme';
+import { characterPortrait, PORTRAIT_ASPECT } from '../avatar/characterImages';
 
 export interface CharacterCardProps {
   character: AiCharacterSummary;
@@ -12,8 +13,12 @@ export interface CharacterCardProps {
   onPress?: () => void;
 }
 
-/** 캐릭터 카드: surface-300, radius-lg, 이름 display-md, 세계관 한 줄 body-sm ink-muted. */
-export function CharacterCard({ character, selected = false, onPress }: CharacterCardProps): React.JSX.Element {
+/** 캐릭터 카드: surface-300, radius-lg, 왼쪽 초상(137:240), 이름 display-md, 세계관 한 줄 body-sm ink-muted. */
+export function CharacterCard({
+  character,
+  selected = false,
+  onPress,
+}: CharacterCardProps): React.JSX.Element {
   const { t } = useTranslation();
   const { color, space, radius } = useTheme();
   const name = t(character.nameKey);
@@ -30,33 +35,57 @@ export function CharacterCard({ character, selected = false, onPress }: Characte
         backgroundColor: color.surface300,
         borderWidth: selected ? 2 : 1,
         borderColor: selected ? color.brand : color.border,
-        gap: space[2],
+        flexDirection: 'row',
+        gap: space[3],
       }}
     >
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <AppText variant="displayMd" color="ink">
-          {name}
-        </AppText>
-        <AiCharacterBadge />
-      </View>
-      <AppText variant="bodySm" color="inkMuted">
-        {t(character.taglineKey)}
-      </AppText>
-      <AppText variant="bodySm" color="ink">
-        {t(character.roleKey)}
-      </AppText>
-      <View
+      <Image
+        testID={`character-portrait-${character.id}`}
+        accessible={false}
+        source={characterPortrait(character.id)}
+        resizeMode="cover"
         style={{
-          alignSelf: 'flex-start',
-          paddingHorizontal: space[2],
-          paddingVertical: space[1],
-          borderRadius: radius.sm,
-          backgroundColor: color.brandSoft,
+          height: space[12] * 2.5,
+          width: space[12] * 2.5 * PORTRAIT_ASPECT,
+          borderRadius: radius.md,
+          backgroundColor: color.night,
         }}
-      >
-        <AppText variant="caption" color="brand">
-          {character.tone === 'night' ? t('characterSelect.toneNight') : t('characterSelect.toneLight')}
+      />
+      <View style={{ flex: 1, gap: space[2] }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: space[2],
+          }}
+        >
+          <AppText variant="displayMd" color="ink" style={{ flexShrink: 1 }}>
+            {name}
+          </AppText>
+          <AiCharacterBadge />
+        </View>
+        <AppText variant="bodySm" color="inkMuted">
+          {t(character.taglineKey)}
         </AppText>
+        <AppText variant="bodySm" color="ink">
+          {t(character.roleKey)}
+        </AppText>
+        <View
+          style={{
+            alignSelf: 'flex-start',
+            paddingHorizontal: space[2],
+            paddingVertical: space[1],
+            borderRadius: radius.sm,
+            backgroundColor: color.brandSoft,
+          }}
+        >
+          <AppText variant="caption" color="brand">
+            {character.tone === 'night'
+              ? t('characterSelect.toneNight')
+              : t('characterSelect.toneLight')}
+          </AppText>
+        </View>
       </View>
     </Pressable>
   );

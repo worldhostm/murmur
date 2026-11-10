@@ -407,29 +407,131 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
       "borderColor": "#A98BFF",
       "borderRadius": 24,
       "borderWidth": 2,
-      "gap": 8,
+      "flexDirection": "row",
+      "gap": 12,
       "padding": 16,
     }
   }
   testID="character-card-seo-doyoon"
 >
+  <Image
+    accessible={false}
+    resizeMode="cover"
+    source={
+      {
+        "testUri": "../../../apps/mobile/assets/characters/seo-doyoon.png",
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#2A2040",
+        "borderRadius": 16,
+        "height": 120,
+        "width": 68.5,
+      }
+    }
+    testID="character-portrait-seo-doyoon"
+  />
   <View
     style={
       {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
+        "flex": 1,
+        "gap": 8,
       }
     }
   >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Serif KR",
+              "fontSize": 28,
+              "fontWeight": "600",
+              "lineHeight": 36,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            {
+              "flexShrink": 1,
+            },
+          ]
+        }
+      >
+        서도윤
+      </Text>
+      <View
+        accessibilityLabel="AI 캐릭터"
+        accessibilityRole="text"
+        style={
+          {
+            "alignSelf": "flex-start",
+            "backgroundColor": "#211A2C",
+            "borderColor": "#FF8FBE",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "paddingHorizontal": 8,
+            "paddingVertical": 4,
+          }
+        }
+        testID="ai-character-badge"
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              },
+              {
+                "color": "#FF8FBE",
+              },
+              undefined,
+            ]
+          }
+        >
+          AI 캐릭터
+        </Text>
+      </View>
+    </View>
     <Text
       style={
         [
           {
-            "fontFamily": "Noto Serif KR",
-            "fontSize": 28,
-            "fontWeight": "600",
-            "lineHeight": 36,
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 13,
+            "fontWeight": "400",
+            "lineHeight": 20,
+          },
+          {
+            "color": "#B3A8C4",
+          },
+          undefined,
+        ]
+      }
+    >
+      새벽 3시의 서울, 골목 끝 작은 바
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 13,
+            "fontWeight": "400",
+            "lineHeight": 20,
           },
           {
             "color": "#F2EDF8",
@@ -438,23 +540,18 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
         ]
       }
     >
-      서도윤
+      하루 끝에 말없이 들어주는 사람
     </Text>
     <View
-      accessibilityLabel="AI 캐릭터"
-      accessibilityRole="text"
       style={
         {
           "alignSelf": "flex-start",
-          "backgroundColor": "#211A2C",
-          "borderColor": "#FF8FBE",
+          "backgroundColor": "#2C2142",
           "borderRadius": 8,
-          "borderWidth": 1,
           "paddingHorizontal": 8,
           "paddingVertical": 4,
         }
       }
-      testID="ai-character-badge"
     >
       <Text
         style={
@@ -466,81 +563,15 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
               "lineHeight": 16,
             },
             {
-              "color": "#FF8FBE",
+              "color": "#A98BFF",
             },
             undefined,
           ]
         }
       >
-        AI 캐릭터
+        밤
       </Text>
     </View>
-  </View>
-  <Text
-    style={
-      [
-        {
-          "fontFamily": "Noto Sans KR",
-          "fontSize": 13,
-          "fontWeight": "400",
-          "lineHeight": 20,
-        },
-        {
-          "color": "#B3A8C4",
-        },
-        undefined,
-      ]
-    }
-  >
-    새벽 3시의 서울, 골목 끝 작은 바
-  </Text>
-  <Text
-    style={
-      [
-        {
-          "fontFamily": "Noto Sans KR",
-          "fontSize": 13,
-          "fontWeight": "400",
-          "lineHeight": 20,
-        },
-        {
-          "color": "#F2EDF8",
-        },
-        undefined,
-      ]
-    }
-  >
-    하루 끝에 말없이 들어주는 사람
-  </Text>
-  <View
-    style={
-      {
-        "alignSelf": "flex-start",
-        "backgroundColor": "#2C2142",
-        "borderRadius": 8,
-        "paddingHorizontal": 8,
-        "paddingVertical": 4,
-      }
-    }
-  >
-    <Text
-      style={
-        [
-          {
-            "fontFamily": "Noto Sans KR",
-            "fontSize": 12,
-            "fontWeight": "500",
-            "lineHeight": 16,
-          },
-          {
-            "color": "#A98BFF",
-          },
-          undefined,
-        ]
-      }
-    >
-      밤
-    </Text>
   </View>
 </View>
 `;
@@ -1324,29 +1355,131 @@ exports[`components snapshot (light) CharacterCard 1`] = `
       "borderColor": "#6B3FD4",
       "borderRadius": 24,
       "borderWidth": 2,
-      "gap": 8,
+      "flexDirection": "row",
+      "gap": 12,
       "padding": 16,
     }
   }
   testID="character-card-seo-doyoon"
 >
+  <Image
+    accessible={false}
+    resizeMode="cover"
+    source={
+      {
+        "testUri": "../../../apps/mobile/assets/characters/seo-doyoon.png",
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#1A1324",
+        "borderRadius": 16,
+        "height": 120,
+        "width": 68.5,
+      }
+    }
+    testID="character-portrait-seo-doyoon"
+  />
   <View
     style={
       {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
+        "flex": 1,
+        "gap": 8,
       }
     }
   >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Noto Serif KR",
+              "fontSize": 28,
+              "fontWeight": "600",
+              "lineHeight": 36,
+            },
+            {
+              "color": "#1E1729",
+            },
+            {
+              "flexShrink": 1,
+            },
+          ]
+        }
+      >
+        서도윤
+      </Text>
+      <View
+        accessibilityLabel="AI 캐릭터"
+        accessibilityRole="text"
+        style={
+          {
+            "alignSelf": "flex-start",
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#B8366E",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "paddingHorizontal": 8,
+            "paddingVertical": 4,
+          }
+        }
+        testID="ai-character-badge"
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              },
+              {
+                "color": "#B8366E",
+              },
+              undefined,
+            ]
+          }
+        >
+          AI 캐릭터
+        </Text>
+      </View>
+    </View>
     <Text
       style={
         [
           {
-            "fontFamily": "Noto Serif KR",
-            "fontSize": 28,
-            "fontWeight": "600",
-            "lineHeight": 36,
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 13,
+            "fontWeight": "400",
+            "lineHeight": 20,
+          },
+          {
+            "color": "#5E5470",
+          },
+          undefined,
+        ]
+      }
+    >
+      새벽 3시의 서울, 골목 끝 작은 바
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 13,
+            "fontWeight": "400",
+            "lineHeight": 20,
           },
           {
             "color": "#1E1729",
@@ -1355,23 +1488,18 @@ exports[`components snapshot (light) CharacterCard 1`] = `
         ]
       }
     >
-      서도윤
+      하루 끝에 말없이 들어주는 사람
     </Text>
     <View
-      accessibilityLabel="AI 캐릭터"
-      accessibilityRole="text"
       style={
         {
           "alignSelf": "flex-start",
-          "backgroundColor": "#FFFFFF",
-          "borderColor": "#B8366E",
+          "backgroundColor": "#EBE3FD",
           "borderRadius": 8,
-          "borderWidth": 1,
           "paddingHorizontal": 8,
           "paddingVertical": 4,
         }
       }
-      testID="ai-character-badge"
     >
       <Text
         style={
@@ -1383,81 +1511,15 @@ exports[`components snapshot (light) CharacterCard 1`] = `
               "lineHeight": 16,
             },
             {
-              "color": "#B8366E",
+              "color": "#6B3FD4",
             },
             undefined,
           ]
         }
       >
-        AI 캐릭터
+        밤
       </Text>
     </View>
-  </View>
-  <Text
-    style={
-      [
-        {
-          "fontFamily": "Noto Sans KR",
-          "fontSize": 13,
-          "fontWeight": "400",
-          "lineHeight": 20,
-        },
-        {
-          "color": "#5E5470",
-        },
-        undefined,
-      ]
-    }
-  >
-    새벽 3시의 서울, 골목 끝 작은 바
-  </Text>
-  <Text
-    style={
-      [
-        {
-          "fontFamily": "Noto Sans KR",
-          "fontSize": 13,
-          "fontWeight": "400",
-          "lineHeight": 20,
-        },
-        {
-          "color": "#1E1729",
-        },
-        undefined,
-      ]
-    }
-  >
-    하루 끝에 말없이 들어주는 사람
-  </Text>
-  <View
-    style={
-      {
-        "alignSelf": "flex-start",
-        "backgroundColor": "#EBE3FD",
-        "borderRadius": 8,
-        "paddingHorizontal": 8,
-        "paddingVertical": 4,
-      }
-    }
-  >
-    <Text
-      style={
-        [
-          {
-            "fontFamily": "Noto Sans KR",
-            "fontSize": 12,
-            "fontWeight": "500",
-            "lineHeight": 16,
-          },
-          {
-            "color": "#6B3FD4",
-          },
-          undefined,
-        ]
-      }
-    >
-      밤
-    </Text>
   </View>
 </View>
 `;

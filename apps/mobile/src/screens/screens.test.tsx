@@ -59,6 +59,13 @@ describe('OnboardingScreen', () => {
 });
 
 describe('CharacterSelectScreen', () => {
+  it('shows a portrait for every character', () => {
+    renderWithTheme(<CharacterSelectScreen onConfirm={() => undefined} />);
+    for (const id of ['seo-doyoon', 'leon-hart', 'han-seorin', 'sera']) {
+      expect(screen.getByTestId(`character-portrait-${id}`)).toBeTruthy();
+    }
+  });
+
   it('lists 4 AI characters, each with an AI badge, and confirms the selection', () => {
     const onConfirm = jest.fn();
     renderWithTheme(<CharacterSelectScreen onConfirm={onConfirm} />);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable, TextInput, View } from 'react-native';
+import { Image, Pressable, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AI_CHARACTERS } from '@murmur/shared-types';
 import type { AiCharacterId } from '@murmur/shared-types';
@@ -14,6 +14,7 @@ import {
   SpeakingIndicator,
 } from '../components';
 import { useTheme } from '../theme';
+import { characterPortrait } from '../avatar/characterImages';
 
 export interface SoloMessage {
   id: string;
@@ -71,8 +72,11 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
       )}
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[3] }}>
         <SpeakingIndicator speaking={!!props.speaking} diameter={48}>
-          <View
-            testID="avatar-placeholder"
+          <Image
+            testID="solo-portrait"
+            accessible={false}
+            source={characterPortrait(character.id)}
+            resizeMode="cover"
             style={{
               width: 40,
               height: 40,
