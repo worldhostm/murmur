@@ -15,3 +15,5 @@ export {
 export type { RestCheckInput } from './safety';
 export { ConversationPipeline } from './pipeline';
 export type { PipelineOptions, PipelineResponse } from './pipeline';
+export { ChatServer, parseChatBody } from './server';
+export type { ChatRequestBody, ChatResponseBody, ChatServerOptions } from './server';
