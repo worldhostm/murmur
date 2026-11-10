@@ -3,7 +3,7 @@ import { BackHandler } from 'react-native';
 import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { cueFromText, reactionTo } from '@murmur/expression-cues';
 import type { SpriteExpression } from '@murmur/expression-cues';
-import { ThemeProvider } from '../theme';
+import { ThemeProvider, useReduceMotion } from '../theme';
 import {
   CallScreen,
   CharacterSelectScreen,
@@ -85,6 +85,8 @@ export function AppNavigator({
   const [speaking, setSpeaking] = useState(false);
   const [support, setSupport] = useState<DeviceSupport | null>(deviceSupportOverride ?? null);
   const { t } = useTranslation();
+  // OS "동작 줄이기"를 Unity 에도 알린다 (아이들 모션·배경 빛 정지).
+  const reduceMotion = useReduceMotion();
   const replySeq = useRef(0);
   const nextId = useRef(0);
   // 답 어댑터: 서버 주소가 있으면 원격(ai-character) → 실패 시 스크립트 폴백, 없으면 스크립트만.
@@ -106,12 +108,14 @@ export function AppNavigator({
     enabled: route.name === 'solo',
     assetKey: avatarAssetKeyFor(characterId),
     expression,
+    reduceMotion,
   });
   // 통화 화면에 있을 때만 트래킹. PoC: 내 표정을 remote 슬롯(큰 아바타)에도 비춘다.
   const tracking = useFaceTracking({
     enabled: route.name === 'random-match',
     mirrorToRemote: true,
     assetKey: avatarAssetKeyFor(characterId),
+    reduceMotion,
   });
 
   // 뒤로가기: 화면 왼쪽 상단 버튼과 Android BACK 키가 같은 길을 간다. 솔로를 떠나면 대화는 비운다.

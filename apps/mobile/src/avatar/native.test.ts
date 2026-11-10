@@ -1,4 +1,9 @@
-import { blendShapeIndex, encodeFrame, frameFromJson, FRAME_BYTE_LENGTH } from '@murmur/face-protocol';
+import {
+  blendShapeIndex,
+  encodeFrame,
+  frameFromJson,
+  FRAME_BYTE_LENGTH,
+} from '@murmur/face-protocol';
 import type { FaceFrame } from '@murmur/face-protocol';
 import smile from '@murmur/face-protocol/fixtures/smile.json';
 
@@ -23,6 +28,7 @@ const unityNative = {
   loadAvatar: jest.fn(async () => undefined),
   pushFrame: jest.fn(),
   setTheme: jest.fn(),
+  setMotion: jest.fn(),
   dispose: jest.fn(async () => undefined),
 };
 const mockNativeModules: Record<string, unknown> = {};
@@ -131,6 +137,10 @@ describe('UnityAvatarRenderer', () => {
     expect(smileBytes).toHaveLength(FRAME_BYTE_LENGTH);
     renderer.setTheme('dark');
     expect(unityNative.setTheme).toHaveBeenCalledWith('dark');
+    renderer.setMotion(true);
+    expect(unityNative.setMotion).toHaveBeenCalledWith('reduced');
+    renderer.setMotion(false);
+    expect(unityNative.setMotion).toHaveBeenCalledWith('full');
     await renderer.dispose();
     expect(unityNative.dispose).toHaveBeenCalled();
   });

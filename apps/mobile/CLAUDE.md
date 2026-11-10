@@ -4,7 +4,7 @@ React Native 앱 셸. 일반 화면 전부를 TypeScript로 만든다. 아바타
 
 ## 주요 파일
 
-- `src/theme/` `ThemeProvider`(resolveTheme + 동작 줄이기 감지), `useTheme`(토큰 접근 유일 통로), `withAlpha`
+- `src/theme/` `ThemeProvider`(resolveTheme + 동작 줄이기 감지), `useTheme`(토큰 접근 유일 통로), `withAlpha`, `useReduceMotion`(OS 동작 줄이기 구독. ThemeProvider 와 AppNavigator 가 함께 쓰고, 렌더러 `setMotion` 으로 Unity 에도 전달)
 - `src/i18n/` i18next 설정과 `locales/ko.json`, `locales/en.json`. 모든 문구는 여기 키로만
 - `src/components/` AppText, Primary/SecondaryButton, AiCharacterBadge, ChatBubble, CharacterCard, CallControl, SpeakingIndicator, MoodCard, Screen
 - `src/screens/` Onboarding, CharacterSelect, Solo, Call
@@ -19,7 +19,7 @@ React Native 앱 셸. 일반 화면 전부를 TypeScript로 만든다. 아바타
 iOS (`ios/Murmur/`, Swift + ObjC `RCT_EXTERN_MODULE`, 브리징 헤더 `Murmur-Bridging-Header.h`)
 - `MurmurFaceTracker.swift/.m`: ARKit 얼굴 트래킹 (Face ID 기기만, `isSupported`). `start/stop/setDirectToUnity`. 이벤트 `murmur.faceFrame` `{ frame: base64, slot: 'local' }` 최대 30Hz, `murmur.trackingState` `{ state }`는 바뀔 때만
 - `FaceFrameEncoder.swift`: face-protocol 144바이트 인코더. `Generated/FaceProtocol.swift`는 `packages/face-protocol/dist/generated`에서 복사한 생성물(수정 금지)
-- `MurmurUnityBridge.swift/.m`: 모듈 `MurmurUnity` (`loadAvatar/pushFrame/setTheme/dispose`). Unity 임베드 전까지 `LoggingUnityProxy`. GameObject `MurmurBridge`의 `OnFaceFrame("<slot>|<base64>")`, `LoadAvatar("<slot>|<assetKey>")`, `SetTheme("light"|"dark")`
+- `MurmurUnityBridge.swift/.m`: 모듈 `MurmurUnity` (`loadAvatar/pushFrame/setTheme/setMotion/dispose`). Unity 임베드 전까지 `LoggingUnityProxy`. GameObject `MurmurBridge`의 `OnFaceFrame("<slot>|<base64>")`, `LoadAvatar("<slot>|<assetKey>")`, `SetTheme("light"|"dark")`, `SetMotion("full"|"reduced")`
 - direct-to-unity: 통화 중에는 트래커가 JS를 거치지 않고 `MurmurUnityBridge.shared.pushFrame`으로 바로 넘긴다. JS는 상태 이벤트만 받는다
 - `Info.plist`에 `NSCameraUsageDescription`. 픽셀 버퍼는 어떤 경로로도 JS·Unity에 가지 않는다
 

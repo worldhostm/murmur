@@ -9,11 +9,13 @@ interface NativeUnityModule {
   loadAvatar(slot: string, assetKey: string): Promise<void>;
   pushFrame(slot: string, base64: string): void;
   setTheme(theme: string): void;
+  setMotion(motion: string): void;
   dispose(): Promise<void>;
 }
 
 function getModule(): NativeUnityModule {
-  const mod = (NativeModules as Record<string, unknown>)[UNITY_MODULE] as NativeUnityModule | undefined;
+  const mod = (NativeModules as Record<string, unknown>)[UNITY_MODULE] as
+    NativeUnityModule | undefined;
   if (!mod) {
     throw new Error(
       `${UNITY_MODULE} 네이티브 모듈이 없습니다. Unity 임베드 전이거나 테스트라면 FakeAvatarRenderer를 쓰세요.`,
@@ -47,6 +49,10 @@ export class UnityAvatarRenderer implements AvatarRendererAdapter {
 
   setTheme(theme: 'light' | 'dark'): void {
     this.native.setTheme(theme);
+  }
+
+  setMotion(reduced: boolean): void {
+    this.native.setMotion(reduced ? 'reduced' : 'full');
   }
 
   async dispose(): Promise<void> {

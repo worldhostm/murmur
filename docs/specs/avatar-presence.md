@@ -1,6 +1,6 @@
 # 캐릭터 존재감: 목록 초상, 아바타 고정 토글, 살아 있는 배경
 
-작성: 2026-11-10. 상태: 계획(승인 대기).
+작성: 2026-11-10. 상태: 구현됨 (Android 에뮬레이터 확인).
 
 ## 목적
 
@@ -44,10 +44,10 @@
 
 ## 완료 조건
 
-- [ ] `pnpm --filter @murmur/mobile test`: 초상·토글·setMotion 테스트 통과, 스냅샷 갱신.
-- [ ] `pnpm unity:test`: IdleMotion·AmbientBackground·SetMotion 테스트 통과.
-- [ ] `pnpm lint`, `pnpm typecheck`, `pnpm unity:export:android && pnpm android:build` 통과.
-- [ ] Android 에뮬레이터: 캐릭터 고르기 카드에 초상, 솔로 화면 토글로 고정/스크롤 전환, 아바타가 숨쉬고 배경 빛이 움직인다. 에뮬레이터 "동작 줄이기"(`adb shell settings put global transition_animation_scale 0` 이 아니라 접근성 설정 `animator_duration_scale`/`accessibility` reduce motion)를 켜면 멈춘다.
+- [x] `pnpm --filter @murmur/mobile test`: 초상·토글·setMotion 테스트 통과, 스냅샷 갱신.
+- [x] `pnpm unity:test`: IdleMotion·AmbientBackground·SetMotion 테스트 통과.
+- [x] `pnpm lint`, `pnpm typecheck`, `pnpm unity:export:android && pnpm android:build` 통과.
+- [x] Android 에뮬레이터: 캐릭터 고르기 카드에 초상, 솔로 화면 토글로 고정/스크롤 전환, 아바타가 숨쉬고 배경 빛이 움직인다(1.5초 간격 두 프레임의 아바타 카드 픽셀 차이 16.9%). `adb shell settings put global transition_animation_scale 0`(RN 의 AccessibilityInfo.isReduceMotionEnabled 가 Android 에서 읽는 값)을 켜고 다시 띄우면 멈춘다(차이 0%).
 
 ## 열린 질문
 

@@ -1,11 +1,12 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useMemo } from 'react';
 import type { PropsWithChildren } from 'react';
-import { AccessibilityInfo, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
 import { color, motion, radius, size, space, text } from '@murmur/design-tokens';
 import type { ColorPalette, ThemeId } from '@murmur/design-tokens';
 import type { ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { resolveTheme } from './resolveTheme';
 import { platformFontFamily } from './fontFamily';
+import { useReduceMotion } from './useReduceMotion';
 
 type TextStyles = {
   -readonly [K in keyof typeof text]: {
@@ -54,26 +55,13 @@ export function ThemeProvider({
   children,
 }: PropsWithChildren<ThemeProviderProps>): React.JSX.Element {
   const scheme = useColorScheme();
-  const [reduceMotionOs, setReduceMotionOs] = useState(false);
-
-  useEffect(() => {
-    if (reduceMotionOverride !== undefined) return;
-    let alive = true;
-    AccessibilityInfo.isReduceMotionEnabled().then((v) => alive && setReduceMotionOs(v));
-    const sub = AccessibilityInfo.addEventListener('reduceMotionChanged', setReduceMotionOs);
-    return () => {
-      alive = false;
-      sub.remove();
-    };
-  }, [reduceMotionOverride]);
+  const reduceMotion = useReduceMotion(reduceMotionOverride);
 
   const id = resolveTheme({
     screen,
     userPreference,
     systemScheme: scheme === 'dark' ? 'dark' : 'light',
   });
-  const reduceMotion = reduceMotionOverride ?? reduceMotionOs;
-
   const value = useMemo<Theme>(
     () => ({ id, color: color[id], space, radius, text: TEXT_STYLES, size, motion, reduceMotion }),
     [id, reduceMotion],

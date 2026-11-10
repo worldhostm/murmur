@@ -12,6 +12,8 @@ RCT_EXTERN_METHOD(pushFrame:(NSString *)slot base64:(NSString *)base64)
 
 RCT_EXTERN_METHOD(setTheme:(NSString *)theme)
 
+RCT_EXTERN_METHOD(setMotion:(NSString *)motion)
+
 RCT_EXTERN_METHOD(dispose:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 

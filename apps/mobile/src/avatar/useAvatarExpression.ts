@@ -15,6 +15,8 @@ export interface UseAvatarExpressionOptions {
   slot?: AvatarSlot;
   /** 같은 표정이라도 이 주기로 다시 보낸다 (Unity 가 수신 끊김으로 굳히지 않게). 기본 1000ms. */
   heartbeatMs?: number;
+  /** OS "동작 줄이기". 렌더러의 아이들 모션·배경 빛을 멈춘다. */
+  reduceMotion?: boolean;
   /** 테스트용 주입. */
   createRenderer?: () => AvatarRendererAdapter;
 }
@@ -32,7 +34,14 @@ export interface AvatarExpressionResult {
  * 트래커를 쓰지 않으므로 카메라 권한이 필요 없다. 화면을 떠나면 렌더러를 정리한다.
  */
 export function useAvatarExpression(opts: UseAvatarExpressionOptions): AvatarExpressionResult {
-  const { enabled, assetKey, expression, slot = 'remote', heartbeatMs = 1000 } = opts;
+  const {
+    enabled,
+    assetKey,
+    expression,
+    slot = 'remote',
+    heartbeatMs = 1000,
+    reduceMotion = false,
+  } = opts;
   const [ready, setReady] = useState(false);
   const [pushes, setPushes] = useState(0);
   const [error, setError] = useState<string | undefined>(undefined);
@@ -62,6 +71,11 @@ export function useAvatarExpression(opts: UseAvatarExpressionOptions): AvatarExp
       void renderer.dispose();
     };
   }, [enabled, assetKey, slot]);
+
+  useEffect(() => {
+    if (!ready) return;
+    rendererRef.current?.setMotion(reduceMotion);
+  }, [ready, reduceMotion]);
 
   useEffect(() => {
     if (!ready) return;

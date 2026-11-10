@@ -23,7 +23,7 @@ object UnityPlayerProxy {
 
   val isAttached: Boolean get() = sender != null
 
-  /** Unity 쪽 MurmurBridge.Start() 가 onUnityReady() 를 부르기 전까지 LoadAvatar/SetTheme 는 큐에 담는다 (프레임은 버린다). */
+  /** Unity 쪽 MurmurBridge.Start() 가 onUnityReady() 를 부르기 전까지 LoadAvatar/SetTheme/SetMotion 은 큐에 담는다 (프레임은 버린다). */
   @Volatile private var ready = false
   private val pending = ArrayDeque<Pair<String, String>>()
   private const val PENDING_MAX = 32
@@ -64,6 +64,8 @@ object UnityPlayerProxy {
   fun loadAvatar(slot: String, assetKey: String) = send("LoadAvatar", "$slot|$assetKey")
 
   fun setTheme(theme: String) = send("SetTheme", theme)
+
+  fun setMotion(motion: String) = send("SetMotion", motion)
 
   private fun send(method: String, message: String) {
     val s = sender

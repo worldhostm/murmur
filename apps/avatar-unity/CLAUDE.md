@@ -18,6 +18,9 @@ Unity 6 (6000.0.84f1) 프로젝트 뼈대. Unity Hub에서 이 폴더를 열면 
 | `SpriteSheetAvatarLoader.cs` | 에셋 키 `characters/<id>/front` → `Resources/Characters/<id>` 아틀라스(137×240 셀 5×2, `scripts/slice-expression-sheet.py`)를 입힌 쿼드. 실사형 렌더 전 PoC (docs/specs/character-sprite-avatar.md) |
 | `SpriteExpression.cs` | 시트 10칸 enum + `SpriteExpressionClassifier`(블렌드셰이프 → 칸, 우선순위 규칙) |
 | `SpriteExpressionDriver.cs` | 스무딩 → 분류 → UV offset 전환(최소 유지 150ms), 머리 roll 기울기·평행이동 |
+| `IdleMotion.cs` | 스프라이트 루트의 숨쉬기·bob·roll 흔들림 (피벗은 표정 드라이버 몫). `MotionSettings.Reduced` 면 정지 자세 |
+| `AmbientBackground.cs` | 아바타 뒤 빛 덩어리 3개(런타임 방사형 텍스처, `Resources/Murmur/GlowUnlit`)가 느리게 떠다닌다. 테마별 토큰 색. `ThemeBackground` 가 런타임에 붙인다 |
+| `MotionSettings.cs` | OS "동작 줄이기" 플래그. `MurmurBridge.SetMotion("reduced"|"full")` |
 | `PrimitiveExpressionDriver.cs` | 마스코트 표정: jawOpen→입 세로, smile/frown→입 가로·높이, blink/wide→눈, browInnerUp/browDown→눈썹, cheekPuff→머리 가로, tongueOut→혀. Lost면 중립으로 |
 | `BlendShapeDriver.cs` | ARKit 52개 → SkinnedMeshRenderer 블렌드셰이프 (이름 끝부분 매칭, 스무딩) |
 | `HeadPoseDriver.cs` | 쿼터니언 → 머리 본 (오른손→왼손 변환, 각도 clamp) |

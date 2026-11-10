@@ -119,6 +119,7 @@ final class MurmurUnityBridge {
     static let methodOnFaceFrame = "OnFaceFrame"
     static let methodLoadAvatar = "LoadAvatar"
     static let methodSetTheme = "SetTheme"
+    static let methodSetMotion = "SetMotion"
 
     /// 프레임워크가 번들에 있으면 동적 프록시, 없으면 로그.
     var proxy: UnityFrameworkProxy = DynamicUnityProxy.shared.isAvailable ? DynamicUnityProxy.shared : LoggingUnityProxy()
@@ -145,6 +146,11 @@ final class MurmurUnityBridge {
         proxy.sendMessage(gameObject: Self.gameObject, method: Self.methodSetTheme, message: theme)
     }
 
+    /// OS "동작 줄이기": "reduced" | "full".
+    func setMotion(_ motion: String) {
+        proxy.sendMessage(gameObject: Self.gameObject, method: Self.methodSetMotion, message: motion)
+    }
+
     func dispose() {
         lock.lock(); loadedSlots.removeAll(); lock.unlock()
     }
@@ -168,6 +174,10 @@ final class MurmurUnity: NSObject {
 
     @objc func setTheme(_ theme: String) {
         MurmurUnityBridge.shared.setTheme(theme)
+    }
+
+    @objc func setMotion(_ motion: String) {
+        MurmurUnityBridge.shared.setMotion(motion)
     }
 
     @objc func dispose(_ resolve: @escaping RCTPromiseResolveBlock,

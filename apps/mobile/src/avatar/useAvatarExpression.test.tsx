@@ -56,6 +56,25 @@ describe('useAvatarExpression', () => {
     }
   });
 
+  it('forwards the reduce-motion setting to the renderer after load and when it changes', async () => {
+    const renderer = new FakeAvatarRenderer();
+    const { result, rerender } = renderHook(
+      ({ reduceMotion }: { reduceMotion: boolean }) =>
+        useAvatarExpression({
+          enabled: true,
+          assetKey: 'characters/sera/front',
+          expression: 'neutral',
+          reduceMotion,
+          createRenderer: () => renderer,
+        }),
+      { initialProps: { reduceMotion: true } },
+    );
+    await waitFor(() => expect(result.current.ready).toBe(true));
+    expect(renderer.motion).toBe('reduced');
+    rerender({ reduceMotion: false });
+    await waitFor(() => expect(renderer.motion).toBe('full'));
+  });
+
   it('does nothing while disabled', () => {
     const createRenderer = jest.fn(() => new FakeAvatarRenderer());
     const { result } = renderHook(() =>

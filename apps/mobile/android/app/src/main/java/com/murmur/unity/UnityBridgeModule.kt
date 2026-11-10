@@ -28,6 +28,12 @@ class UnityBridgeModule(ctx: ReactApplicationContext) : ReactContextBaseJavaModu
     UnityPlayerProxy.setTheme(theme)
   }
 
+  /** OS "동작 줄이기": "reduced" | "full". */
+  @ReactMethod
+  fun setMotion(motion: String) {
+    UnityPlayerProxy.setMotion(motion)
+  }
+
   @ReactMethod
   fun dispose(promise: Promise) {
     promise.resolve(null)

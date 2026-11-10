@@ -25,5 +25,7 @@ export interface AvatarRendererAdapter {
   loadAvatar(slot: AvatarSlot, assetKey: string): Promise<void>;
   pushFrame(slot: AvatarSlot, encoded: Uint8Array): void;
   setTheme(theme: 'light' | 'dark'): void;
+  /** OS "동작 줄이기". true 면 아이들 모션·배경 빛을 멈춘다. */
+  setMotion(reduced: boolean): void;
   dispose(): Promise<void>;
 }

@@ -82,12 +82,38 @@ namespace Murmur.Editor
             Debug.Log($"created {SpriteMaterialPath}");
         }
 
+        public const string GlowMaterialPath = "Assets/Murmur/Resources/" + AmbientBackground.MaterialResource + ".mat";
+
+        /// <summary>배경 빛 쿼드용 URP Unlit 투명 머티리얼 (Cull Off, ZWrite Off). Resources 에 있어야 빌드에 투명 변형이 포함된다.</summary>
+        [MenuItem("Murmur/Create Glow Material")]
+        public static void EnsureGlowMaterial()
+        {
+            if (AssetDatabase.LoadAssetAtPath<Material>(GlowMaterialPath) != null) return;
+            var shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Transparent");
+            if (shader == null) throw new System.InvalidOperationException("URP Unlit 셰이더를 찾지 못했다");
+            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(GlowMaterialPath));
+            var mat = new Material(shader) { color = Color.white };
+            mat.SetFloat("_Surface", 1f); // Transparent
+            mat.SetFloat("_Blend", 0f); // Alpha
+            mat.SetFloat("_ZWrite", 0f);
+            mat.SetFloat("_Cull", 0f); // Off: 카메라가 +Z 쪽에서 본다
+            mat.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            mat.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            mat.SetOverrideTag("RenderType", "Transparent");
+            mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+            AssetDatabase.CreateAsset(mat, GlowMaterialPath);
+            AssetDatabase.SaveAssets();
+            Debug.Log($"created {GlowMaterialPath}");
+        }
+
         [MenuItem("Murmur/Create Call Scene")]
         public static void CreateCallScene()
         {
             EnsureRenderPipeline();
             EnsurePrimitiveMaterial();
             EnsureSpriteMaterial();
+            EnsureGlowMaterial();
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             var camGo = new GameObject("Main Camera");

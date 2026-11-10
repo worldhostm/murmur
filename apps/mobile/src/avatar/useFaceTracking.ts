@@ -6,13 +6,7 @@ import type { AvatarRendererAdapter, AvatarSlot, FaceTrackerAdapter } from './ty
 import { createAvatarRenderer, createFaceTracker } from './createAdapters';
 
 export type FaceTrackingStatus =
-  | 'idle'
-  | 'starting'
-  | 'tracking'
-  | 'limited'
-  | 'lost'
-  | 'permission-denied'
-  | 'error';
+  'idle' | 'starting' | 'tracking' | 'limited' | 'lost' | 'permission-denied' | 'error';
 
 export interface UseFaceTrackingOptions {
   enabled: boolean;
@@ -20,6 +14,8 @@ export interface UseFaceTrackingOptions {
   mirrorToRemote?: boolean;
   /** 슬롯에 로드할 아바타 에셋 키. 기본 builtin/primitive (VRM 전 테스트 아바타). */
   assetKey?: string;
+  /** OS "동작 줄이기". 렌더러의 아이들 모션·배경 빛을 멈춘다. */
+  reduceMotion?: boolean;
   /** 테스트·스토리북용 주입. */
   createTracker?: () => FaceTrackerAdapter;
   createRenderer?: () => AvatarRendererAdapter;
@@ -52,7 +48,14 @@ async function ensureCameraPermission(): Promise<boolean> {
  * 원본 영상은 어디에도 닿지 않는다. 화면을 떠나면 트래커를 멈추고 렌더러를 정리한다.
  */
 export function useFaceTracking(opts: UseFaceTrackingOptions): FaceTrackingResult {
-  const { enabled, mirrorToRemote = false, assetKey = 'builtin/primitive' } = opts;
+  const {
+    enabled,
+    mirrorToRemote = false,
+    assetKey = 'builtin/primitive',
+    reduceMotion = false,
+  } = opts;
+  const rendererRef = useRef<AvatarRendererAdapter | null>(null);
+  const [rendererReady, setRendererReady] = useState(false);
   const [status, setStatus] = useState<FaceTrackingStatus>('idle');
   const [fps, setFps] = useState(0);
   const [frames, setFrames] = useState(0);
@@ -92,7 +95,9 @@ export function useFaceTracking(opts: UseFaceTrackingOptions): FaceTrackingResul
         }
         tracker = (createTrackerRef.current ?? createFaceTracker)();
         renderer = (createRendererRef.current ?? createAvatarRenderer)();
+        rendererRef.current = renderer;
         for (const slot of slots) await renderer.loadAvatar(slot, assetKey);
+        if (alive) setRendererReady(true);
         unsubscribe = tracker.onFrame((frame) => {
           if (!alive || !renderer) return;
           const encoded = encodeFrame(frame);
@@ -112,12 +117,19 @@ export function useFaceTracking(opts: UseFaceTrackingOptions): FaceTrackingResul
 
     return () => {
       alive = false;
+      setRendererReady(false);
+      rendererRef.current = null;
       clearInterval(ticker);
       unsubscribe?.();
       void tracker?.stop();
       void renderer?.dispose();
     };
   }, [enabled, mirrorToRemote, assetKey]);
+
+  useEffect(() => {
+    if (!rendererReady) return;
+    rendererRef.current?.setMotion(reduceMotion);
+  }, [rendererReady, reduceMotion]);
 
   return { status, fps, frames, error };
 }

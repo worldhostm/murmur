@@ -76,6 +76,8 @@ namespace Murmur
 
             var driver = root.AddComponent<SpriteExpressionDriver>();
             driver.Bind(renderer, pivot);
+            // 숨쉬기·흔들림은 루트에, 표정·머리 포즈는 피벗에 (서로 덮어쓰지 않는다).
+            root.AddComponent<IdleMotion>().CaptureRest();
             return root;
         }
     }

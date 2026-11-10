@@ -8,7 +8,7 @@ namespace Murmur
     /// 네이티브(RN 브리지)에서 UnitySendMessage 로 호출하는 단일 진입점.
     /// 게임 오브젝트 이름은 반드시 "MurmurBridge". 메서드 이름과 메시지 형식은
     /// apps/mobile 의 UnityPlayerProxy.kt / MurmurUnityBridge.swift 와 맞춘다.
-    ///   OnFaceFrame("slot|base64")   LoadAvatar("slot|assetKey")   SetTheme("light"|"dark")
+    ///   OnFaceFrame("slot|base64")   LoadAvatar("slot|assetKey")   SetTheme("light"|"dark")   SetMotion("full"|"reduced")
     /// </summary>
     public sealed class MurmurBridge : MonoBehaviour
     {
@@ -71,6 +71,12 @@ namespace Murmur
         {
             Theme = theme == "light" ? ThemeId.Light : ThemeId.Dark;
             if (background != null) background.Apply(Theme);
+        }
+
+        /// <summary>OS "동작 줄이기". 아이들 모션·배경 빛이 멈춘다.</summary>
+        public void SetMotion(string motion)
+        {
+            MotionSettings.Set(MotionSettings.Parse(motion));
         }
 
         private static bool Split(string message, out string head, out string tail)

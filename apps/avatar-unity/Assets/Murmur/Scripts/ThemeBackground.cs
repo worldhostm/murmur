@@ -7,18 +7,24 @@ namespace Murmur
     public sealed class ThemeBackground : MonoBehaviour
     {
         [SerializeField] private Camera targetCamera;
+        private AmbientBackground _ambient;
 
         private void Awake()
         {
             if (targetCamera == null) targetCamera = GetComponent<Camera>() ?? Camera.main;
+            // 배경의 느린 빛 움직임 (docs/specs/avatar-presence.md 3). 씬 파일을 바꾸지 않고 런타임에 붙인다.
+            _ambient = GetComponent<AmbientBackground>() ?? gameObject.AddComponent<AmbientBackground>();
             Apply(ThemeId.Dark);
         }
 
         public void Apply(ThemeId theme)
         {
-            if (targetCamera == null) return;
-            targetCamera.clearFlags = CameraClearFlags.SolidColor;
-            targetCamera.backgroundColor = theme == ThemeId.Light ? Tokens.Light.Night : Tokens.Dark.Night;
+            if (targetCamera != null)
+            {
+                targetCamera.clearFlags = CameraClearFlags.SolidColor;
+                targetCamera.backgroundColor = theme == ThemeId.Light ? Tokens.Light.Night : Tokens.Dark.Night;
+            }
+            if (_ambient != null) _ambient.ApplyTheme(theme);
         }
     }
 }

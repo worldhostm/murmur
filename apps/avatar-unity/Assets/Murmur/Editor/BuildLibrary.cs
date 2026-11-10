@@ -22,6 +22,7 @@ namespace Murmur.Editor
             SceneSetup.EnsureRenderPipeline();
             SceneSetup.EnsurePrimitiveMaterial();
             SceneSetup.EnsureSpriteMaterial();
+            SceneSetup.EnsureGlowMaterial();
             var output = Path.Combine(ProjectRoot(), "Builds", "android");
             if (Directory.Exists(output)) Directory.Delete(output, true);
             Directory.CreateDirectory(output);
@@ -60,6 +61,7 @@ namespace Murmur.Editor
             SceneSetup.EnsureRenderPipeline();
             SceneSetup.EnsurePrimitiveMaterial();
             SceneSetup.EnsureSpriteMaterial();
+            SceneSetup.EnsureGlowMaterial();
             var output = Path.Combine(ProjectRoot(), "Builds", folder);
             Directory.CreateDirectory(output);
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.iOS, "com.murmur.unity");
