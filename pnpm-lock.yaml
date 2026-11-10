@@ -52,6 +52,9 @@ importers:
       '@murmur/design-tokens':
         specifier: workspace:*
         version: link:../../packages/design-tokens
+      '@murmur/expression-cues':
+        specifier: workspace:*
+        version: link:../../packages/expression-cues
       '@murmur/face-protocol':
         specifier: workspace:*
         version: link:../../packages/face-protocol
@@ -125,6 +128,12 @@ importers:
 
   packages/design-tokens: {}
 
+  packages/expression-cues:
+    dependencies:
+      '@murmur/face-protocol':
+        specifier: workspace:*
+        version: link:../face-protocol
+
   packages/face-protocol: {}
 
   packages/shared-types:
@@ -135,12 +144,19 @@ importers:
 
   services/ai-character:
     dependencies:
+      '@murmur/expression-cues':
+        specifier: workspace:*
+        version: link:../../packages/expression-cues
       '@murmur/face-protocol':
         specifier: workspace:*
         version: link:../../packages/face-protocol
       '@murmur/shared-types':
         specifier: workspace:*
         version: link:../../packages/shared-types
+    devDependencies:
+      tsx:
+        specifier: ^4.19.2
+        version: 4.23.15
 
   services/signaling:
     dependencies:

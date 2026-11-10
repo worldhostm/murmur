@@ -1,4 +1,6 @@
 import type { FaceFrame } from '@murmur/face-protocol';
+import { cueFromText } from '@murmur/expression-cues';
+import type { SpriteExpression } from '@murmur/expression-cues';
 import type {
   ChatMessage,
   ExpressionSignals,
@@ -27,6 +29,8 @@ export interface PipelineResponse {
   audioChunks: Uint8Array[];
   /** true 면 LLM 을 거치지 않고 위기 안내를 냈다. */
   crisis: boolean;
+  /** 답 텍스트에서 뽑은 캐릭터 표정(표정 시트 10칸). 위기 안내는 항상 worried. LLM 이 감정 태그를 직접 내기 전까지의 휴리스틱. */
+  expression: SpriteExpression;
 }
 
 /**
@@ -97,7 +101,8 @@ export class ConversationPipeline {
     const last = frames[frames.length - 1];
     if (last) this.clockMs = last.timestampMs + 1000 / this.fps;
 
-    return { text, frames, audioChunks, crisis };
+    const expression: SpriteExpression = crisis ? 'worried' : cueFromText(text);
+    return { text, frames, audioChunks, crisis, expression };
   }
 
   getHistory(): readonly ChatMessage[] {

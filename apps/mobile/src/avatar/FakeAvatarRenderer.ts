@@ -12,6 +12,7 @@ export class FakeAvatarRenderer implements AvatarRendererAdapter {
   readonly lastFrame = new Map<AvatarSlot, FaceFrame>();
   frameCount = 0;
   theme: 'light' | 'dark' = 'light';
+  motion: 'full' | 'reduced' = 'full';
   disposed = false;
 
   async loadAvatar(slot: AvatarSlot, assetKey: string): Promise<void> {
@@ -26,6 +27,10 @@ export class FakeAvatarRenderer implements AvatarRendererAdapter {
 
   setTheme(theme: 'light' | 'dark'): void {
     this.theme = theme;
+  }
+
+  setMotion(reduced: boolean): void {
+    this.motion = reduced ? 'reduced' : 'full';
   }
 
   async dispose(): Promise<void> {

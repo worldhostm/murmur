@@ -26,6 +26,7 @@ describe('ConversationPipeline', () => {
     const res = await pipeline.respond(text, NEUTRAL_SIGNALS);
     expect(res.crisis).toBe(false);
     expect(res.text).toBe('됐고. 뭐가 막혔는데.');
+    expect(res.expression).toBe('neutral');
     expect(res.frames.length).toBeGreaterThan(0);
     expect(llm.calls).toHaveLength(1);
     expect(llm.calls[0]!.system).toContain('세라');
@@ -42,8 +43,15 @@ describe('ConversationPipeline', () => {
     const res = await pipeline.respond('죽고 싶어', NEUTRAL_SIGNALS);
     expect(res.crisis).toBe(true);
     expect(res.text).toContain('109');
+    expect(res.expression).toBe('worried');
     expect(llm.calls).toHaveLength(0);
     expect(res.frames.length).toBeGreaterThan(0);
+  });
+
+  it('derives the character expression from the reply text', async () => {
+    const { pipeline } = make(['ㅋㅋㅋ 그거 완전 최고네.']);
+    const res = await pipeline.respond('오늘 승진했어', NEUTRAL_SIGNALS);
+    expect(res.expression).toBe('bigSmile');
   });
 
   it('history is bounded and frame timestamps advance across turns', async () => {

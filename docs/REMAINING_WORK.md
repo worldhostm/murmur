@@ -9,7 +9,7 @@
 | 1 | iOS 네이티브 빌드 (ARKit 트래커, Unity 브리지) | **빌드 완료**. 시뮬레이터 실행 확인(게이트 화면). 실기기 ARKit 트래킹·Unity 표시 **미확인** | 테스트용 iPhone 없음 (테스트 폰은 Android 1대뿐) |
 | 2 | Unity 에디터에서 프로젝트 열기·패키지 해석·Test Runner | **완료** (EditMode 10개 통과, `pnpm unity:test`) | — |
 | 3 | Unity as a Library 연결 (Android/iOS) | **Android 연결 완료**(APK 빌드, 에뮬레이터에서 UnityPlayer 생성 확인). iOS 는 프레임워크 포함 빌드까지 완료 | 실기기 확인 없음 (아래 5~6) |
-| 4 | VRM 로더 (`IAvatarLoader` 구현)와 VRM 1.0 Expression 매핑 | 인터페이스 + 원시 도형 로더(`PrimitiveAvatarLoader`)만 | 실기기 측정이 먼저. VRM 모델 파일 선정도 필요 |
+| 4 | 캐릭터 렌더 | **PoC 완료**: 표정 시트 10칸을 표정 수치로 골라 보여주는 2D 스프라이트(`docs/specs/character-sprite-avatar.md`). 기획의 최종 방식(실사형 신경망 구동)과 VRM 로더는 미착수 | 실사형은 서버 GPU·외주 원화 필요. 현재 아틀라스는 AI 생성 시안 |
 | 5 | 2020년 보급형 Android 기기 트래킹 품질·지연 측정 | 측정 코드(FrameTimingProbe, `[perf]` 로그) 작성됨 | **폰을 지금 연결할 수 없음** (2026-11-06 기준). 절차는 아래 5~6 에 정리 |
 | 6 | Android 앱 실기기 실행 | 에뮬레이터(Pixel 8, API 36, swiftshader) 에서 게이트 통과 → 통화 화면 진입 → Unity 아바타 표시·트래커 CPU 폴백까지 확인. 드러난 문제 8건 수정 (3번 항목) | 실기기 미연결 |
 | 7 | react-navigation 교체 | 임시 내비게이터 사용 중 | 우선순위상 뒤로 미룸 |
@@ -39,10 +39,17 @@ Hub 로그인 후 배치 모드 동작. UniVRM 0.128.3 은 `com.unity.timeline` 
   6. 비활성으로 시작하는 local 슬롯은 Awake 가 돌지 않아 `IAvatarLoader` 를 못 찾음 → `Load()` 에서 지연 조회.
   7. 눈·입·눈썹이 0.3 배 스케일된 머리 구의 자식이라 구 안에 숨음 → 머리 피벗(스케일 1)과 구 메시를 분리.
   8. 내장 메시 `Sphere.fbx` 는 반지름 1(CreatePrimitive 구의 두 배)이라 머리가 화면을 채우고 눈·입이 묻힘 → 내장 메시를 반지름 0.5 로 정규화한 복사본 사용. 로드 시 `[PrimitiveAvatar]` 로그로 카메라·머리·눈 배치를 남긴다.
+  9. (2026-11-09) 캐릭터 표정 시트 아바타(`SpriteSheetAvatarLoader`)가 로드 로그만 찍히고 화면엔 배경색만 보임 → 내장 Quad 의 정면이 -Z 인데 카메라가 +Z 쪽에서 봐서 뒷면 컬링. 쿼드 Z 스케일을 -1 로 뒤집어 법선만 돌림(좌우 반전 없음). EditMode 테스트 `QuadFacesTheCallCameraWithoutMirroring` 추가.
+  10. (2026-11-09) AVD 기본 설정(`hw.camera.front=none`)이면 트래커가 "camera bind failed" 로 시작하지 못한다 → 에뮬레이터를 `emulator -avd Pixel_8_API36 -gpu swiftshader_indirect -camera-front emulated` 로 띄운다.
 - **에뮬레이터 결과**: 통화 화면에 Lavender 머리와 눈·눈썹·입이 Night 배경 위에 그려지고 RN 오버레이가 위에 보인다. Unity `[perf]` 프레임 평균 33~46ms(swiftshader), 수신→렌더 0.0~0.2ms, drop 0. 에뮬레이터 카메라에는 얼굴이 없어 트래킹 라벨은 "얼굴이 보이지 않아요" 로 멈춘다. 표정 반응은 실기기에서만 확인할 수 있다.
 - **남은 것**: iOS 에 같은 준비 콜백(`MurmurBridge.NotifyNativeReady` 의 iOS 분기 + `MurmurUnityBridge.swift` 큐)과 `resume` 에 해당하는 처리. 카메라 소유권은 현재 구조(네이티브 트래커가 카메라를 쥐고 Unity 는 프레임만 받음)로 확정.
 
-## 4. VRM 로더
+## 4. 캐릭터 렌더
+
+- **해 둔 것 (2026-11-06)**: `SpriteSheetAvatarLoader` + `SpriteExpressionDriver`. 캐릭터 선택 → 통화 화면에서 `characters/<id>/front` 키로 해당 캐릭터 아틀라스를 로드하고, 블렌드셰이프를 10칸(기본·미소 2단계·활짝 웃음·진지·놀람·당황·걱정·슬픔·화남)으로 분류해 보여준다. 아틀라스는 `scripts/slice-expression-sheet.py` 로 시트에서 자른다.
+- **이어서 할 일**: (a) 외주 납품본(2048px 정면 + 표정 시트)으로 아틀라스 교체, 셀 해상도 상향. (b) 립싱크(아·이·우·에·오 칸)와 눈 깜빡임 칸 추가 시 분류기 확장. (c) 기획의 실사형 렌더(LivePortrait 계열 서버 렌더 → 온디바이스)로 교체. (d) 실기기에서 표정 전환 확인.
+
+### VRM 로더 (3D 스타일라이즈드·마스코트용)
 
 - **해 둔 것**: `AvatarSlotController` 가 `IAvatarLoader` 를 찾아 `Load(assetKey)`. 기본 키 `builtin/primitive` 는 `PrimitiveAvatarLoader` 가 캡슐 + `PrimitiveExpressionDriver` 로 처리한다. `BlendShapeDriver` 는 메시 블렌드셰이프 이름 끝부분으로 ARKit 이름을 자동 매칭.
 - **이어서 할 일**: UniVRM 의 `Vrm10Instance` 로 로드하고 ARKit 52개 → VRM 1.0 Expression 매핑 테이블을 `VrmExpressionDriver.cs` 로 추가. 마스코트(사람 얼굴이 아닌 모델)는 별도 리타깃 테이블 필요 (PLANNING.md 표).
@@ -67,6 +74,8 @@ adb shell am start -n com.murmur/.MainActivity
 ```
 
 온보딩 → 캐릭터 선택 → "랜덤 매칭" 으로 통화 화면 진입. 카메라 권한 프롬프트에서 허용. 에뮬레이터 자동화에 쓴 `uiautomator dump` + `input tap` 방식은 실기기에서도 같다.
+
+솔로 채팅의 실제 LLM 답은 Mac 에서 `pnpm --filter @murmur/ai-character dev` 를 띄운 뒤, 실기기에서는 `apps/mobile/src/config.ts` 의 `AI_CHARACTER_URL` 을 Mac 의 LAN IP(`http://192.168.x.x:8787`)로 바꿔야 닿는다 (에뮬레이터는 `10.0.2.2` 로 자동).
 
 ### 확인 항목과 로그
 

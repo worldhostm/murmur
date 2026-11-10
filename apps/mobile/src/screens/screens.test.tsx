@@ -1,11 +1,14 @@
 import React from 'react';
+import { View } from 'react-native';
 import { fireEvent, screen } from '@testing-library/react-native';
 import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen } from './index';
 import { renderWithTheme, THEMES } from '../test/render';
 
 describe.each(THEMES)('screens snapshot (%s)', (theme) => {
   it('OnboardingScreen', () => {
-    expect(renderWithTheme(<OnboardingScreen onStart={() => undefined} />, { theme }).toJSON()).toMatchSnapshot();
+    expect(
+      renderWithTheme(<OnboardingScreen onStart={() => undefined} />, { theme }).toJSON(),
+    ).toMatchSnapshot();
   });
   it('SoloScreen', () => {
     expect(
@@ -27,7 +30,13 @@ describe.each(THEMES)('screens snapshot (%s)', (theme) => {
         <CallScreen
           mode="ai-call"
           state="connected"
-          peer={{ id: 'ai', isAi: true, aiCharacterId: 'seo-doyoon', avatarId: 'av', displayNameKey: 'character.seo-doyoon.name' }}
+          peer={{
+            id: 'ai',
+            isAi: true,
+            aiCharacterId: 'seo-doyoon',
+            avatarId: 'av',
+            displayNameKey: 'character.seo-doyoon.name',
+          }}
           peerSpeaking
           onToggleMute={() => undefined}
           onSwapAvatar={() => undefined}
@@ -51,6 +60,13 @@ describe('OnboardingScreen', () => {
 });
 
 describe('CharacterSelectScreen', () => {
+  it('shows a portrait for every character', () => {
+    renderWithTheme(<CharacterSelectScreen onConfirm={() => undefined} />);
+    for (const id of ['seo-doyoon', 'leon-hart', 'han-seorin', 'sera']) {
+      expect(screen.getByTestId(`character-portrait-${id}`)).toBeTruthy();
+    }
+  });
+
   it('lists 4 AI characters, each with an AI badge, and confirms the selection', () => {
     const onConfirm = jest.fn();
     renderWithTheme(<CharacterSelectScreen onConfirm={onConfirm} />);
@@ -87,6 +103,55 @@ describe('SoloScreen', () => {
     expect(screen.getByTestId('solo-input').props.value).toBe('');
   });
 
+  it('shows a back button at the top when onBack is given', () => {
+    const onBack = jest.fn();
+    renderWithTheme(<SoloScreen {...base} onBack={onBack} messages={[]} />);
+    fireEvent.press(screen.getByTestId('back-button'));
+    expect(onBack).toHaveBeenCalled();
+    expect(screen.getByLabelText('뒤로')).toBeTruthy();
+  });
+
+  it('sends a sample prompt chip as-is (dev-only expression test aid)', () => {
+    const onSend = jest.fn();
+    renderWithTheme(
+      <SoloScreen
+        {...base}
+        onSend={onSend}
+        messages={[]}
+        samplePrompts={['오늘 너무 힘들었어', 'ㅋㅋㅋ 완전 좋아']}
+      />,
+    );
+    expect(screen.getAllByTestId('solo-sample')).toHaveLength(2);
+    fireEvent.press(screen.getByText('ㅋㅋㅋ 완전 좋아'));
+    expect(onSend).toHaveBeenCalledWith('ㅋㅋㅋ 완전 좋아');
+  });
+
+  it('pins the avatar above a scroll view by default and lets the user toggle it to scroll along', () => {
+    renderWithTheme(
+      <SoloScreen {...base} messages={[]} renderer={<View testID="fake-renderer" />} />,
+    );
+    expect(screen.getByTestId('solo-avatar')).toBeTruthy();
+    expect(screen.getByTestId('solo-scroll')).toBeTruthy();
+    expect(screen.getByTestId('solo-avatar-pin-on')).toBeTruthy();
+    fireEvent.press(screen.getByTestId('solo-avatar-pin-on'));
+    expect(screen.getByTestId('solo-avatar-pin-off')).toBeTruthy();
+    expect(screen.queryByTestId('solo-scroll')).toBeNull();
+    expect(screen.getByTestId('solo-avatar')).toBeTruthy();
+    expect(screen.getByTestId('solo-input')).toBeTruthy();
+    expect(screen.getByTestId('solo-call-friend')).toBeTruthy();
+  });
+
+  it('shows no pin toggle and no inner scroll view without a renderer', () => {
+    renderWithTheme(<SoloScreen {...base} messages={[]} />);
+    expect(screen.queryByTestId('solo-avatar-pin-on')).toBeNull();
+    expect(screen.queryByTestId('solo-scroll')).toBeNull();
+  });
+
+  it('has no back button without onBack', () => {
+    renderWithTheme(<SoloScreen {...base} messages={[]} />);
+    expect(screen.queryByTestId('back-button')).toBeNull();
+  });
+
   it('offers a path to human connection', () => {
     const onCallFriend = jest.fn();
     renderWithTheme(<SoloScreen {...base} onCallFriend={onCallFriend} messages={[]} />);
@@ -102,18 +167,33 @@ describe('SoloScreen', () => {
 });
 
 describe('CallScreen', () => {
-  const handlers = { onToggleMute: jest.fn(), onSwapAvatar: jest.fn(), onReport: jest.fn(), onEnd: jest.fn() };
+  const handlers = {
+    onToggleMute: jest.fn(),
+    onSwapAvatar: jest.fn(),
+    onReport: jest.fn(),
+    onEnd: jest.fn(),
+  };
 
   it('shows AI badge + notice for an AI peer, none for a human peer', () => {
     renderWithTheme(
-      <CallScreen mode="ai-call" state="connected" peer={{ id: 'a', isAi: true, avatarId: 'x', displayName: '세라' }} {...handlers} />,
+      <CallScreen
+        mode="ai-call"
+        state="connected"
+        peer={{ id: 'a', isAi: true, avatarId: 'x', displayName: '세라' }}
+        {...handlers}
+      />,
     );
     expect(screen.getByTestId('ai-character-badge')).toBeTruthy();
     expect(screen.getByText('상대는 AI 캐릭터예요')).toBeTruthy();
 
     screen.unmount();
     renderWithTheme(
-      <CallScreen mode="random-match" state="connected" peer={{ id: 'b', isAi: false, avatarId: 'y', displayName: '익명' }} {...handlers} />,
+      <CallScreen
+        mode="random-match"
+        state="connected"
+        peer={{ id: 'b', isAi: false, avatarId: 'y', displayName: '익명' }}
+        {...handlers}
+      />,
     );
     expect(screen.queryAllByTestId('ai-character-badge')).toHaveLength(0);
     expect(screen.queryByText('상대는 AI 캐릭터예요')).toBeNull();
@@ -121,7 +201,12 @@ describe('CallScreen', () => {
 
   it('report and end are one tap away', () => {
     renderWithTheme(
-      <CallScreen mode="random-match" state="connected" peer={{ id: 'b', isAi: false, avatarId: 'y', displayName: '익명' }} {...handlers} />,
+      <CallScreen
+        mode="random-match"
+        state="connected"
+        peer={{ id: 'b', isAi: false, avatarId: 'y', displayName: '익명' }}
+        {...handlers}
+      />,
     );
     fireEvent.press(screen.getByTestId('call-report'));
     fireEvent.press(screen.getByTestId('call-end'));
@@ -131,7 +216,12 @@ describe('CallScreen', () => {
 
   it('shows the matching copy while connecting in random-match', () => {
     renderWithTheme(
-      <CallScreen mode="random-match" state="connecting" peer={{ id: 'b', isAi: false, avatarId: 'y', displayName: '' }} {...handlers} />,
+      <CallScreen
+        mode="random-match"
+        state="connecting"
+        peer={{ id: 'b', isAi: false, avatarId: 'y', displayName: '' }}
+        {...handlers}
+      />,
     );
     expect(screen.getByText('이야기 나눌 사람을 찾는 중이에요')).toBeTruthy();
   });

@@ -4,20 +4,22 @@ React Native 앱 셸. 일반 화면 전부를 TypeScript로 만든다. 아바타
 
 ## 주요 파일
 
-- `src/theme/` `ThemeProvider`(resolveTheme + 동작 줄이기 감지), `useTheme`(토큰 접근 유일 통로), `withAlpha`
+- `src/theme/` `ThemeProvider`(resolveTheme + 동작 줄이기 감지), `useTheme`(토큰 접근 유일 통로), `withAlpha`, `useReduceMotion`(OS 동작 줄이기 구독. ThemeProvider 와 AppNavigator 가 함께 쓰고, 렌더러 `setMotion` 으로 Unity 에도 전달)
 - `src/i18n/` i18next 설정과 `locales/ko.json`, `locales/en.json`. 모든 문구는 여기 키로만
 - `src/components/` AppText, Primary/SecondaryButton, AiCharacterBadge, ChatBubble, CharacterCard, CallControl, SpeakingIndicator, MoodCard, Screen
 - `src/screens/` Onboarding, CharacterSelect, Solo, Call
 - `src/navigation/AppNavigator.tsx` 임시 내비게이터. 네이티브 프로젝트 생성 후 react-navigation으로 교체
 - `src/test/render.tsx` 두 테마로 렌더하는 테스트 헬퍼
-- `src/avatar/` 트래커·렌더러 어댑터. `createFaceTracker()`/`createAvatarRenderer()`가 네이티브 모듈이 있으면 `NativeFaceTracker`/`UnityAvatarRenderer`, 없으면(개발 빌드) 가짜 구현을 돌려준다. `base64.ts`는 의존성 없는 base64
+- `src/avatar/` 트래커·렌더러 어댑터. `createFaceTracker()`/`createAvatarRenderer()`가 네이티브 모듈이 있으면 `NativeFaceTracker`/`UnityAvatarRenderer`, 없으면(개발 빌드) 가짜 구현을 돌려준다. `base64.ts`는 의존성 없는 base64. `useFaceTracking`은 통화 화면(카메라 → 프레임), `useAvatarExpression`은 솔로 화면(표정 이름 → `@murmur/expression-cues` 프리셋 프레임, 카메라 없음). 둘 다 `remote` 슬롯이 화면에 보이는 슬롯이다
+- `src/chat/` 솔로 채팅 답 어댑터 `ChatReplyAdapter`. `RemoteReplyAdapter`는 ai-character 서버의 `POST /chat`을 부른다(세션 id 로 서버가 기록을 잇는다). `ScriptedReplyAdapter`는 서버가 없을 때의 자리표시자로, i18n `reply.<id>.<down|up|neutral>` 대사를 사용자 말의 단서 그룹에 맞춰 돌려주고 위기 키워드엔 `safety.crisisBody`를 낸다. `FallbackReplyAdapter(remote, scripted)`가 원격 실패 시 경고 로그 후 스크립트로 넘어간다
+- `src/config.ts` `AI_CHARACTER_URL`. 개발 빌드는 Android 에뮬레이터 `http://10.0.2.2:8787`, iOS 시뮬레이터 `http://localhost:8787`. 실기기는 Mac 의 LAN IP 로 바꾼다. 릴리스는 비어 있으면 스크립트 답만
 
 ## 네이티브 모듈
 
 iOS (`ios/Murmur/`, Swift + ObjC `RCT_EXTERN_MODULE`, 브리징 헤더 `Murmur-Bridging-Header.h`)
 - `MurmurFaceTracker.swift/.m`: ARKit 얼굴 트래킹 (Face ID 기기만, `isSupported`). `start/stop/setDirectToUnity`. 이벤트 `murmur.faceFrame` `{ frame: base64, slot: 'local' }` 최대 30Hz, `murmur.trackingState` `{ state }`는 바뀔 때만
 - `FaceFrameEncoder.swift`: face-protocol 144바이트 인코더. `Generated/FaceProtocol.swift`는 `packages/face-protocol/dist/generated`에서 복사한 생성물(수정 금지)
-- `MurmurUnityBridge.swift/.m`: 모듈 `MurmurUnity` (`loadAvatar/pushFrame/setTheme/dispose`). Unity 임베드 전까지 `LoggingUnityProxy`. GameObject `MurmurBridge`의 `OnFaceFrame("<slot>|<base64>")`, `LoadAvatar("<slot>|<assetKey>")`, `SetTheme("light"|"dark")`
+- `MurmurUnityBridge.swift/.m`: 모듈 `MurmurUnity` (`loadAvatar/pushFrame/setTheme/setMotion/dispose`). Unity 임베드 전까지 `LoggingUnityProxy`. GameObject `MurmurBridge`의 `OnFaceFrame("<slot>|<base64>")`, `LoadAvatar("<slot>|<assetKey>")`, `SetTheme("light"|"dark")`, `SetMotion("full"|"reduced")`
 - direct-to-unity: 통화 중에는 트래커가 JS를 거치지 않고 `MurmurUnityBridge.shared.pushFrame`으로 바로 넘긴다. JS는 상태 이벤트만 받는다
 - `Info.plist`에 `NSCameraUsageDescription`. 픽셀 버퍼는 어떤 경로로도 JS·Unity에 가지 않는다
 
