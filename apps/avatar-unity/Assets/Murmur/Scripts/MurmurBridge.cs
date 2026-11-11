@@ -31,10 +31,16 @@ namespace Murmur
             NotifyNativeReady();
         }
 
-        /// <summary>네이티브 프록시에 "메시지 받을 준비 됨"을 알린다. Android: UnityPlayerProxy.onUnityReady(). iOS: 추후 리스너.</summary>
+        /// <summary>네이티브 프록시에 "메시지 받을 준비 됨"을 알린다. Android: UnityPlayerProxy.onUnityReady(). iOS: MurmurNotifyReady().</summary>
+#if UNITY_IOS && !UNITY_EDITOR
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        private static extern void MurmurNotifyReady();
+#endif
         private static void NotifyNativeReady()
         {
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_IOS && !UNITY_EDITOR
+            MurmurNotifyReady();
+#elif UNITY_ANDROID && !UNITY_EDITOR
             try
             {
                 using (var cls = new AndroidJavaClass("com.murmur.unity.UnityPlayerProxy"))

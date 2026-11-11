@@ -22,6 +22,19 @@ final class DynamicUnityProxy: UnityFrameworkProxy {
     private let frameworkPath = Bundle.main.bundlePath + "/Frameworks/UnityFramework.framework"
     private var framework: NSObject?
     private(set) var isRunning = false
+    private var ready = false
+    private var queued: [(String, String, String)] = []
+    private var readyObserver: NSObjectProtocol?
+
+    private init() {
+        readyObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name("MurmurUnityReady"), object: nil, queue: .main) { [weak self] _ in
+            guard let self = self else { return }
+            self.ready = true
+            let pending = self.queued
+            self.queued.removeAll()
+            for (go, method, message) in pending { self.sendMessage(gameObject: go, method: method, message: message) }
+        }
+    }
 
     var isAvailable: Bool { FileManager.default.fileExists(atPath: frameworkPath) }
 
@@ -91,6 +104,21 @@ final class DynamicUnityProxy: UnityFrameworkProxy {
     }
 
     func sendMessage(gameObject: String, method: String, message: String) {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { self.sendMessage(gameObject: gameObject, method: method, message: message) }
+            return
+        }
+        if !ready {
+            // Frames are transient; keep only the latest control value for each slot/method.
+            if method == "OnFaceFrame" { return }
+            let slot = method == "LoadAvatar" ? String(message.split(separator: "|").first ?? "") : ""
+            queued.removeAll { entry in
+                entry.1 == method && (method != "LoadAvatar" || String(entry.2.split(separator: "|").first ?? "") == slot)
+            }
+            if queued.count >= 32 { queued.removeFirst() }
+            queued.append((gameObject, method, message))
+            return
+        }
         guard isRunning, let ufw = framework,
               let (send, sel) = imp(ufw, "sendMessageToGOWithName:functionName:message:", SendMsg.self) else { return }
         gameObject.withCString { go in method.withCString { fn in message.withCString { msg in send(ufw, sel, go, fn, msg) } } }

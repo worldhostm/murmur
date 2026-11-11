@@ -45,3 +45,13 @@ PLAYER_FILES="$(find "$ROOT/apps/avatar-unity/Assets/Murmur" -name '*.cs' -not -
   -r:"$U/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll" \
   $PLAYER_FILES
 echo "Unity C# compile OK → $OUT/Murmur.dll, $OUT/Murmur.Android.dll"
+# iOS native-ready callback branch must also compile without UNITY_EDITOR.
+# shellcheck disable=SC2086
+"$U/Tools/netcorerun/netcorerun" "$U/DotNetSdkRoslyn/csc.dll" -nologo -target:library -langversion:9.0 -nostdlib \
+  -define:UNITY_IOS -warn:3 -out:"$OUT/Murmur.iOS.dll" \
+  -r:"$U/NetStandard/ref/2.1.0/netstandard.dll" \
+  -r:"$U/NetStandard/compat/2.1.0/shims/netfx/mscorlib.dll" \
+  -r:"$U/Managed/UnityEngine/UnityEngine.CoreModule.dll" \
+  -r:"$U/Managed/UnityEngine/UnityEngine.AnimationModule.dll" \
+  $PLAYER_FILES
+echo "Unity iOS C# compile OK → $OUT/Murmur.iOS.dll"
