@@ -67,3 +67,9 @@ pnpm --filter @murmur/mobile typecheck
 - `MurmurUnityViewManager`(네이티브 이름 `MurmurUnityView`) 가 Unity 의 `appController.rootView` 를 컨테이너에 넣고, 창에서 빠지면 `pause:`. JS 는 Android 와 같은 `<UnityView />`.
 - Unity 의 시뮬레이터 라이브러리는 x86_64 뿐이라 podspec 이 `EXCLUDED_ARCHS[sdk=iphonesimulator*]=arm64` 를 건다. Apple Silicon 에서는 시뮬레이터 앱이 x86_64(Rosetta)로 돌아간다. Unity 를 빼고 arm64 로 빌드하려면 podspec 을 지우고 `pod install`.
 - 빌드: `cd ios && pod install && xcodebuild -workspace Murmur.xcworkspace -scheme Murmur -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build`
+
+### 솔로 대화 수명
+
+- `AppNavigator`는 한 번에 하나의 응답만 요청하며 대기 중 다음 초안은 유지한다. 최종 어댑터 실패는 화면에 안내한다.
+- 솔로 이탈 시 요청 세대 번호를 올려 늦은 성공·실패를 무시하고 화면 기록을 비운다. 같은 캐릭터라도 재입장하면 새 원격 세션을 쓴다. 서버 기록 삭제나 네트워크 취소를 의미하지 않는다.
+- 상세 기획: `docs/specs/solo-conversation-reliability.md`.

@@ -26,6 +26,7 @@ export interface SoloScreenProps {
   characterId: AiCharacterId;
   messages: SoloMessage[];
   speaking?: boolean;
+  replyFailed?: boolean;
   /** 장시간·심야 사용 시 부드러운 휴식 권유. 체류 시간을 늘리는 설계는 하지 않는다. */
   restSuggestion?: 'none' | 'long-session' | 'late-night';
   onSend: (text: string) => void;
@@ -169,7 +170,11 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
               key={sample}
               accessibilityRole="button"
               testID="solo-sample"
-              onPress={() => props.onSend(sample)}
+              disabled={!!props.speaking}
+              accessibilityState={{ disabled: !!props.speaking }}
+              onPress={() => {
+                if (!props.speaking) props.onSend(sample);
+              }}
               style={({ pressed }) => ({
                 paddingHorizontal: space[3],
                 paddingVertical: space[1],
@@ -185,6 +190,13 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
               </AppText>
             </Pressable>
           ))}
+        </View>
+      )}
+      {(props.speaking || props.replyFailed) && (
+        <View accessibilityLiveRegion="polite" testID="solo-reply-status">
+          <AppText variant="bodySm" color="inkMuted">
+            {t(props.speaking ? 'solo.replyPending' : 'solo.replyFailed')}
+          </AppText>
         </View>
       )}
       <View style={{ flexDirection: 'row', gap: space[2], alignItems: 'center' }}>
@@ -210,8 +222,9 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
         />
         <PrimaryButton
           label={t('solo.send')}
-          disabled={draft.trim().length === 0}
+          disabled={!!props.speaking || draft.trim().length === 0}
           onPress={() => {
+            if (props.speaking || !draft.trim()) return;
             props.onSend(draft.trim());
             setDraft('');
           }}

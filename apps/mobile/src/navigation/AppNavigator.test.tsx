@@ -108,3 +108,132 @@ describe('AppNavigator', () => {
     });
   });
 });
+
+function deferredReply() {
+  let resolve!: (value: { text: string }) => void;
+  let reject!: (error: Error) => void;
+  const promise = new Promise<{ text: string }>((yes, no) => {
+    resolve = yes;
+    reject = no;
+  });
+  return { promise, resolve, reject };
+}
+
+function openSolo(reply: ChatReplyAdapter['reply']) {
+  return render(
+    <AppNavigator
+      deviceSupportOverride={supported}
+      initialRoute={{ name: 'solo', characterId: 'sera' }}
+      replyAdapter={{ kind: 'scripted', reply }}
+    />,
+  );
+}
+
+function sendText(text: string) {
+  fireEvent.changeText(screen.getByTestId('solo-input'), text);
+  fireEvent.press(screen.getByTestId('solo-send'));
+}
+
+it('serializes turns, preserves the next draft, and includes the previous reply in history', async () => {
+  const first = deferredReply();
+  const reply = jest
+    .fn()
+    .mockReturnValueOnce(first.promise)
+    .mockResolvedValue({ text: 'second answer' });
+  openSolo(reply);
+  sendText('first');
+  sendText('next draft');
+  fireEvent.press(screen.getAllByTestId('solo-sample')[0]!);
+  await act(async () => {});
+  expect(reply).toHaveBeenCalledTimes(1);
+  expect(screen.getByTestId('solo-input').props.value).toBe('next draft');
+  expect(screen.getByText('답변을 기다리고 있어요')).toBeTruthy();
+  await act(async () => first.resolve({ text: 'first answer' }));
+  fireEvent.press(screen.getByTestId('solo-send'));
+  await waitFor(() => expect(reply).toHaveBeenCalledTimes(2));
+  expect(reply.mock.calls[1][0]).toEqual({
+    characterId: 'sera',
+    text: 'next draft',
+    history: [
+      { from: 'me', text: 'first' },
+      { from: 'character', text: 'first answer' },
+    ],
+  });
+});
+
+it('shows failure and releases the send lock even for a synchronously throwing adapter', async () => {
+  const reply = jest
+    .fn()
+    .mockImplementationOnce(() => {
+      throw new Error('offline');
+    })
+    .mockResolvedValue({ text: 'recovered' });
+  openSolo(reply);
+  sendText('hello');
+  await waitFor(() =>
+    expect(
+      screen.getByText('답변을 받지 못했어요. 잠시 후 다시 메시지를 보내 주세요.'),
+    ).toBeTruthy(),
+  );
+  sendText('again');
+  await waitFor(() => expect(screen.getByText('recovered')).toBeTruthy());
+  expect(screen.queryByTestId('solo-reply-status')).toBeNull();
+});
+
+it.each(['success', 'failure'])(
+  'ignores late %s after leaving for a call and reopening solo',
+  async (outcome) => {
+    const old = deferredReply();
+    const fresh = deferredReply();
+    const reply = jest.fn().mockReturnValueOnce(old.promise).mockReturnValueOnce(fresh.promise);
+    openSolo(reply);
+    sendText('old message');
+    await act(async () => {});
+    fireEvent.press(screen.getByTestId('solo-call-friend'));
+    await act(async () => {});
+    fireEvent.press(screen.getByTestId('call-end'));
+    fireEvent.press(screen.getByTestId('character-select-confirm'));
+    expect(screen.queryByText('old message')).toBeNull();
+    sendText('fresh message');
+    await act(async () => {
+      if (outcome === 'success') old.resolve({ text: 'old answer' });
+      else old.reject(new Error('late failure'));
+    });
+    expect(screen.queryByText('old answer')).toBeNull();
+    expect(screen.getByText('답변을 기다리고 있어요')).toBeTruthy();
+    await act(async () => fresh.resolve({ text: 'fresh answer' }));
+    expect(screen.getByText('fresh answer')).toBeTruthy();
+    expect(reply.mock.calls[1][0].history).toEqual([]);
+  },
+);
+
+it('creates a new remote session when reopening the same character', async () => {
+  const { RemoteReplyAdapter } = jest.requireActual('../chat');
+  const sessions: string[] = [];
+  const spy = jest.spyOn(RemoteReplyAdapter.prototype, 'reply').mockImplementation(function (this: {
+    sessionId: string;
+  }) {
+    sessions.push(this.sessionId);
+    return Promise.resolve({ text: 'remote answer' });
+  });
+  const config = jest.requireMock('../config');
+  config.AI_CHARACTER_URL = 'http://example.test';
+  try {
+    render(
+      <AppNavigator
+        deviceSupportOverride={supported}
+        initialRoute={{ name: 'solo', characterId: 'sera' }}
+      />,
+    );
+    sendText('first session');
+    await waitFor(() => expect(screen.getByText('remote answer')).toBeTruthy());
+    fireEvent.press(screen.getByTestId('back-button'));
+    fireEvent.press(screen.getByTestId('character-select-confirm'));
+    sendText('second session');
+    await waitFor(() => expect(sessions).toHaveLength(2));
+    expect(sessions[0]).not.toBe(sessions[1]);
+  } finally {
+    config.AI_CHARACTER_URL = undefined;
+    spy.mockRestore();
+  }
+});

@@ -101,3 +101,10 @@ adb logcat -s MurmurFaceTracker MurmurUnity Unity ReactNativeJS
 - react-navigation: `apps/mobile/src/navigation/AppNavigator.tsx` 의 `Route` 를 그대로 스택 라우트로 옮기면 된다. 화면 컴포넌트는 props 만 받으므로 수정이 없다.
 - 글꼴: `apps/mobile/assets/fonts/README.md` 의 파일 5개를 넣고 `npx react-native-asset`. 저장소 용량이 부담이면 Git LFS.
 - 카메라 권한: 지금은 통화 화면 진입 시 바로 요청한다. 온보딩 두 번째 단계로 "표정만 전송돼요" 설명과 함께 요청하는 안을 권한다. 거부 시 솔로 모드는 텍스트로만 진행 가능해야 한다.
+
+## 2026-11-11 기획 점검과 솔로 대화 개선
+
+- 개선 우선순위·범위·완료 조건: [솔로 대화 신뢰성 개선](specs/solo-conversation-reliability.md).
+- 구현: 응답 대기 중 중복 전송 방지, 초안 유지, 최종 실패 안내, 화면 이탈 후 늦은 응답 무효화, 같은 캐릭터 재입장 시 새 원격 세션 생성.
+- 후속: 기분 기록 저장·조회(현재 콜백 비어 있음), 친구 통화/랜덤 매칭 분리 및 실제 시그널링 연결, 카메라 없이 텍스트 모드 진입.
+- 실제 서버·실기기 검증은 별도 필요. 이번 검증은 가짜 응답을 사용하는 모바일 회귀 테스트와 정적 검사 기준.

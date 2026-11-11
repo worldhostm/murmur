@@ -83,6 +83,9 @@ export function AppNavigator({
   // 솔로 채팅: 캐릭터가 지금 짓는 표정과 답을 만드는 중인지. 내 말에는 듣는 표정으로, 답에는 답의 표정으로 바뀐다.
   const [expression, setExpression] = useState<SpriteExpression>('softSmile');
   const [speaking, setSpeaking] = useState(false);
+  const [replyFailed, setReplyFailed] = useState(false);
+  const [conversationId, setConversationId] = useState(0);
+  const pending = useRef(false);
   const [support, setSupport] = useState<DeviceSupport | null>(deviceSupportOverride ?? null);
   const { t } = useTranslation();
   // OS "동작 줄이기"를 Unity 에도 알린다 (아이들 모션·배경 빛 정지).
@@ -102,7 +105,7 @@ export function AppNavigator({
       new RemoteReplyAdapter({ baseUrl: AI_CHARACTER_URL }),
       scripted,
     );
-  }, [replyAdapter, t, characterId]);
+  }, [replyAdapter, t, characterId, conversationId]);
   // 솔로 화면에 있을 때만 카메라 없이 표정만 구동한다 (docs/specs/chat-expression.md).
   useAvatarExpression({
     enabled: route.name === 'solo',
@@ -118,6 +121,23 @@ export function AppNavigator({
     reduceMotion,
   });
 
+  const leaveSolo = useCallback(() => {
+    replySeq.current++;
+    pending.current = false;
+    setMessages([]);
+    setExpression('softSmile');
+    setSpeaking(false);
+    setReplyFailed(false);
+    setConversationId((id) => id + 1);
+  }, []);
+
+  useEffect(
+    () => () => {
+      replySeq.current++;
+    },
+    [],
+  );
+
   // 뒤로가기: 화면 왼쪽 상단 버튼과 Android BACK 키가 같은 길을 간다. 솔로를 떠나면 대화는 비운다.
   const goBack = useCallback((): boolean => {
     switch (route.name) {
@@ -125,10 +145,7 @@ export function AppNavigator({
         setRoute({ name: 'onboarding' });
         return true;
       case 'solo':
-        replySeq.current++;
-        setMessages([]);
-        setExpression('softSmile');
-        setSpeaking(false);
+        leaveSolo();
         setRoute({ name: 'character-select' });
         return true;
       case 'random-match':
@@ -137,7 +154,7 @@ export function AppNavigator({
       default:
         return false; // 온보딩: 기본 동작(앱 나가기)
     }
-  }, [route.name]);
+  }, [route.name, leaveSolo]);
 
   useEffect(() => {
     const sub = BackHandler.addEventListener('hardwareBackPress', goBack);
@@ -156,25 +173,34 @@ export function AppNavigator({
 
   const send = useCallback(
     (text: string) => {
-      if (route.name !== 'solo') return;
+      if (route.name !== 'solo' || pending.current || !text.trim()) return;
+      pending.current = true;
+      setReplyFailed(false);
       const history: ChatTurn[] = messages.map((m) => ({ from: m.from, text: m.text }));
       setMessages((prev) => [...prev, { id: String(++nextId.current), from: 'me', text }]);
       setExpression(reactionTo(cueFromText(text)));
       setSpeaking(true);
       const seq = ++replySeq.current;
-      adapter
-        .reply({ characterId: route.characterId, history, text })
+      Promise.resolve()
+        .then(() => adapter.reply({ characterId: route.characterId, history, text }))
         .then((reply) => {
-          if (seq !== replySeq.current) return; // 더 최신 메시지가 있으면 이 답은 버린다
+          if (seq !== replySeq.current) return; // 종료한 대화의 답은 반영하지 않는다
           setMessages((prev) => [
             ...prev,
             { id: String(++nextId.current), from: 'character', text: reply.text },
           ]);
           setExpression(reply.expression ?? cueFromText(reply.text));
         })
-        .catch(() => setExpression('softSmile'))
+        .catch(() => {
+          if (seq !== replySeq.current) return;
+          setExpression('softSmile');
+          setReplyFailed(true);
+        })
         .finally(() => {
-          if (seq === replySeq.current) setSpeaking(false);
+          if (seq === replySeq.current) {
+            pending.current = false;
+            setSpeaking(false);
+          }
         });
     },
     [adapter, messages, route],
@@ -218,6 +244,7 @@ export function AppNavigator({
           characterId={route.characterId}
           messages={messages}
           speaking={speaking}
+          replyFailed={replyFailed}
           renderer={<UnityView />}
           onBack={goBack}
           samplePrompts={
@@ -227,7 +254,10 @@ export function AppNavigator({
           }
           onSend={send}
           onSaveMood={() => undefined}
-          onCallFriend={() => setRoute({ name: 'random-match' })}
+          onCallFriend={() => {
+            leaveSolo();
+            setRoute({ name: 'random-match' });
+          }}
         />
       );
       break;
