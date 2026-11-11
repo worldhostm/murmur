@@ -9,10 +9,12 @@ import type { ConnectSignaling, SignalingConnection } from './SignalingClient';
 export function CallLobby({
   connect,
   onBack,
+  onText,
   onPreview,
 }: {
   connect?: ConnectSignaling | undefined;
   onBack: () => void;
+  onText: () => void;
   onPreview?: (() => void) | undefined;
 }): React.JSX.Element {
   const { t } = useTranslation();
@@ -180,6 +182,7 @@ export function CallLobby({
             />
           </>
         )}
+        <SecondaryButton testID="lobby-text" label={t('device.continueText')} onPress={onText} />
       </View>
     </Screen>
   );

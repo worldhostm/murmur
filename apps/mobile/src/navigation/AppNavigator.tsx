@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MoodPanel } from '../mood/MoodPanel';
 import { MoodStore } from '../mood/MoodStore';
-import { AppText, Screen } from '../components';
+import { AppText, Screen, SecondaryButton } from '../components';
 import { BackHandler } from 'react-native';
 import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { cueFromText, reactionTo } from '@murmur/expression-cues';
@@ -91,6 +91,7 @@ export function AppNavigator({
     [connectSignaling],
   );
   const store = useMemo(() => moodStore ?? new MoodStore(), [moodStore]);
+  const [textOnly, setTextOnly] = useState(false);
   const [route, setRoute] = useState<Route>(initialRoute);
   // 마지막으로 고른 AI 캐릭터. 통화 화면의 아바타 에셋 키가 된다.
   const [characterId, setCharacterId] = useState<AiCharacterId | undefined>(
@@ -125,14 +126,14 @@ export function AppNavigator({
   }, [replyAdapter, t, characterId, conversationId]);
   // 솔로 화면에 있을 때만 카메라 없이 표정만 구동한다 (docs/specs/chat-expression.md).
   useAvatarExpression({
-    enabled: route.name === 'solo',
+    enabled: route.name === 'solo' && !textOnly,
     assetKey: avatarAssetKeyFor(characterId),
     expression,
     reduceMotion,
   });
   // 통화 화면에 있을 때만 트래킹. PoC: 내 표정을 remote 슬롯(큰 아바타)에도 비춘다.
   const tracking = useFaceTracking({
-    enabled: route.name === 'avatar-preview' && !!support?.supported,
+    enabled: route.name === 'avatar-preview' && !!support?.supported && !textOnly,
     mirrorToRemote: true,
     assetKey: avatarAssetKeyFor(characterId),
     reduceMotion,
@@ -234,10 +235,16 @@ export function AppNavigator({
       </ThemeProvider>
     );
   }
-  if (!support.supported) {
+  if (!support.supported && !textOnly) {
     return (
       <ThemeProvider screen="onboarding" userPreference={userPreference}>
-        <UnsupportedDeviceScreen support={support} />
+        <UnsupportedDeviceScreen
+          support={support}
+          onContinueText={() => {
+            setTextOnly(true);
+            setRoute({ name: 'character-select' });
+          }}
+        />
       </ThemeProvider>
     );
   }
@@ -245,7 +252,18 @@ export function AppNavigator({
   let content: React.JSX.Element;
   switch (route.name) {
     case 'onboarding':
-      content = <OnboardingScreen onStart={() => setRoute({ name: 'character-select' })} />;
+      content = (
+        <OnboardingScreen
+          onStart={() => {
+            setTextOnly(false);
+            setRoute({ name: 'character-select' });
+          }}
+          onText={() => {
+            setTextOnly(true);
+            setRoute({ name: 'character-select' });
+          }}
+        />
+      );
       break;
     case 'character-select':
       content = (
@@ -266,7 +284,7 @@ export function AppNavigator({
           messages={messages}
           speaking={speaking}
           replyFailed={replyFailed}
-          renderer={<UnityView />}
+          renderer={textOnly ? undefined : <UnityView />}
           onBack={goBack}
           samplePrompts={
             typeof __DEV__ !== 'undefined' && __DEV__
@@ -291,11 +309,18 @@ export function AppNavigator({
         <CallLobby
           connect={connect}
           onPreview={
-            typeof __DEV__ !== 'undefined' && __DEV__
-              ? () => setRoute({ name: 'avatar-preview' })
+            typeof __DEV__ !== 'undefined' && __DEV__ && support.supported
+              ? () => {
+                  setTextOnly(false);
+                  setRoute({ name: 'avatar-preview' });
+                }
               : undefined
           }
           onBack={goBack}
+          onText={() => {
+            setTextOnly(true);
+            setRoute({ name: 'solo', characterId: characterId ?? 'sera' });
+          }}
         />
       );
       break;
@@ -305,6 +330,13 @@ export function AppNavigator({
           <AppText variant="heading">{t('lobby.preview')}</AppText>
           <UnityView />
           <AppText>{trackingLabel(t, tracking.status, tracking.fps)}</AppText>
+          <SecondaryButton
+            label={t('device.continueText')}
+            onPress={() => {
+              setTextOnly(true);
+              setRoute({ name: 'solo', characterId: characterId ?? 'sera' });
+            }}
+          />
         </Screen>
       );
       break;

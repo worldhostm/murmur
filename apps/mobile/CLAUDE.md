@@ -78,3 +78,4 @@ pnpm --filter @murmur/mobile typecheck
 
 - `src/mood/`: MoodStore의 직렬화된 저장·조회·삭제와 MoodPanel의 날짜별 조회. 네이티브 MurmurMoodStore는 백업 제외 앱 전용 파일을 쓴다. 실패를 메모리 저장 성공으로 대체하지 않는다.
 - `src/call/`: CallLobby와 SignalingClient. 친구 초대/랜덤 요청은 분리하고 서버 이벤트로 입장을 표시한다. 음성 미디어 연결과 혼동하지 않는다. HTTP 계약은 shared-types만 import한다.
+- 온보딩/미지원 안내에서 텍스트로 시작하면 카메라·Unity를 만들지 않는다. 개발용 표정 PoC는 연결 화면의 별도 미리보기다.

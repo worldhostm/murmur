@@ -1,14 +1,15 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText, PrimaryButton, Screen } from '../components';
+import { AppText, PrimaryButton, Screen, SecondaryButton } from '../components';
 import { useTheme } from '../theme';
 
 export interface OnboardingScreenProps {
   onStart: () => void;
+  onText?: () => void;
 }
 
-export function OnboardingScreen({ onStart }: OnboardingScreenProps): React.JSX.Element {
+export function OnboardingScreen({ onStart, onText }: OnboardingScreenProps): React.JSX.Element {
   const { t } = useTranslation();
   const { space } = useTheme();
   return (
@@ -25,6 +26,13 @@ export function OnboardingScreen({ onStart }: OnboardingScreenProps): React.JSX.
         <AppText variant="caption" color="inkMuted" style={{ textAlign: 'center' }}>
           {t('onboarding.privacyNote')}
         </AppText>
+        {onText && (
+          <SecondaryButton
+            testID="onboarding-text"
+            label={t('device.continueText')}
+            onPress={onText}
+          />
+        )}
         <PrimaryButton label={t('onboarding.start')} onPress={onStart} testID="onboarding-start" />
       </View>
     </Screen>

@@ -237,3 +237,17 @@ it('creates a new remote session when reopening the same character', async () =>
     spy.mockRestore();
   }
 });
+
+it('lets unsupported devices enter text-only solo without a Unity view', async () => {
+  render(
+    <AppNavigator
+      deviceSupportOverride={{ supported: false, reason: 'launched-before-2020', details: {} }}
+    />,
+  );
+  fireEvent.press(screen.getByTestId('continue-text'));
+  fireEvent.press(screen.getByTestId('character-card-sera'));
+  fireEvent.press(screen.getByTestId('character-select-confirm'));
+  expect(screen.getByTestId('screen-solo')).toBeTruthy();
+  expect(screen.queryByTestId('solo-avatar')).toBeNull();
+  await act(async () => {});
+});

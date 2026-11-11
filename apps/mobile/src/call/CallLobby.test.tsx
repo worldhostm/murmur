@@ -14,7 +14,7 @@ it('creates a friend room without random matching, displays peer presence, repor
     return { send, close };
   };
   const { unmount } = renderWithTheme(
-    <CallLobby connect={connect} onBack={jest.fn()} />,
+    <CallLobby connect={connect} onBack={jest.fn()} onText={jest.fn()} />,
   );
   await waitFor(() =>
     expect(screen.getByText('친구를 초대하거나 초대 코드로 입장하세요')).toBeTruthy(),
@@ -46,7 +46,7 @@ it('closes connections that finish opening after the screen is unmounted', async
       finish = resolve;
     });
   const { unmount } = renderWithTheme(
-    <CallLobby connect={connect} onBack={jest.fn()} />,
+    <CallLobby connect={connect} onBack={jest.fn()} onText={jest.fn()} />,
   );
   unmount();
   const close = jest.fn();

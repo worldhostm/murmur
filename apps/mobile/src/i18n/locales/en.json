@@ -175,7 +175,8 @@
       "no-face-tracking": "An iPhone with Face ID is required",
       "no-64bit": "A 64-bit device is required",
       "unknown": "We couldn't read the device information"
-    }
+    },
+    "continueText": "Continue with text, without a camera"
   },
   "mood": {
     "privacy": "Records stay on this device, are not sent to AI or backed up to the cloud, and remain until you delete them or uninstall the app.",
