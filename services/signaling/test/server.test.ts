@@ -69,8 +69,15 @@ describe('signaling server', () => {
 
   it('report is stored with urgency and acknowledged', () => {
     const { transport, server } = make();
-    transport.receive('a', { type: 'report', targetId: 'b', reason: 'minor', sessionId: 's' });
-    expect(transport.eventsFor('a')[0]).toMatchObject({ type: 'reported' });
+    transport.receive('a', { type: 'join-random', ageGate: 'adult' });
+    transport.receive('b', { type: 'join-random', ageGate: 'adult' });
+    transport.receive('a', {
+      type: 'report',
+      targetId: 'b',
+      reason: 'minor',
+      sessionId: server.sessionOf('a')!,
+    });
+    expect(transport.eventsFor('a')[1]).toMatchObject({ type: 'reported' });
     expect(server.reports.urgent()).toHaveLength(1);
   });
 

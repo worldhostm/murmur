@@ -122,6 +122,7 @@ export function createSignalingServer(opts: SignalingServerOptions): SignalingSe
   transport.onMessage((userId, msg) => {
     switch (msg.type) {
       case 'join-random': {
+        if (peersOf(userId)) return error(userId, 'invalid-message', '이미 세션에 참여 중입니다');
         try {
           matchmaker.enqueue({ id: userId, ageGate: msg.ageGate });
         } catch (e) {
@@ -142,6 +143,8 @@ export function createSignalingServer(opts: SignalingServerOptions): SignalingSe
         matchmaker.dequeue(userId);
         return;
       case 'create-room': {
+        if (peersOf(userId)) return error(userId, 'invalid-message', '이미 세션에 참여 중입니다');
+        matchmaker.dequeue(userId);
         const room = rooms.create(userId, msg.maxParticipants);
         transport.send(userId, {
           type: 'room-created',
@@ -151,8 +154,14 @@ export function createSignalingServer(opts: SignalingServerOptions): SignalingSe
         return;
       }
       case 'join-room': {
+        if (peersOf(userId)) return error(userId, 'invalid-message', '이미 세션에 참여 중입니다');
         try {
+          const existing = rooms.get(msg.code);
+          if (existing?.participants.some((p) => blockList.isBlocked(p, userId))) {
+            return error(userId, 'room-not-found', '입장할 수 없는 방입니다');
+          }
           const room = rooms.join(msg.code, userId);
+          matchmaker.dequeue(userId);
           for (const p of room.participants) {
             if (p !== userId)
               transport.send(p, { type: 'peer-joined', sessionId: room.sessionId, peerId: userId });
@@ -181,6 +190,10 @@ export function createSignalingServer(opts: SignalingServerOptions): SignalingSe
         relay(userId, msg.to, { type: 'ice', from: userId, candidate: msg.candidate });
         return;
       case 'report': {
+        const ctx = peersOf(userId);
+        if (!ctx || ctx.sessionId !== msg.sessionId || !ctx.peers.includes(msg.targetId)) {
+          return error(userId, 'not-in-session', '현재 세션의 상대만 신고할 수 있습니다');
+        }
         const rec = reports.record({
           reporterId: userId,
           targetId: msg.targetId,
@@ -192,6 +205,7 @@ export function createSignalingServer(opts: SignalingServerOptions): SignalingSe
       }
       case 'block':
         blockList.block(userId, msg.targetId);
+        if (peersOf(userId)?.peers.includes(msg.targetId)) leave(userId);
         return;
       default:
         error(userId, 'invalid-message', '알 수 없는 메시지');
