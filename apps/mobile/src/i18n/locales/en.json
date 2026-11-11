@@ -176,5 +176,19 @@
       "no-64bit": "A 64-bit device is required",
       "unknown": "We couldn't read the device information"
     }
+  },
+  "mood": {
+    "privacy": "Records stay on this device, are not sent to AI or backed up to the cloud, and remain until you delete them or uninstall the app.",
+    "saved": "Saved",
+    "deleted": "Deleted",
+    "error": "Could not load or save records. Your draft is kept.",
+    "history": "Mood history",
+    "date": "Date to view (YYYY-MM-DD)",
+    "empty": "No records for this date",
+    "delete": "Delete",
+    "deleteAll": "Delete all records",
+    "deleteTitle": "Delete records?",
+    "deleteBody": "Deleted records cannot be recovered.",
+    "cancel": "Cancel"
   }
 }

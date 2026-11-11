@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { MoodPanel } from '../mood/MoodPanel';
+import { MoodStore } from '../mood/MoodStore';
 import { BackHandler } from 'react-native';
 import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { cueFromText, reactionTo } from '@murmur/expression-cues';
@@ -51,6 +53,7 @@ export interface AppNavigatorProps {
   deviceSupportOverride?: DeviceSupport;
   /** 솔로 채팅 답 어댑터. 기본은 i18n 대사를 쓰는 ScriptedReplyAdapter (ai-character 서비스 연결 전). */
   replyAdapter?: ChatReplyAdapter;
+  moodStore?: MoodStore;
 }
 
 const TRACKING_KEY: Record<FaceTrackingStatus, string | null> = {
@@ -73,7 +76,9 @@ export function AppNavigator({
   userPreference = 'system',
   deviceSupportOverride,
   replyAdapter,
+  moodStore,
 }: AppNavigatorProps): React.JSX.Element {
+  const store = useMemo(() => moodStore ?? new MoodStore(), [moodStore]);
   const [route, setRoute] = useState<Route>(initialRoute);
   // 마지막으로 고른 AI 캐릭터. 통화 화면의 아바타 에셋 키가 된다.
   const [characterId, setCharacterId] = useState<AiCharacterId | undefined>(
@@ -253,7 +258,10 @@ export function AppNavigator({
               : undefined
           }
           onSend={send}
-          onSaveMood={() => undefined}
+          moodPanel={<MoodPanel store={store} />}
+          onSaveMood={(value) => {
+            void store.save(value);
+          }}
           onCallFriend={() => {
             leaveSolo();
             setRoute({ name: 'random-match' });

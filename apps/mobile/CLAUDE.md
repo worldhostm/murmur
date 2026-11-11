@@ -73,3 +73,7 @@ pnpm --filter @murmur/mobile typecheck
 - `AppNavigator`는 한 번에 하나의 응답만 요청하며 대기 중 다음 초안은 유지한다. 최종 어댑터 실패는 화면에 안내한다.
 - 솔로 이탈 시 요청 세대 번호를 올려 늦은 성공·실패를 무시하고 화면 기록을 비운다. 같은 캐릭터라도 재입장하면 새 원격 세션을 쓴다. 서버 기록 삭제나 네트워크 취소를 의미하지 않는다.
 - 상세 기획: `docs/specs/solo-conversation-reliability.md`.
+
+### 기분 기록·연결 화면 (2026-11-11)
+
+- `src/mood/`: MoodStore의 직렬화된 저장·조회·삭제와 MoodPanel의 날짜별 조회. 네이티브 MurmurMoodStore는 백업 제외 앱 전용 파일을 쓴다. 실패를 메모리 저장 성공으로 대체하지 않는다.

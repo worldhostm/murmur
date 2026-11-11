@@ -31,6 +31,7 @@ export interface SoloScreenProps {
   restSuggestion?: 'none' | 'long-session' | 'late-night';
   onSend: (text: string) => void;
   onSaveMood: (text: string) => void;
+  moodPanel?: React.ReactNode;
   onCallFriend: () => void;
   onRest?: () => void;
   onDismissRest?: () => void;
@@ -232,21 +233,23 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
         />
       </View>
 
-      <MoodCard title={t('solo.moodTitle')}>
-        <TextInput
-          testID="mood-input"
-          value={mood}
-          onChangeText={setMood}
-          placeholder={t('solo.moodPlaceholder')}
-          placeholderTextColor={color.inkMuted}
-          style={[text.body, { color: color.ink, paddingVertical: space[2] }]}
-        />
-        <SecondaryButton
-          label={t('solo.moodSave')}
-          disabled={mood.trim().length === 0}
-          onPress={() => props.onSaveMood(mood.trim())}
-        />
-      </MoodCard>
+      {props.moodPanel ?? (
+        <MoodCard title={t('solo.moodTitle')}>
+          <TextInput
+            testID="mood-input"
+            value={mood}
+            onChangeText={setMood}
+            placeholder={t('solo.moodPlaceholder')}
+            placeholderTextColor={color.inkMuted}
+            style={[text.body, { color: color.ink, paddingVertical: space[2] }]}
+          />
+          <SecondaryButton
+            label={t('solo.moodSave')}
+            disabled={mood.trim().length === 0}
+            onPress={() => props.onSaveMood(mood.trim())}
+          />
+        </MoodCard>
+      )}
 
       <SecondaryButton
         label={t('solo.callFriend')}
