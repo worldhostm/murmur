@@ -77,3 +77,4 @@ pnpm --filter @murmur/mobile typecheck
 ### 기분 기록·연결 화면 (2026-11-11)
 
 - `src/mood/`: MoodStore의 직렬화된 저장·조회·삭제와 MoodPanel의 날짜별 조회. 네이티브 MurmurMoodStore는 백업 제외 앱 전용 파일을 쓴다. 실패를 메모리 저장 성공으로 대체하지 않는다.
+- `src/call/`: CallLobby와 SignalingClient. 친구 초대/랜덤 요청은 분리하고 서버 이벤트로 입장을 표시한다. 음성 미디어 연결과 혼동하지 않는다. HTTP 계약은 shared-types만 import한다.

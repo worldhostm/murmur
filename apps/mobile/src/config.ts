@@ -14,3 +14,10 @@ export const AI_CHARACTER_URL: string | undefined = isDev
     ? 'http://10.0.2.2:8787'
     : 'http://localhost:8787'
   : undefined;
+
+/** Local signaling gateway. Production URL must be explicitly configured. */
+export const SIGNALING_URL: string | undefined = isDev
+  ? Platform.OS === 'android'
+    ? 'http://10.0.2.2:8788'
+    : 'http://localhost:8788'
+  : undefined;

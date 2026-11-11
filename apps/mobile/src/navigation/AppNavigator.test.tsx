@@ -28,7 +28,7 @@ describe('AppNavigator', () => {
     await waitFor(() => expect(screen.getByTestId('screen-onboarding')).toBeTruthy());
   });
 
-  it('walks onboarding → character select → solo → random match', () => {
+  it('walks onboarding → character select → solo → friend lobby', () => {
     render(<AppNavigator deviceSupportOverride={supported} />);
     expect(screen.getByTestId('screen-onboarding')).toBeTruthy();
     fireEvent.press(screen.getByTestId('onboarding-start'));
@@ -37,7 +37,7 @@ describe('AppNavigator', () => {
     fireEvent.press(screen.getByTestId('character-select-confirm'));
     expect(screen.getByTestId('screen-solo')).toBeTruthy();
     fireEvent.press(screen.getByTestId('solo-call-friend'));
-    expect(screen.getByTestId('screen-call')).toBeTruthy();
+    expect(screen.getByTestId('screen-call-lobby')).toBeTruthy();
   });
 
   it('back buttons walk solo → character select → onboarding, and Android BACK does the same', () => {
@@ -191,7 +191,7 @@ it.each(['success', 'failure'])(
     await act(async () => {});
     fireEvent.press(screen.getByTestId('solo-call-friend'));
     await act(async () => {});
-    fireEvent.press(screen.getByTestId('call-end'));
+    fireEvent.press(screen.getByTestId('back-button'));
     fireEvent.press(screen.getByTestId('character-select-confirm'));
     expect(screen.queryByText('old message')).toBeNull();
     sendText('fresh message');

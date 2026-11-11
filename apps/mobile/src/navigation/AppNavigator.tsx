@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MoodPanel } from '../mood/MoodPanel';
 import { MoodStore } from '../mood/MoodStore';
+import { AppText, Screen } from '../components';
 import { BackHandler } from 'react-native';
 import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { cueFromText, reactionTo } from '@murmur/expression-cues';
 import type { SpriteExpression } from '@murmur/expression-cues';
 import { ThemeProvider, useReduceMotion } from '../theme';
 import {
-  CallScreen,
   CharacterSelectScreen,
   OnboardingScreen,
   SoloScreen,
@@ -20,7 +20,9 @@ import { useAvatarExpression } from '../avatar/useAvatarExpression';
 import { avatarAssetKeyFor } from '../avatar/characterAsset';
 import { FallbackReplyAdapter, RemoteReplyAdapter, ScriptedReplyAdapter } from '../chat';
 import type { ChatReplyAdapter, ChatTurn } from '../chat';
-import { AI_CHARACTER_URL } from '../config';
+import { AI_CHARACTER_URL, SIGNALING_URL } from '../config';
+import { CallLobby } from '../call/CallLobby';
+import { signalingConnector, type ConnectSignaling } from '../call/SignalingClient';
 import type { FaceTrackingStatus } from '../avatar/useFaceTracking';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -37,13 +39,17 @@ export type Route =
   | { name: 'onboarding' }
   | { name: 'character-select' }
   | { name: 'solo'; characterId: AiCharacterId }
-  | { name: 'random-match' };
+  | { name: 'random-match' }
+  | { name: 'avatar-preview' }
+  | { name: 'call-lobby' };
 
 const SCREEN_KIND: Record<Route['name'], ScreenKind> = {
   onboarding: 'onboarding',
   'character-select': 'character-select',
   solo: 'solo',
   'random-match': 'random-match',
+  'call-lobby': 'other',
+  'avatar-preview': 'random-match',
 };
 
 export interface AppNavigatorProps {
@@ -54,6 +60,7 @@ export interface AppNavigatorProps {
   /** 솔로 채팅 답 어댑터. 기본은 i18n 대사를 쓰는 ScriptedReplyAdapter (ai-character 서비스 연결 전). */
   replyAdapter?: ChatReplyAdapter;
   moodStore?: MoodStore;
+  connectSignaling?: ConnectSignaling;
 }
 
 const TRACKING_KEY: Record<FaceTrackingStatus, string | null> = {
@@ -77,7 +84,12 @@ export function AppNavigator({
   deviceSupportOverride,
   replyAdapter,
   moodStore,
+  connectSignaling,
 }: AppNavigatorProps): React.JSX.Element {
+  const connect = useMemo(
+    () => connectSignaling ?? (SIGNALING_URL ? signalingConnector(SIGNALING_URL) : undefined),
+    [connectSignaling],
+  );
   const store = useMemo(() => moodStore ?? new MoodStore(), [moodStore]);
   const [route, setRoute] = useState<Route>(initialRoute);
   // 마지막으로 고른 AI 캐릭터. 통화 화면의 아바타 에셋 키가 된다.
@@ -120,7 +132,7 @@ export function AppNavigator({
   });
   // 통화 화면에 있을 때만 트래킹. PoC: 내 표정을 remote 슬롯(큰 아바타)에도 비춘다.
   const tracking = useFaceTracking({
-    enabled: route.name === 'random-match',
+    enabled: route.name === 'avatar-preview' && !!support?.supported,
     mirrorToRemote: true,
     assetKey: avatarAssetKeyFor(characterId),
     reduceMotion,
@@ -153,6 +165,10 @@ export function AppNavigator({
         leaveSolo();
         setRoute({ name: 'character-select' });
         return true;
+      case 'avatar-preview':
+        setRoute({ name: 'call-lobby' });
+        return true;
+      case 'call-lobby':
       case 'random-match':
         setRoute({ name: 'character-select' });
         return true;
@@ -264,24 +280,32 @@ export function AppNavigator({
           }}
           onCallFriend={() => {
             leaveSolo();
-            setRoute({ name: 'random-match' });
+            setRoute({ name: 'call-lobby' });
           }}
         />
       );
       break;
     case 'random-match':
+    case 'call-lobby':
       content = (
-        <CallScreen
-          mode="random-match"
-          state="connecting"
-          peer={{ id: 'peer', isAi: false, avatarId: 'unknown', displayName: '' }}
-          onToggleMute={() => undefined}
-          onSwapAvatar={() => undefined}
-          onReport={() => undefined}
-          onEnd={() => setRoute({ name: 'character-select' })}
-          renderer={<UnityView />}
-          trackingLabel={trackingLabel(t, tracking.status, tracking.fps)}
+        <CallLobby
+          connect={connect}
+          onPreview={
+            typeof __DEV__ !== 'undefined' && __DEV__
+              ? () => setRoute({ name: 'avatar-preview' })
+              : undefined
+          }
+          onBack={goBack}
         />
+      );
+      break;
+    case 'avatar-preview':
+      content = (
+        <Screen fill testID="screen-avatar-preview" onBack={goBack}>
+          <AppText variant="heading">{t('lobby.preview')}</AppText>
+          <UnityView />
+          <AppText>{trackingLabel(t, tracking.status, tracking.fps)}</AppText>
+        </Screen>
       );
       break;
   }

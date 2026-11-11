@@ -190,5 +190,27 @@
     "deleteTitle": "Delete records?",
     "deleteBody": "Deleted records cannot be recovered.",
     "cancel": "Cancel"
+  },
+  "lobby": {
+    "title": "Connect with people",
+    "mediaPending": "Friend arrival is supported. Voice and expression sharing are not available yet.",
+    "connecting": "Preparing connection",
+    "unavailable": "Connection service is not configured",
+    "ready": "Invite a friend or enter an invitation code",
+    "error": "Connection lost. Go back and enter again.",
+    "create": "Create friend invitation",
+    "code": "6-character invitation code",
+    "join": "Join with code",
+    "random": "Random match (adult verification required)",
+    "cancel": "Cancel waiting / leave room",
+    "waitingFriend": "Share this code with your friend",
+    "peerPresent": "Your friend has joined. Voice is not connected yet.",
+    "peerLeft": "Your friend has left",
+    "reported": "Report received",
+    "report": "Report participant",
+    "block": "Block and leave",
+    "ageRequired": "Random matching requires adult verification. Use a friend invitation for now.",
+    "requestError": "Request failed. Please check the invitation code.",
+    "preview": "Preview my expressions"
   }
 }
