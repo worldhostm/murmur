@@ -37,3 +37,7 @@
 - 매칭 대기 상한과 취소 UX
 - 방 코드 충돌·만료 정책
 - 신고 시 즉시 통화 종료 여부
+
+## 2026-11-11 HTTP 개발 게이트웨이
+
+`src/http.ts`, `src/main.ts`에 실제 HTTP 전송을 추가했다. 프로토콜 타입은 `packages/shared-types/src/signaling.ts`로 옮겼다. 연결 토큰·폴링 커서·비활성 정리를 통해 모바일 친구 초대 화면을 기존 방/중계 코어와 연결한다. 이 경로는 익명 개발 연결이며 성인 인증을 수락하지 않는다. WebRTC 미디어/SFU와 배포용 계정 인증은 여전히 미구현이다. 실행·상세 동작은 `solo-conversation-reliability.md`의 후속 구현 절 참고.
