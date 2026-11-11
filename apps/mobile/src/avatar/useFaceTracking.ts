@@ -93,11 +93,16 @@ export function useFaceTracking(opts: UseFaceTrackingOptions): FaceTrackingResul
           if (alive) setStatus('permission-denied');
           return;
         }
+        if (!alive) return;
         tracker = (createTrackerRef.current ?? createFaceTracker)();
         renderer = (createRendererRef.current ?? createAvatarRenderer)();
         rendererRef.current = renderer;
         for (const slot of slots) await renderer.loadAvatar(slot, assetKey);
-        if (alive) setRendererReady(true);
+        if (!alive) {
+          await renderer.dispose();
+          return;
+        }
+        setRendererReady(true);
         unsubscribe = tracker.onFrame((frame) => {
           if (!alive || !renderer) return;
           const encoded = encodeFrame(frame);
@@ -107,6 +112,7 @@ export function useFaceTracking(opts: UseFaceTrackingOptions): FaceTrackingResul
           setStatus(STATUS_BY_TRACKING[frame.tracking]);
         });
         await tracker.start();
+        if (!alive) await tracker.stop();
       } catch (e) {
         if (!alive) return;
         const code = (e as { code?: string }).code;

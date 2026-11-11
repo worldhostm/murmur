@@ -55,3 +55,26 @@ describe('useFaceTracking', () => {
     await waitFor(() => expect(result.current.status).toBe('permission-denied'));
   });
 });
+
+it('does not start tracking if an avatar finishes loading after unmount', async () => {
+  let loaded!: () => void;
+  const renderer = new FakeAvatarRenderer();
+  renderer.loadAvatar = () =>
+    new Promise<void>((resolve) => {
+      loaded = resolve;
+    });
+  const tracker = new FakeFaceTracker({ manual: true });
+  const start = jest.spyOn(tracker, 'start');
+  const { unmount } = renderHook(() =>
+    useFaceTracking({
+      enabled: true,
+      createTracker: () => tracker,
+      createRenderer: () => renderer,
+    }),
+  );
+  await waitFor(() => expect(loaded).toBeDefined());
+  unmount();
+  await act(async () => loaded());
+  expect(start).not.toHaveBeenCalled();
+  expect(renderer.disposed).toBe(true);
+});
