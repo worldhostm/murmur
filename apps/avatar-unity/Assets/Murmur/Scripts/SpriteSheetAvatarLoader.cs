@@ -55,8 +55,9 @@ namespace Murmur
             var quad = new GameObject("Quad");
             quad.transform.SetParent(pivot, false);
             // 내장 Quad 의 정면은 -Z 를 향하는데 씬 카메라는 +Z 쪽(0,1.4,0.8)에서 -Z 를 본다. 그대로 두면 뒷면 컬링으로 안 보인다.
-            // Y 축 180° 회전은 그림이 좌우로 뒤집히므로, Z 스케일을 -1 로 뒤집어 법선만 +Z 로 돌린다 (그림 방향은 그대로).
-            quad.transform.localScale = new Vector3(QuadHeight * CellAspect, QuadHeight, -1f);
+            // Y 축 180° 회전으로 정면을 카메라로 돌린다. (Z 스케일 -1 은 뒷면을 보는 것이라 그림이 좌우로 뒤집혔다 — 2026-11-12 수정.)
+            quad.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+            quad.transform.localScale = new Vector3(QuadHeight * CellAspect, QuadHeight, 1f);
             quad.AddComponent<MeshFilter>().sharedMesh = Resources.GetBuiltinResource<Mesh>("Quad.fbx");
             var renderer = quad.AddComponent<MeshRenderer>();
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;

@@ -105,8 +105,11 @@ namespace Murmur.Tests
             Assert.IsNotNull(quad);
             var frontNormal = quad.TransformVector(Vector3.back).normalized;
             Assert.Greater(Vector3.Dot(frontNormal, Vector3.forward), 0.99f, "쿼드 정면이 카메라(+Z) 를 향해야 한다");
-            // 좌우가 뒤집히지 않아야 한다: 로컬 +X 가 월드 +X.
-            Assert.Greater(Vector3.Dot(quad.TransformVector(Vector3.right).normalized, Vector3.right), 0.99f);
+            // 좌우가 뒤집히지 않아야 한다: 텍스처 u=1 쪽(로컬 +X)이 카메라의 오른쪽에 보여야 한다.
+            // 카메라는 -Z 를 보므로 카메라의 오른쪽은 월드 -X 다. (로컬 +X 가 월드 +X 면 뒷면을 보는 것이라 거울상이다.)
+            var cameraRight = Quaternion.LookRotation(Vector3.back, Vector3.up) * Vector3.right;
+            Assert.Greater(Vector3.Dot(quad.TransformVector(Vector3.right).normalized, cameraRight), 0.99f);
+            Assert.AreEqual(1f, Mathf.Sign(quad.localScale.z), "Z 스케일을 음수로 뒤집으면 그림이 거울상이 된다");
             Object.DestroyImmediate(parent.gameObject);
         }
     }

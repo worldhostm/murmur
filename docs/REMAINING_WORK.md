@@ -39,7 +39,7 @@ Hub 로그인 후 배치 모드 동작. UniVRM 0.128.3 은 `com.unity.timeline` 
   6. 비활성으로 시작하는 local 슬롯은 Awake 가 돌지 않아 `IAvatarLoader` 를 못 찾음 → `Load()` 에서 지연 조회.
   7. 눈·입·눈썹이 0.3 배 스케일된 머리 구의 자식이라 구 안에 숨음 → 머리 피벗(스케일 1)과 구 메시를 분리.
   8. 내장 메시 `Sphere.fbx` 는 반지름 1(CreatePrimitive 구의 두 배)이라 머리가 화면을 채우고 눈·입이 묻힘 → 내장 메시를 반지름 0.5 로 정규화한 복사본 사용. 로드 시 `[PrimitiveAvatar]` 로그로 카메라·머리·눈 배치를 남긴다.
-  9. (2026-11-09) 캐릭터 표정 시트 아바타(`SpriteSheetAvatarLoader`)가 로드 로그만 찍히고 화면엔 배경색만 보임 → 내장 Quad 의 정면이 -Z 인데 카메라가 +Z 쪽에서 봐서 뒷면 컬링. 쿼드 Z 스케일을 -1 로 뒤집어 법선만 돌림(좌우 반전 없음). EditMode 테스트 `QuadFacesTheCallCameraWithoutMirroring` 추가.
+  9. (2026-11-09) 캐릭터 표정 시트 아바타(`SpriteSheetAvatarLoader`)가 로드 로그만 찍히고 화면엔 배경색만 보임 → 내장 Quad 의 정면이 -Z 인데 카메라가 +Z 쪽에서 봐서 뒷면 컬링. 처음엔 쿼드 Z 스케일을 -1 로 뒤집었는데 이는 뒷면을 보는 것이라 그림이 거울상이었다(2026-11-12 시엘의 귀걸이·리본 위치로 확인). Y 축 180° 회전으로 고치고 EditMode 테스트 `QuadFacesTheCallCameraWithoutMirroring` 이 카메라 오른쪽 방향을 기준으로 검사한다.
   10. (2026-11-09) AVD 기본 설정(`hw.camera.front=none`)이면 트래커가 "camera bind failed" 로 시작하지 못한다 → 에뮬레이터를 `emulator -avd Pixel_8_API36 -gpu swiftshader_indirect -camera-front emulated` 로 띄운다.
 - **에뮬레이터 결과**: 통화 화면에 Lavender 머리와 눈·눈썹·입이 Night 배경 위에 그려지고 RN 오버레이가 위에 보인다. Unity `[perf]` 프레임 평균 33~46ms(swiftshader), 수신→렌더 0.0~0.2ms, drop 0. 에뮬레이터 카메라에는 얼굴이 없어 트래킹 라벨은 "얼굴이 보이지 않아요" 로 멈춘다. 표정 반응은 실기기에서만 확인할 수 있다.
 - **남은 것**: iOS 에 같은 준비 콜백(`MurmurBridge.NotifyNativeReady` 의 iOS 분기 + `MurmurUnityBridge.swift` 큐)과 `resume` 에 해당하는 처리. 카메라 소유권은 현재 구조(네이티브 트래커가 카메라를 쥐고 Unity 는 프레임만 받음)로 확정.
