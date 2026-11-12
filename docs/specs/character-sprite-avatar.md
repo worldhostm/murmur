@@ -9,7 +9,7 @@
 ## 범위
 
 - 입력: 표정 시트 PNG (캐릭터 4행 × 표정 10열, `/Users/iesg/Downloads/murmur_face_expression_1106` 과 같은 형식). `scripts/slice-expression-sheet.py` 가 캐릭터별 1024×512 아틀라스(137×240 셀 5×2)를 `apps/avatar-unity/Assets/Murmur/Resources/Characters/<id>.png` 로 만든다.
-- 2026-11-12: 신규 10인은 상반신 표정 세트(캐릭터당 표정 8칸)에서 `scripts/slice-character-expressions.py` 가 같은 아틀라스 규격으로 만든다. 8칸을 10칸에 매핑하고(미소 2단계·걱정/슬픔·진지/기본은 같은 그림) 위아래 짧은 띠는 어둡게 채운다 (docs/specs/character-roster.md).
+- 2026-11-12: 신규 10인(출시 예정, 현재 아틀라스 없음)은 출시 시 상반신 표정 세트(캐릭터당 표정 8칸)에서 `scripts/slice-character-expressions.py` 가 같은 아틀라스 규격으로 만든다. 8칸을 10칸에 매핑하고(미소 2단계·걱정/슬픔·진지/기본은 같은 그림) 위아래 짧은 띠는 어둡게 채운다 (docs/specs/character-roster.md).
 - 에셋 키: `characters/<id>/front` (`@murmur/shared-types` 의 `AI_CHARACTERS[].avatar.assetKey` 와 동일). 앱은 캐릭터 선택 화면에서 고른 캐릭터의 키를 통화 화면 렌더러에 보낸다 (`avatarAssetKeyFor`).
 - Unity: `SpriteSheetAvatarLoader` 가 키를 받아 아틀라스를 입힌 쿼드를 만들고, `SpriteExpressionDriver` 가 face-protocol 프레임을 스무딩 → `SpriteExpressionClassifier` 로 10칸 중 하나를 골라 UV 를 바꾼다. 최소 유지 150ms. 머리 포즈는 roll 기울기(±12°)와 작은 평행이동으로만.
 - 분류 규칙 (ARKit 블렌드셰이프, 우선순위 순): 화남(browDown>0.45, smile<0.25) → 활짝 웃음(smile>0.55 또는 smile>0.35+jaw>0.25) → 놀람(jaw>0.3 + eyeWide>0.3/browInnerUp>0.45) → 슬픔(frown>0.3 또는 browInnerUp>0.5+입 다묾) → 미소(smile>0.3) → 걱정(browInnerUp>0.3) → 당황(jaw>0.25) → 진지(eyeSquint>0.35 또는 browDown>0.25) → 은은한 미소(smile>0.12) → 기본. 추적 끊김은 기본.
