@@ -21,11 +21,18 @@ const BODY_TEXT_PAIRS: [ColorToken, ColorToken][] = [
   ['inkMuted', 'cream'],
   ['ink', 'cream'],
   ['danger', 'surface100'],
+  ['danger', 'cream'],
+  ['danger', 'surface200'],
   ['success', 'surface100'],
   ['warning', 'surface100'],
 ];
 
-const UI_PAIRS: [ColorToken, ColorToken][] = [['borderStrong', 'surface300']];
+const UI_PAIRS: [ColorToken, ColorToken][] = [
+  ['borderStrong', 'surface300'],
+  ['borderStrong', 'surface200'],
+  ['brand', 'surface200'],
+  ['danger', 'surface200'],
+];
 
 /** 문서 표에 적힌 값 (소수 둘째 자리). 토큰을 바꾸면 문서도 같이 고쳐야 한다. */
 const DOCUMENTED: { fg: ColorToken; bg: ColorToken; light: number; dark: number }[] = [

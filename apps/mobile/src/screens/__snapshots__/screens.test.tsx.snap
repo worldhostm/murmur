@@ -147,7 +147,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
                 "fontFamily": "Noto Sans KR",
                 "fontSize": 15,
                 "fontWeight": "600",
-                "lineHeight": 20,
+                "lineHeight": 22,
               },
               {
                 "color": "#FF8FBE",
@@ -778,9 +778,9 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
           [
             {
               "fontFamily": "Noto Sans KR",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 24,
+              "lineHeight": 26,
             },
             {
               "color": "#B3A8C4",
@@ -870,7 +870,7 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
                 "fontFamily": "Noto Sans KR",
                 "fontSize": 15,
                 "fontWeight": "600",
-                "lineHeight": 20,
+                "lineHeight": 22,
               },
               {
                 "color": "#140E1F",
@@ -1099,9 +1099,9 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                 [
                   {
                     "fontFamily": "Noto Sans KR",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 24,
+                    "lineHeight": 26,
                   },
                   {
                     "color": "#F2EDF8",
@@ -1132,9 +1132,9 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
             [
               {
                 "fontFamily": "Noto Sans KR",
-                "fontSize": 15,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 24,
+                "lineHeight": 26,
               },
               {
                 "backgroundColor": "#17121F",
@@ -1202,7 +1202,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 15,
                   "fontWeight": "600",
-                  "lineHeight": 20,
+                  "lineHeight": 22,
                 },
                 {
                   "color": "#140E1F",
@@ -1251,9 +1251,9 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
             [
               {
                 "fontFamily": "Noto Sans KR",
-                "fontSize": 15,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 24,
+                "lineHeight": 26,
               },
               {
                 "color": "#F2EDF8",
@@ -1315,7 +1315,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 15,
                   "fontWeight": "600",
-                  "lineHeight": 20,
+                  "lineHeight": 22,
                 },
                 {
                   "color": "#F2EDF8",
@@ -1380,7 +1380,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                 "fontFamily": "Noto Sans KR",
                 "fontSize": 15,
                 "fontWeight": "600",
-                "lineHeight": 20,
+                "lineHeight": 22,
               },
               {
                 "color": "#F2EDF8",
@@ -1544,7 +1544,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
                 "fontFamily": "Noto Sans KR",
                 "fontSize": 15,
                 "fontWeight": "600",
-                "lineHeight": 20,
+                "lineHeight": 22,
               },
               {
                 "color": "#B8366E",
@@ -2175,9 +2175,9 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
           [
             {
               "fontFamily": "Noto Sans KR",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 24,
+              "lineHeight": 26,
             },
             {
               "color": "#5E5470",
@@ -2267,7 +2267,7 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
                 "fontFamily": "Noto Sans KR",
                 "fontSize": 15,
                 "fontWeight": "600",
-                "lineHeight": 20,
+                "lineHeight": 22,
               },
               {
                 "color": "#FFFFFF",
@@ -2496,9 +2496,9 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                 [
                   {
                     "fontFamily": "Noto Sans KR",
-                    "fontSize": 15,
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 24,
+                    "lineHeight": 26,
                   },
                   {
                     "color": "#1E1729",
@@ -2529,9 +2529,9 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
             [
               {
                 "fontFamily": "Noto Sans KR",
-                "fontSize": 15,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 24,
+                "lineHeight": 26,
               },
               {
                 "backgroundColor": "#F3EDFC",
@@ -2599,7 +2599,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 15,
                   "fontWeight": "600",
-                  "lineHeight": 20,
+                  "lineHeight": 22,
                 },
                 {
                   "color": "#FFFFFF",
@@ -2648,9 +2648,9 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
             [
               {
                 "fontFamily": "Noto Sans KR",
-                "fontSize": 15,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 24,
+                "lineHeight": 26,
               },
               {
                 "color": "#1E1729",
@@ -2712,7 +2712,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 15,
                   "fontWeight": "600",
-                  "lineHeight": 20,
+                  "lineHeight": 22,
                 },
                 {
                   "color": "#1E1729",
@@ -2777,7 +2777,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                 "fontFamily": "Noto Sans KR",
                 "fontSize": 15,
                 "fontWeight": "600",
-                "lineHeight": 20,
+                "lineHeight": 22,
               },
               {
                 "color": "#1E1729",

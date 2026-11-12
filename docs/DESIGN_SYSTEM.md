@@ -98,11 +98,13 @@ function resolveTheme(params: {
 | --- | --- | --- | --- | --- |
 | `display-lg` | display | 40 / 48 | 600 | 온보딩 큰 문장, 캐릭터 소개 화면 이름 |
 | `display-md` | display | 28 / 36 | 600 | 캐릭터 카드 이름 |
+| `display-compact` | display | 32 / 42 | 600 | 작은 화면·큰 글자 온보딩 |
+| `character-name` | display | 24 / 32 | 600 | 캐릭터 목록 이름 |
 | `title` | sans | 20 / 28 | 700 | 화면 제목 |
 | `heading` | sans | 17 / 24 | 600 | 섹션 제목 |
-| `body` | sans | 15 / 24 | 400 | 채팅 메시지, 본문 |
-| `body-sm` | sans | 13 / 20 | 400 | 보조 설명 |
-| `label` | sans | 15 / 20 | 600 | 버튼 |
+| `body` | sans | 16 / 26 | 400 | 채팅 메시지, 본문 |
+| `body-sm` | sans | 14 / 22 | 400 | 보조 설명 |
+| `label` | sans | 15 / 22 | 600 | 버튼 |
 | `caption` | sans | 12 / 16 | 500 | 시간, 메타 정보, "AI 캐릭터" 표시 |
 
 - 글꼴 파일은 OFL 라이선스로 앱에 번들한다 (`apps/mobile/assets/fonts/`).
@@ -203,3 +205,9 @@ const { color, space, radius, text } = useTheme();
 ## 12. 폰트·레이아웃 개선 제안 (2026-11-11)
 
 [폰트·가독성·화면 구조 개선안](specs/design-readability-layout.md)에 현재 구현 진단, 우선순위, 타입 스케일과 레이아웃 토큰 제안, 화면별 적용 기준을 정리했다. 폰트 번들 확정과 키보드 대응을 P0로, 대화/기분 기록 분리와 초대 화면 위계 개선을 P1로 둔다. 현재 토큰과 UI는 변경하지 않았으며, 제안값은 실제 폰트 렌더링 검증 후 이 문서의 해당 표와 함께 반영한다.
+
+
+### 2026-11-11 적용된 디자인 개선
+
+- body 16/26, body-sm 14/22, label 15/22 및 display-compact/character-name 역할을 토큰 원본에 적용했다. Noto 파일 번들은 아직 미완료다.
+- `layout` 토큰: content-max-width 560, compact-width 360, wide-width 600, solo-avatar-height 192, solo-avatar-max-height-ratio 0.30, compact-avatar-size 48, input-min-height 52, input-max-lines 5, bubble-max-width-ratio 0.86, large-font-scale 1.5. wide-width는 향후 분기용이며 현재 화면은 최대 폭으로 대응한다.

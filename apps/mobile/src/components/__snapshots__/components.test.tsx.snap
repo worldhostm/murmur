@@ -511,9 +511,9 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
         [
           {
             "fontFamily": "Noto Sans KR",
-            "fontSize": 13,
+            "fontSize": 14,
             "fontWeight": "400",
-            "lineHeight": 20,
+            "lineHeight": 22,
           },
           {
             "color": "#B3A8C4",
@@ -529,9 +529,9 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
         [
           {
             "fontFamily": "Noto Sans KR",
-            "fontSize": 13,
+            "fontSize": 14,
             "fontWeight": "400",
-            "lineHeight": 20,
+            "lineHeight": 22,
           },
           {
             "color": "#F2EDF8",
@@ -603,9 +603,9 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
           [
             {
               "fontFamily": "Noto Sans KR",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 24,
+              "lineHeight": 26,
             },
             {
               "color": "#140E1F",
@@ -663,9 +663,9 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
           [
             {
               "fontFamily": "Noto Sans KR",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 24,
+              "lineHeight": 26,
             },
             {
               "color": "#F2EDF8",
@@ -767,9 +767,9 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
           [
             {
               "fontFamily": "Noto Sans KR",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 24,
+              "lineHeight": 26,
             },
             {
               "color": "#F2EDF8",
@@ -868,7 +868,7 @@ exports[`components snapshot (dark) PrimaryButton 1`] = `
           "fontFamily": "Noto Sans KR",
           "fontSize": 15,
           "fontWeight": "600",
-          "lineHeight": 20,
+          "lineHeight": 22,
         },
         {
           "color": "#140E1F",
@@ -934,7 +934,7 @@ exports[`components snapshot (dark) SecondaryButton 1`] = `
           "fontFamily": "Noto Sans KR",
           "fontSize": 15,
           "fontWeight": "600",
-          "lineHeight": 20,
+          "lineHeight": 22,
         },
         {
           "color": "#F2EDF8",
@@ -1459,9 +1459,9 @@ exports[`components snapshot (light) CharacterCard 1`] = `
         [
           {
             "fontFamily": "Noto Sans KR",
-            "fontSize": 13,
+            "fontSize": 14,
             "fontWeight": "400",
-            "lineHeight": 20,
+            "lineHeight": 22,
           },
           {
             "color": "#5E5470",
@@ -1477,9 +1477,9 @@ exports[`components snapshot (light) CharacterCard 1`] = `
         [
           {
             "fontFamily": "Noto Sans KR",
-            "fontSize": 13,
+            "fontSize": 14,
             "fontWeight": "400",
-            "lineHeight": 20,
+            "lineHeight": 22,
           },
           {
             "color": "#1E1729",
@@ -1551,9 +1551,9 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
           [
             {
               "fontFamily": "Noto Sans KR",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 24,
+              "lineHeight": 26,
             },
             {
               "color": "#FFFFFF",
@@ -1611,9 +1611,9 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
           [
             {
               "fontFamily": "Noto Sans KR",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 24,
+              "lineHeight": 26,
             },
             {
               "color": "#1E1729",
@@ -1715,9 +1715,9 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
           [
             {
               "fontFamily": "Noto Sans KR",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 24,
+              "lineHeight": 26,
             },
             {
               "color": "#1E1729",
@@ -1816,7 +1816,7 @@ exports[`components snapshot (light) PrimaryButton 1`] = `
           "fontFamily": "Noto Sans KR",
           "fontSize": 15,
           "fontWeight": "600",
-          "lineHeight": 20,
+          "lineHeight": 22,
         },
         {
           "color": "#FFFFFF",
@@ -1882,7 +1882,7 @@ exports[`components snapshot (light) SecondaryButton 1`] = `
           "fontFamily": "Noto Sans KR",
           "fontSize": 15,
           "fontWeight": "600",
-          "lineHeight": 20,
+          "lineHeight": 22,
         },
         {
           "color": "#1E1729",

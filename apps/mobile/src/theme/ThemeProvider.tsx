@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from 'react';
 import type { PropsWithChildren } from 'react';
 import { useColorScheme } from 'react-native';
-import { color, motion, radius, size, space, text } from '@murmur/design-tokens';
+import { color, layout, motion, radius, size, space, text } from '@murmur/design-tokens';
 import type { ColorPalette, ThemeId } from '@murmur/design-tokens';
 import type { ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { resolveTheme } from './resolveTheme';
@@ -25,6 +25,7 @@ export interface Theme {
   text: TextStyles;
   size: typeof size;
   motion: typeof motion;
+  layout: typeof layout;
   /** OS "동작 줄이기". true면 물결 같은 반복 애니메이션을 정지 상태로 그린다. */
   reduceMotion: boolean;
 }
@@ -63,7 +64,17 @@ export function ThemeProvider({
     systemScheme: scheme === 'dark' ? 'dark' : 'light',
   });
   const value = useMemo<Theme>(
-    () => ({ id, color: color[id], space, radius, text: TEXT_STYLES, size, motion, reduceMotion }),
+    () => ({
+      id,
+      color: color[id],
+      space,
+      radius,
+      text: TEXT_STYLES,
+      size,
+      layout,
+      motion,
+      reduceMotion,
+    }),
     [id, reduceMotion],
   );
 

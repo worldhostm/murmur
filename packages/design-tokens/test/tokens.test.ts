@@ -2,7 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import tokensJson from '../tokens.json';
-import { color, space, radius, text, fontFamily, THEME_IDS, TOKENS_VERSION, size } from '../dist/tokens';
+import {
+  color,
+  space,
+  radius,
+  text,
+  fontFamily,
+  THEME_IDS,
+  TOKENS_VERSION,
+  size,
+} from '../dist/tokens';
 import { renderTs, renderCs, camel, pascal } from '../scripts/generate';
 
 const PKG = join(import.meta.dirname, '..');
@@ -44,10 +53,36 @@ describe('tokens.json → dist', () => {
 
   it('text styles match §4 and use RN string fontWeight', () => {
     expect(fontFamily).toEqual({ display: 'Noto Serif KR', sans: 'Noto Sans KR' });
-    expect(text.displayLg).toEqual({ fontFamily: 'Noto Serif KR', fontSize: 40, lineHeight: 48, fontWeight: '600' });
-    expect(text.body).toEqual({ fontFamily: 'Noto Sans KR', fontSize: 15, lineHeight: 24, fontWeight: '400' });
-    expect(text.caption).toEqual({ fontFamily: 'Noto Sans KR', fontSize: 12, lineHeight: 16, fontWeight: '500' });
-    expect(Object.keys(text)).toEqual(['displayLg', 'displayMd', 'title', 'heading', 'body', 'bodySm', 'label', 'caption']);
+    expect(text.displayLg).toEqual({
+      fontFamily: 'Noto Serif KR',
+      fontSize: 40,
+      lineHeight: 48,
+      fontWeight: '600',
+    });
+    expect(text.body).toEqual({
+      fontFamily: 'Noto Sans KR',
+      fontSize: 16,
+      lineHeight: 26,
+      fontWeight: '400',
+    });
+    expect(text.caption).toEqual({
+      fontFamily: 'Noto Sans KR',
+      fontSize: 12,
+      lineHeight: 16,
+      fontWeight: '500',
+    });
+    expect(Object.keys(text)).toEqual([
+      'displayLg',
+      'displayMd',
+      'displayCompact',
+      'characterName',
+      'title',
+      'heading',
+      'body',
+      'bodySm',
+      'label',
+      'caption',
+    ]);
     for (const s of Object.values(text)) expect(s.lineHeight).toBeGreaterThan(s.fontSize);
   });
 
@@ -61,7 +96,9 @@ describe('tokens.json → dist', () => {
   it('C# output is parseable in shape', () => {
     const cs = readFileSync(join(PKG, 'dist/Tokens.cs'), 'utf8');
     expect(cs).toContain('namespace Murmur.Design');
-    expect(cs).toContain('public static readonly Color32 Brand = new Color32(107, 63, 212, 255); // #6B3FD4');
+    expect(cs).toContain(
+      'public static readonly Color32 Brand = new Color32(107, 63, 212, 255); // #6B3FD4',
+    );
     expect(cs).toContain('public const float Pill = 999f;');
     const open = (cs.match(/{/g) ?? []).length;
     const close = (cs.match(/}/g) ?? []).length;

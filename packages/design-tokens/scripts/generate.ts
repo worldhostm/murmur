@@ -12,6 +12,7 @@ import { join, resolve } from 'node:path';
 interface TokensJson {
   name: string;
   version: number;
+  layout: Record<string, number>;
   color: {
     themes: { id: string; name: string }[];
     tokens: { name: string; value: Record<string, string>; usage: string }[];
@@ -92,16 +93,27 @@ export function renderTs(t: TokensJson): string {
   lines.push('} as const;');
   lines.push(`export type RadiusToken = keyof typeof radius;`);
   lines.push('');
+  lines.push('export const layout = {');
+  for (const [name, value] of Object.entries(t.layout)) {
+    if (!Number.isFinite(value) || value <= 0) throw new Error(`Invalid layout token: ${name}`);
+    lines.push(`  ${camel(name)}: ${value},`);
+  }
+  lines.push('} as const;');
+  lines.push('');
   lines.push('/** 글꼴 패밀리. RN fontFamily에는 첫 패밀리 이름을, 웹에는 CSS 스택을 쓴다. */');
   lines.push('export const fontFamily = {');
-  for (const [k, v] of Object.entries(t.type.families)) lines.push(`  ${camel(k)}: '${primaryFamily(v)}',`);
+  for (const [k, v] of Object.entries(t.type.families))
+    lines.push(`  ${camel(k)}: '${primaryFamily(v)}',`);
   lines.push('} as const;');
   lines.push('export const fontFamilyCss = {');
-  for (const [k, v] of Object.entries(t.type.families)) lines.push(`  ${camel(k)}: ${JSON.stringify(v)},`);
+  for (const [k, v] of Object.entries(t.type.families))
+    lines.push(`  ${camel(k)}: ${JSON.stringify(v)},`);
   lines.push('} as const;');
   lines.push(`export type FontFamilyToken = keyof typeof fontFamily;`);
   lines.push('');
-  lines.push('/** 텍스트 스타일. RN Text style에 그대로 펼친다. fontWeight는 RN 규격대로 문자열. */');
+  lines.push(
+    '/** 텍스트 스타일. RN Text style에 그대로 펼친다. fontWeight는 RN 규격대로 문자열. */',
+  );
   lines.push('export const text = {');
   for (const g of t.type.groups) {
     for (const s of g.styles) {
@@ -141,7 +153,9 @@ const hexToRgb = (hex: string): [number, number, number] => {
 
 export function renderCs(t: TokensJson): string {
   const l: string[] = [HEADER('packages/design-tokens/tokens.json')];
-  l.push('// Unity(URP) 통화 화면 배경과 캐릭터 주변 장식에서만 쓴다. 텍스트 UI는 React Native가 그린다.');
+  l.push(
+    '// Unity(URP) 통화 화면 배경과 캐릭터 주변 장식에서만 쓴다. 텍스트 UI는 React Native가 그린다.',
+  );
   l.push('using UnityEngine;');
   l.push('');
   l.push('namespace Murmur.Design');
@@ -159,7 +173,9 @@ export function renderCs(t: TokensJson): string {
     for (const tok of t.color.tokens) {
       const [r, g, b] = hexToRgb(tok.value[theme.id]!);
       l.push(`            /// <summary>${tok.usage}</summary>`);
-      l.push(`            public static readonly Color32 ${pascal(tok.name)} = new Color32(${r}, ${g}, ${b}, 255); // ${tok.value[theme.id]}`);
+      l.push(
+        `            public static readonly Color32 ${pascal(tok.name)} = new Color32(${r}, ${g}, ${b}, 255); // ${tok.value[theme.id]}`,
+      );
     }
     l.push('        }');
     l.push('');
@@ -167,15 +183,25 @@ export function renderCs(t: TokensJson): string {
   l.push('        public static class Space');
   l.push('        {');
   for (const tok of t.spacing.tokens) {
-    l.push(`            public const float S${tok.name.replace(/^space-/, '')} = ${px(tok.value)}f; // ${tok.usage}`);
+    l.push(
+      `            public const float S${tok.name.replace(/^space-/, '')} = ${px(tok.value)}f; // ${tok.usage}`,
+    );
   }
   l.push('        }');
   l.push('');
   l.push('        public static class Radius');
   l.push('        {');
   for (const tok of t.radius.tokens) {
-    l.push(`            public const float ${pascal(tok.name.replace(/^radius-/, ''))} = ${px(tok.value)}f; // ${tok.usage}`);
+    l.push(
+      `            public const float ${pascal(tok.name.replace(/^radius-/, ''))} = ${px(tok.value)}f; // ${tok.usage}`,
+    );
   }
+  l.push('        }');
+  l.push('');
+  l.push('        public static class Layout');
+  l.push('        {');
+  for (const [name, value] of Object.entries(t.layout))
+    l.push(`            public const float ${pascal(name)} = ${value}f;`);
   l.push('        }');
   l.push('');
   l.push('        public static class Motion');

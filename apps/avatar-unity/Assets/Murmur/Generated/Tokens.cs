@@ -9,7 +9,7 @@ namespace Murmur.Design
 
     public static class Tokens
     {
-        public const int Version = 1;
+        public const int Version = 2;
 
         /// <summary>Light · Lavender</summary>
         public static class Light
@@ -110,6 +110,20 @@ namespace Murmur.Design
             public const float Md = 16f; // Cards, chat bubbles, sheets' inner blocks.
             public const float Lg = 24f; // Bottom sheets, character cards, call video frame.
             public const float Pill = 999f; // Primary buttons, call controls, avatars' status ring.
+        }
+
+        public static class Layout
+        {
+            public const float ContentMaxWidth = 560f;
+            public const float CompactWidth = 360f;
+            public const float WideWidth = 600f;
+            public const float SoloAvatarHeight = 192f;
+            public const float SoloAvatarMaxHeightRatio = 0.3f;
+            public const float CompactAvatarSize = 48f;
+            public const float InputMinHeight = 52f;
+            public const float InputMaxLines = 5f;
+            public const float BubbleMaxWidthRatio = 0.86f;
+            public const float LargeFontScale = 1.5f;
         }
 
         public static class Motion

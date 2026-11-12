@@ -1,6 +1,6 @@
 // GENERATED FROM packages/design-tokens/tokens.json — DO NOT EDIT. 값을 바꾸려면 tokens.json을 고치고 `pnpm generate`.
 
-export const TOKENS_VERSION = 1 as const;
+export const TOKENS_VERSION = 2 as const;
 export const THEME_IDS = ['light', 'dark'] as const;
 export type ThemeId = (typeof THEME_IDS)[number];
 
@@ -118,6 +118,19 @@ export const radius = {
 } as const;
 export type RadiusToken = keyof typeof radius;
 
+export const layout = {
+  contentMaxWidth: 560,
+  compactWidth: 360,
+  wideWidth: 600,
+  soloAvatarHeight: 192,
+  soloAvatarMaxHeightRatio: 0.3,
+  compactAvatarSize: 48,
+  inputMinHeight: 52,
+  inputMaxLines: 5,
+  bubbleMaxWidthRatio: 0.86,
+  largeFontScale: 1.5,
+} as const;
+
 /** 글꼴 패밀리. RN fontFamily에는 첫 패밀리 이름을, 웹에는 CSS 스택을 쓴다. */
 export const fontFamily = {
   display: 'Noto Serif KR',
@@ -133,11 +146,13 @@ export type FontFamilyToken = keyof typeof fontFamily;
 export const text = {
   displayLg: { fontFamily: fontFamily.display, fontSize: 40, lineHeight: 48, fontWeight: '600' },
   displayMd: { fontFamily: fontFamily.display, fontSize: 28, lineHeight: 36, fontWeight: '600' },
+  displayCompact: { fontFamily: fontFamily.display, fontSize: 32, lineHeight: 42, fontWeight: '600' },
+  characterName: { fontFamily: fontFamily.display, fontSize: 24, lineHeight: 32, fontWeight: '600' },
   title: { fontFamily: fontFamily.sans, fontSize: 20, lineHeight: 28, fontWeight: '700' },
   heading: { fontFamily: fontFamily.sans, fontSize: 17, lineHeight: 24, fontWeight: '600' },
-  body: { fontFamily: fontFamily.sans, fontSize: 15, lineHeight: 24, fontWeight: '400' },
-  bodySm: { fontFamily: fontFamily.sans, fontSize: 13, lineHeight: 20, fontWeight: '400' },
-  label: { fontFamily: fontFamily.sans, fontSize: 15, lineHeight: 20, fontWeight: '600' },
+  body: { fontFamily: fontFamily.sans, fontSize: 16, lineHeight: 26, fontWeight: '400' },
+  bodySm: { fontFamily: fontFamily.sans, fontSize: 14, lineHeight: 22, fontWeight: '400' },
+  label: { fontFamily: fontFamily.sans, fontSize: 15, lineHeight: 22, fontWeight: '600' },
   caption: { fontFamily: fontFamily.sans, fontSize: 12, lineHeight: 16, fontWeight: '500' },
 } as const;
 export type TextStyleToken = keyof typeof text;
