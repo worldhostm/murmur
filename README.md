@@ -27,3 +27,8 @@ pnpm generate && pnpm test
 | `services/signaling` | 통화 매칭·방·시그널링 |
 | `services/ai-character` | STT → LLM → TTS → 표정 파이프라인 |
 | `services/upload-check` | VRM·이미지 검수 |
+
+## Android UI 확인
+
+일반 debug APK는 실행 중인 Metro가 필요합니다: `pnpm --filter @murmur/mobile start`.
+`Unable to load script` 진단, 에뮬레이터 연결, Metro 없이 실행하는 미리보기 빌드 옵션은 [Android 실행 안내](docs/specs/android-preview.md)를 참고하세요.

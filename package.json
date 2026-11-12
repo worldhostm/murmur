@@ -27,7 +27,9 @@
     "unity:export:ios-simulator": "sh scripts/unity-export.sh ios-simulator",
     "unity:framework:ios": "sh scripts/unity-build-ios-framework.sh",
     "fonts:check": "node scripts/check-fonts.mjs",
-    "fonts:test": "node --test scripts/check-fonts.test.mjs"
+    "fonts:test": "node --test scripts/check-fonts.test.mjs",
+    "android:build:preview": "cd apps/mobile/android && ./gradlew :app:assembleDebug -PmurmurOffline=true",
+    "mobile:bundle:check": "node scripts/check-mobile-bundle.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
