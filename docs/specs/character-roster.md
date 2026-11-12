@@ -26,7 +26,7 @@
 | `lee-junseo` | 이준서 | 25 · 한국 | 대학원 연구원(AI·인지과학) | 지적인, 다정한, 호기심 많은 | 든든한 동료 | light |
 | `kai` | 카이 | 24 · 캐나다·한국 | 프로 게이머·스트리머 | 장난기 많은, 에너지 넘치는, 친화적인 | 빛나는 무대 | light |
 | `ha-jun` | 하준 | 31 · 한국 | 셰프 | 섬세한, 차분한, 보호 본능 | 고요한 밤 | night |
-| `noah` | 노아 | 28 · 한국 | 밴드 보컬(락) | 예술적인, 자유로운, 강렬한 카리스마 | 빛나는 무대 | night |
+| `noah` | 노아 | 28 · 영국 | 밴드 보컬(락) | 예술적인, 자유로운, 강렬한 카리스마 | 빛나는 무대 | night |
 | `jeon-yuhyeon` | 전유현 | 30 · 한국 | 특수 임무 요원(비밀 조직) | 냉철한, 책임감 강한, 과묵한 | 든든한 동료 | night |
 | `yoon-arin` | 윤아린 | 24 · 한국 | 아이돌(솔로 아티스트) | 무대 위에선 강렬한, 눈부신, 조금은 외로운 | 빛나는 무대 | light |
 | `ciel` | 시엘 | 26 · 프랑스·한국 | 일러스트레이터(판타지) | 창의적인, 몽환적인, 감성적인 | 다른 세계 | light |
@@ -41,7 +41,8 @@
 - `@murmur/shared-types`: `AiCharacterId` 14종, `CharacterConcept` 4종과 `CHARACTER_CONCEPTS`, `AiCharacterSummary.concept/age`, `charactersByConcept()`.
 - 앱: 캐릭터 선택 화면이 컨셉 섹션(이름·한 줄 설명)으로 묶어 보여 주고, 카드 캡션에 컨셉·톤을 적는다. i18n `character.<id>.*`, `concept.<id>.*`, `reply.<id>.<down|up|neutral>`(스크립트 답 2줄씩), 초상 14장.
 - ai-character: `PERSONAS` 14종과 `characters/<id>.md` 설정 문서(성격·말투·세계관·컨셉·관계·기억 범위·금지 행동·위기 대응).
-- Unity: `Resources/Characters/<id>.png` 아틀라스 10장(+.meta). `scripts/slice-character-roster.py` 가 로스터 시트에서 만들고 `scripts/export-character-thumbnails.py` 가 앱 초상을 만든다.
+- Unity: `Resources/Characters/<id>.png` 아틀라스 10장(+.meta). `scripts/slice-character-roster.py` 가 로스터 시트에서 만든다.
+- 앱 초상(목록 카드·온보딩 히어로·채팅 상단 이름표): 프로필 시트(`~/Downloads/murmur_character_profiles_1112.png`, 998×279, 카드 5×2, 카드 왼쪽에 상반신 1포즈)에서 `scripts/slice-character-profiles.py` 가 137×240 으로 잘라 만든다. 세로형이라 레터박스가 없고, 얼굴이 원형 썸네일 영역에 들어오도록 상반신 아래 12% 는 버린다. 표정은 1포즈뿐이므로 아틀라스(표정 10칸)에는 쓰지 않는다.
 
 ## 범위 밖
 
