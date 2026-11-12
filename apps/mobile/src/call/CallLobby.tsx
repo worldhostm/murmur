@@ -9,6 +9,8 @@ import {
   Screen,
   SecondaryButton,
   TextButton,
+  SegmentedControl,
+  RippleMark,
 } from '../components';
 import { useTheme } from '../theme';
 import type { ConnectSignaling, SignalingConnection } from './SignalingClient';
@@ -25,13 +27,14 @@ export function CallLobby({
   onPreview?: (() => void) | undefined;
 }): React.JSX.Element {
   const { t } = useTranslation();
-  const { space } = useTheme();
+  const { space, color, radius } = useTheme();
   const connection = useRef<SignalingConnection>();
   const [ready, setReady] = useState(false);
   const [status, setStatus] = useState(connect ? 'lobby.connecting' : 'lobby.unavailable');
   const [code, setCode] = useState('');
   const [intent, setIntent] = useState<'invite' | 'join'>('invite');
   const [shareError, setShareError] = useState(false);
+  const [otherOptions, setOtherOptions] = useState(false);
   const [invite, setInvite] = useState('');
   const [mode, setMode] = useState<'friend' | 'random' | null>(null);
   const [peer, setPeer] = useState<{ id: string; session: string }>();
@@ -107,29 +110,33 @@ export function CallLobby({
   };
   return (
     <Screen testID="screen-call-lobby" title={t('lobby.title')} onBack={onBack} keyboardAvoiding>
+      <View
+        style={{
+          gap: space[3],
+          padding: space[6],
+          backgroundColor: color.surface300,
+          borderRadius: radius.lg,
+        }}
+      >
+        <RippleMark />
+        <AppText variant="characterName">{t('design.inviteTitle')}</AppText>
+        <AppText testID="lobby-status" variant="bodySm" accessibilityLiveRegion="polite">
+          {t(status)}
+        </AppText>
+      </View>
       <AppText variant="bodySm" color="inkMuted">
         {t('lobby.mediaPending')}
       </AppText>
-      {onPreview && <SecondaryButton label={t('lobby.preview')} onPress={onPreview} />}
-      <AppText testID="lobby-status" accessibilityLiveRegion="polite">
-        {t(status)}
-      </AppText>
       <View style={{ gap: space[3] }}>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space[3] }}>
-          <TextButton
-            label={t('lobby.inviteTab')}
-            accessibilityState={{ selected: intent === 'invite' }}
-            disabled={mode !== null}
-            onPress={() => setIntent('invite')}
-          />
-          <TextButton
-            testID="lobby-join-tab"
-            label={t('lobby.joinTab')}
-            accessibilityState={{ selected: intent === 'join' }}
-            disabled={mode !== null}
-            onPress={() => setIntent('join')}
-          />
-        </View>
+        <SegmentedControl
+          value={intent}
+          onChange={setIntent}
+          disabled={mode !== null}
+          options={[
+            { value: 'invite', label: t('lobby.inviteTab') },
+            { value: 'join', label: t('lobby.joinTab'), testID: 'lobby-join-tab' },
+          ]}
+        />
         {intent === 'invite' && !invite && (
           <PrimaryButton
             testID="lobby-create"
@@ -141,7 +148,14 @@ export function CallLobby({
           />
         )}
         {!!invite && (
-          <View style={{ gap: space[2] }}>
+          <View
+            style={{
+              gap: space[3],
+              backgroundColor: color.surface200,
+              borderRadius: radius.lg,
+              padding: space[6],
+            }}
+          >
             <AppText variant="bodySm">{t('lobby.code')}</AppText>
             <AppText variant="title" testID="lobby-invite" selectable>
               {invite}
@@ -184,18 +198,6 @@ export function CallLobby({
             />
           </>
         )}
-        <AppText variant="heading">{t('lobby.otherOptions')}</AppText>
-        <AppText variant="bodySm" color="inkMuted">
-          {t('lobby.ageRequired')}
-        </AppText>
-        <SecondaryButton
-          testID="lobby-random"
-          label={t('lobby.random')}
-          disabled={!ready || busy || mode !== null}
-          onPress={() => {
-            void send({ type: 'join-random', ageGate: 'unverified' }, 'random');
-          }}
-        />
         {mode && (
           <SecondaryButton
             label={t('lobby.cancel')}
@@ -234,7 +236,28 @@ export function CallLobby({
             />
           </>
         )}
-        <SecondaryButton testID="lobby-text" label={t('device.continueText')} onPress={onText} />
+        <TextButton
+          label={t('lobby.otherOptions')}
+          accessibilityState={{ expanded: otherOptions }}
+          onPress={() => setOtherOptions((v) => !v)}
+        />
+        {otherOptions && (
+          <View style={{ gap: space[3] }}>
+            <AppText variant="bodySm" color="inkMuted">
+              {t('lobby.ageRequired')}
+            </AppText>
+            <SecondaryButton
+              testID="lobby-random"
+              label={t('lobby.random')}
+              disabled={!ready || busy || mode !== null}
+              onPress={() => {
+                void send({ type: 'join-random', ageGate: 'unverified' }, 'random');
+              }}
+            />
+            {onPreview && <TextButton label={t('lobby.preview')} onPress={onPreview} />}
+          </View>
+        )}
+        <TextButton testID="lobby-text" label={t('device.continueText')} onPress={onText} />
       </View>
     </Screen>
   );

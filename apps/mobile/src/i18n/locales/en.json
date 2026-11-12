@@ -241,6 +241,7 @@
     "chatWelcome": "Your story, at your own pace.",
     "samples": "Show expression test prompts",
     "journalTitle": "A little of today",
-    "journalPrompt": "A few words are enough. Keep one moment you want to remember."
+    "journalPrompt": "A few words are enough. Keep one moment you want to remember.",
+    "inviteTitle": "Start with an invitation"
   }
 }
