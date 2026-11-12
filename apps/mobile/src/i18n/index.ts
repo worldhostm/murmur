@@ -12,8 +12,18 @@ export const resources = { ko: { translation: ko }, en: { translation: en } } as
 export type Locale = keyof typeof resources;
 export const DEFAULT_LOCALE: Locale = 'ko';
 
-if (!i18n.isInitialized) {
-  void i18n.use(initReactI18next).init({
+export function configureI18n(instance: typeof i18n): void {
+  if (instance.isInitialized) {
+    // Fast Refresh keeps the i18next singleton alive when locale files change.
+    // Replace bundled translations and refresh mounted consumers without resetting the locale.
+    for (const locale of Object.keys(resources) as Locale[]) {
+      instance.addResourceBundle(locale, 'translation', resources[locale].translation, true, true);
+    }
+    instance.emit('languageChanged', instance.language);
+    return;
+  }
+
+  void instance.use(initReactI18next).init({
     resources,
     lng: DEFAULT_LOCALE,
     fallbackLng: 'ko',
@@ -25,5 +35,7 @@ if (!i18n.isInitialized) {
     nsSeparator: false,
   });
 }
+
+configureI18n(i18n);
 
 export default i18n;

@@ -1,4 +1,5 @@
-import i18n, { resources } from './index';
+import { createInstance } from 'i18next';
+import i18n, { configureI18n, resources } from './index';
 
 function flattenKeys(obj: Record<string, unknown>, prefix = ''): string[] {
   return Object.entries(obj).flatMap(([k, v]) =>
@@ -17,6 +18,34 @@ const FORBIDDEN_KO = ['지금 결제', '놓치면', '후회', '서두르', '마�
 const FORBIDDEN_EN = ['buy now', 'last chance', "don't miss", 'hurry', 'limited time'];
 
 describe('i18n (DESIGN_SYSTEM.md §9)', () => {
+  it('resolves the chat design labels in Korean', () => {
+    expect(i18n.t('design.journalShort', { lng: 'ko' })).toBe('기록');
+    expect(i18n.t('design.friendShort', { lng: 'ko' })).toBe('친구 연결');
+    expect(i18n.t('design.chatWelcome', { lng: 'ko' })).toBe('편한 속도로, 당신의 이야기부터.');
+    expect(i18n.t('design.samples', { lng: 'ko' })).toBe('표정 테스트 문장 보기');
+  });
+
+  it('refreshes missing and stale translations on an initialized instance without changing its language', async () => {
+    const existing = createInstance();
+    await existing.init({
+      lng: 'en',
+      resources: {
+        ko: { translation: { design: { journalShort: '이전 문구' } } },
+        en: { translation: {} },
+      },
+    });
+    expect(existing.t('design.friendShort')).toBe('design.friendShort');
+    const refresh = jest.fn();
+    existing.on('languageChanged', refresh);
+
+    configureI18n(existing);
+
+    expect(existing.language).toBe('en');
+    expect(existing.t('design.friendShort')).toBe('Friends');
+    expect(existing.t('design.journalShort', { lng: 'ko' })).toBe('기록');
+    expect(refresh).toHaveBeenCalledWith('en');
+  });
+
   it('ko and en have identical key sets', () => {
     expect(flattenKeys(resources.en.translation).sort()).toEqual(flattenKeys(resources.ko.translation).sort());
   });
