@@ -15,7 +15,7 @@ Unity 6 (6000.0.84f1) 프로젝트 뼈대. Unity Hub에서 이 폴더를 열면 
 | `FaceFrameReceiver.cs` | 슬롯별 최신 프레임 보관 (네이티브 스레드 → 메인 스레드, lock) |
 | `AvatarSlotController.cs` | 슬롯 하나의 아바타. 매 프레임 consumer에 전달, 수신 끊기면 표정 굳힘. `IAvatarLoader`를 같은 오브젝트에서 찾고, `autoLoadAssetKey`가 있으면 Start에서 자동 로드 |
 | `PrimitiveAvatarLoader.cs` | VRM 없이 쓰는 프리미티브 마스코트 (`builtin/primitive`): 구 머리·눈·눈썹·입·혀. 토큰 색(Lavender/Night/Ink). 내장 메시(`Resources.GetBuiltinResource`)로 만든다 — `CreatePrimitive` 는 플레이어 빌드에서 Collider 가 스트리핑되어 오류. 머티리얼은 `Resources/Murmur/PrimitiveLit` 복제. `Build(parent)`는 테스트용 |
-| `SpriteSheetAvatarLoader.cs` | 에셋 키 `characters/<id>/front` → `Resources/Characters/<id>` 아틀라스(137×240 셀 5×2, `scripts/slice-expression-sheet.py`)를 입힌 쿼드. 실사형 렌더 전 PoC (docs/specs/character-sprite-avatar.md) |
+| `SpriteSheetAvatarLoader.cs` | 에셋 키 `characters/<id>/front` → `Resources/Characters/<id>` 아틀라스(137×240 셀 5×2, MVP 4인은 `scripts/slice-expression-sheet.py`, 로스터 10인은 `scripts/slice-character-roster.py`)를 입힌 쿼드. 실사형 렌더 전 PoC (docs/specs/character-sprite-avatar.md, character-roster.md) |
 | `SpriteExpression.cs` | 시트 10칸 enum + `SpriteExpressionClassifier`(블렌드셰이프 → 칸, 우선순위 규칙) |
 | `SpriteExpressionDriver.cs` | 스무딩 → 분류 → UV offset 전환(최소 유지 150ms), 머리 roll 기울기·평행이동 |
 | `IdleMotion.cs` | 스프라이트 루트의 숨쉬기·bob·roll 흔들림 (피벗은 표정 드라이버 몫). `MotionSettings.Reduced` 면 정지 자세 |

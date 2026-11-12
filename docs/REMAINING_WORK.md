@@ -141,3 +141,9 @@ adb logcat -s MurmurFaceTracker MurmurUnity Unity ReactNativeJS
 - 기획: `docs/specs/design-character-experience.md`. 실행 절차: `docs/specs/android-preview.md`.
 - JS 번들 생성과 Metro 없는 APK 옵션 `pnpm android:build:preview`를 검증했다(번들 포함 APK 가 에뮬레이터에서 온보딩까지 뜸). 일반 debug APK는 Metro가 필요하다.
 - 사용자 환경에서 새 APK 설치 또는 Metro 연결 후 전 페이지 실제 화면(390/320 폭, 키보드, 큰 글자, 두 테마)을 확인해야 한다.
+
+## 캐릭터 로스터 확장 (2026-11-12)
+
+- 적용: 신규 10인 추가(14인), 컨셉 4종 분류와 선택 화면 섹션, 페르소나·설정 문서·스크립트 답·초상·Unity 아틀라스. 기획: `docs/specs/character-roster.md`.
+- 미완료: 신규 10인 아틀라스는 로스터 시트의 저해상도 셀을 키운 레터박스 PoC 자산이다. 외주 원화(기존 4인처럼 시트 전체 폭 시안)로 교체해야 한다. 새 캐릭터 TTS 음성 id 는 자리표시자. 에뮬레이터에서 14인 선택 화면과 신규 아바타 표정 전환을 눈으로 확인해야 한다.
+
