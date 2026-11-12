@@ -4,7 +4,7 @@ import { buildSystemPrompt, COMMON_FORBIDDEN, PERSONAS } from '../src/persona';
 import { NEUTRAL_SIGNALS } from '../src/signals';
 
 describe('personas', () => {
-  it('has the 4 MVP characters, each with common forbidden list', () => {
+  it('has every shared-types character, each with common forbidden list', () => {
     expect(Object.keys(PERSONAS).sort()).toEqual([...AI_CHARACTER_IDS].sort());
     for (const p of Object.values(PERSONAS)) {
       for (const f of COMMON_FORBIDDEN) expect(p.forbidden).toContain(f);

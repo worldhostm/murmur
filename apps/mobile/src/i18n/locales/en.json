@@ -26,7 +26,8 @@
     "toneNight": "Night",
     "toneLight": "Day",
     "selected": "Selected",
-    "startWith": "Talk with {{name}}"
+    "startWith": "Talk with {{name}}",
+    "conceptHint": "Grouped by concept. Pick whoever fits today."
   },
   "character": {
     "seo-doyoon": {
@@ -48,6 +49,56 @@
       "name": "Sera",
       "tagline": "Neon City 2087, freelance hacker",
       "role": "Someone who works through problems with you"
+    },
+    "lee-junseo": {
+      "name": "Lee Junseo",
+      "tagline": "A grad-school lab, monitors still on past midnight",
+      "role": "Someone who digs into questions with you"
+    },
+    "kai": {
+      "name": "Kai",
+      "tagline": "A streaming room with the chat scrolling nonstop",
+      "role": "Someone who gets you laughing and back on your feet"
+    },
+    "ha-jun": {
+      "name": "Ha Jun",
+      "tagline": "A kitchen after closing, just before the last burner goes off",
+      "role": "Someone who looks after your day like a warm meal"
+    },
+    "noah": {
+      "name": "Noah",
+      "tagline": "A live hall after the show, amps still humming",
+      "role": "Someone who helps you let it out loud"
+    },
+    "jeon-yuhyeon": {
+      "name": "Jeon Yuhyeon",
+      "tagline": "A safe house somewhere in the city, comms kept short",
+      "role": "Someone who steadies the situation when things shake"
+    },
+    "yoon-arin": {
+      "name": "Yoon Arin",
+      "tagline": "A dressing room after the encore, once the lights go down",
+      "role": "Someone who stays, on bright days and tired ones"
+    },
+    "ciel": {
+      "name": "Ciel",
+      "tagline": "A studio by the window, watercolors not yet dry",
+      "role": "Someone who helps you see your day like a painting"
+    },
+    "do-hayeon": {
+      "name": "Do Hayeon",
+      "tagline": "A gym at dawn, the sound of tape being wrapped",
+      "role": "Someone who gets through it with you, one round at a time"
+    },
+    "ji-yuna": {
+      "name": "Ji Yuna",
+      "tagline": "A consulting room after hours, low light and a cup of tea",
+      "role": "Someone who helps you sort your feelings, slowly"
+    },
+    "moka": {
+      "name": "Moka",
+      "tagline": "A stream waiting screen with cyber-pop playing",
+      "role": "Someone who flips your mood with imagination"
     }
   },
   "solo": {
@@ -138,6 +189,146 @@
       "neutral": [
         "You're here? What's today's task?",
         "Go on. I'm listening."
+      ]
+    },
+    "lee-junseo": {
+      "down": [
+        "Hm, that's an interesting problem. Shall we find where it got tangled?",
+        "It feels stuck because we're missing data. Tell me one more thing."
+      ],
+      "up": [
+        "Oh, so the hypothesis held. I should write that down.",
+        "Nice. What's the next experiment?"
+      ],
+      "neutral": [
+        "You're here. What made you curious today?",
+        "Go on. I'm taking notes."
+      ]
+    },
+    "kai": {
+      "down": [
+        "Rough round today? It's fine. There's always a respawn.",
+        "Let's sit one out. Drink some water, then queue again."
+      ],
+      "up": [
+        "Haha, that was a total clutch!",
+        "You're in good form today. Keep it rolling."
+      ],
+      "neutral": [
+        "You're here! Ranked or just talking tonight?",
+        "Okay okay, I'm listening. Go on."
+      ]
+    },
+    "ha-jun": {
+      "down": [
+        "Have you eaten? Let's start there.",
+        "Today was a little too salty. Tomorrow can be milder."
+      ],
+      "up": [
+        "A good day, then. That face suits you.",
+        "Well done. Treat yourself to dessert tonight."
+      ],
+      "neutral": [
+        "Sit down. I'll bring something warm.",
+        "Take your time. I turned the heat down."
+      ]
+    },
+    "noah": {
+      "down": [
+        "That feeling could fill a song. First, let it out.",
+        "Wrong notes happen on stage too. Move to the next bar."
+      ],
+      "up": [
+        "That's encore material tonight.",
+        "Yeah, that energy. That's your sound."
+      ],
+      "neutral": [
+        "You're here? What's tonight's setlist?",
+        "I'm listening. You set the volume."
+      ]
+    },
+    "jeon-yuhyeon": {
+      "down": [
+        "Status report. Let's sort what's a threat from what's noise.",
+        "Pulling back is the right call now. Retreat isn't defeat."
+      ],
+      "up": [
+        "Mission complete. Good work.",
+        "Good. Remember that call."
+      ],
+      "neutral": [
+        "You made it. Report.",
+        "Listening. Continue."
+      ]
+    },
+    "yoon-arin": {
+      "down": [
+        "Backstage, I'm the same. Let's turn the lights off and just be.",
+        "On hard days you can miss the choreo. Nobody's watching."
+      ],
+      "up": [
+        "Wow, that's a main-vocal face today.",
+        "Yes! Keep that mood in a selfie."
+      ],
+      "neutral": [
+        "You came. How was today's concert? I mean, your day.",
+        "Mm, I'm listening. The real stuff, not fan service."
+      ]
+    },
+    "ciel": {
+      "down": [
+        "The colors are dark today. But you need dark to see the light.",
+        "The smudge is part of the picture. Let's leave it."
+      ],
+      "up": [
+        "I want to paint this scene.",
+        "Your palette is bright today. Good colors."
+      ],
+      "neutral": [
+        "Come in. What scene was today?",
+        "Mm, I'm sketching while I listen."
+      ]
+    },
+    "do-hayeon": {
+      "down": [
+        "You took a hit. You're not down. Breathe and stand back up.",
+        "Today's a round for guarding and holding on. That's strategy too."
+      ],
+      "up": [
+        "Clean win. Hands up.",
+        "Good. Keep that rhythm."
+      ],
+      "neutral": [
+        "You're here? How's your condition today?",
+        "I'm listening. I've got your corner."
+      ]
+    },
+    "ji-yuna": {
+      "down": [
+        "It makes sense to feel that way on a day like this. Can you tell me a little more?",
+        "How is your body right now? Sometimes it knows before the mind does."
+      ],
+      "up": [
+        "Your face has changed. What was good today?",
+        "Hold on to that feeling. You can take it out again later."
+      ],
+      "neutral": [
+        "Make yourself comfortable. What kind of day was it?",
+        "Yes, I'm listening. Slowly."
+      ]
+    },
+    "moka": {
+      "down": [
+        "How much HP is left today? It's okay, I'm your recovery item.",
+        "On low-energy days you can rest at the save point."
+      ],
+      "up": [
+        "Yay, you leveled up today! Launching confetti!",
+        "Saving that mood as a clip. Let's rewatch it later."
+      ],
+      "neutral": [
+        "You're here! Today's stream topic is your day.",
+        "Mm-hm, I'm listening. Your voice, not the chat."
       ]
     }
   },
@@ -245,5 +436,23 @@
     "inviteTitle": "Start with an invitation",
     "previewBody": "See how your expressions look on your character. This preview does not connect to another person.",
     "previewPreparing": "Preparing your preview"
+  },
+  "concept": {
+    "quiet-night": {
+      "name": "Quiet Night",
+      "description": "People who keep you company at the end of the day. Low voices, calm light."
+    },
+    "bright-stage": {
+      "name": "Bright Stage",
+      "description": "People who change the mood with energy. Laughter comes first."
+    },
+    "steady-ally": {
+      "name": "Steady Allies",
+      "description": "People who work through what is stuck with you, one step at a time."
+    },
+    "other-world": {
+      "name": "Other Worlds",
+      "description": "People from worlds beyond this one, who see your day a little differently."
+    }
   }
 }
