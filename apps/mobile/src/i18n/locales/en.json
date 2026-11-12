@@ -242,6 +242,8 @@
     "samples": "Show expression test prompts",
     "journalTitle": "A little of today",
     "journalPrompt": "A few words are enough. Keep one moment you want to remember.",
-    "inviteTitle": "Start with an invitation"
+    "inviteTitle": "Start with an invitation",
+    "previewBody": "See how your expressions look on your character. This preview does not connect to another person.",
+    "previewPreparing": "Preparing your preview"
   }
 }

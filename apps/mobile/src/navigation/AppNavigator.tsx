@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MoodPanel } from '../mood/MoodPanel';
 import { MoodStore } from '../mood/MoodStore';
-import { AppText, Screen, SecondaryButton } from '../components';
+import { AvatarPreviewScreen } from '../screens/AvatarPreviewScreen';
 import { BackHandler } from 'react-native';
 import type { AiCharacterId, ScreenKind, ThemePreference } from '@murmur/shared-types';
 import { cueFromText, reactionTo } from '@murmur/expression-cues';
@@ -326,18 +326,15 @@ export function AppNavigator({
       break;
     case 'avatar-preview':
       content = (
-        <Screen fill testID="screen-avatar-preview" onBack={goBack}>
-          <AppText variant="heading">{t('lobby.preview')}</AppText>
-          <UnityView />
-          <AppText>{trackingLabel(t, tracking.status, tracking.fps)}</AppText>
-          <SecondaryButton
-            label={t('device.continueText')}
-            onPress={() => {
-              setTextOnly(true);
-              setRoute({ name: 'solo', characterId: characterId ?? 'sera' });
-            }}
-          />
-        </Screen>
+        <AvatarPreviewScreen
+          onBack={goBack}
+          renderer={<UnityView />}
+          status={trackingLabel(t, tracking.status, tracking.fps)}
+          onText={() => {
+            setTextOnly(true);
+            setRoute({ name: 'solo', characterId: characterId ?? 'sera' });
+          }}
+        />
       );
       break;
   }
