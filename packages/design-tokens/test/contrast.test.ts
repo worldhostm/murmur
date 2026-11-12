@@ -16,6 +16,8 @@ const BODY_TEXT_PAIRS: [ColorToken, ColorToken][] = [
   ['inkMuted', 'surface300'],
   ['brand', 'surface100'],
   ['onBrand', 'brand'],
+  ['onDanger', 'danger'],
+  ['brand', 'surface300'],
   ['accent', 'surface300'],
   ['inkOnNight', 'night'],
   ['inkMuted', 'cream'],

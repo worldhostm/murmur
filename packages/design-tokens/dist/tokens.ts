@@ -41,6 +41,8 @@ export const color = {
     success: '#1F7A52',
     /** Weak network, upload under review. */
     warning: '#9A5B00',
+    /** Text and icons on destructive action fills. */
+    onDanger: '#FFFFFF',
     /** Report, block, end call, destructive confirm. */
     danger: '#B42E2E',
   },
@@ -79,6 +81,8 @@ export const color = {
     success: '#5FD39B',
     /** Weak network, upload under review. */
     warning: '#FFB547',
+    /** Text and icons on destructive action fills. */
+    onDanger: '#140E1F',
     /** Report, block, end call, destructive confirm. */
     danger: '#FF7B7B',
   },

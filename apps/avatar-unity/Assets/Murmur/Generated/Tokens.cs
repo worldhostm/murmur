@@ -48,6 +48,8 @@ namespace Murmur.Design
             public static readonly Color32 Success = new Color32(31, 122, 82, 255); // #1F7A52
             /// <summary>Weak network, upload under review.</summary>
             public static readonly Color32 Warning = new Color32(154, 91, 0, 255); // #9A5B00
+            /// <summary>Text and icons on destructive action fills.</summary>
+            public static readonly Color32 OnDanger = new Color32(255, 255, 255, 255); // #FFFFFF
             /// <summary>Report, block, end call, destructive confirm.</summary>
             public static readonly Color32 Danger = new Color32(180, 46, 46, 255); // #B42E2E
         }
@@ -89,6 +91,8 @@ namespace Murmur.Design
             public static readonly Color32 Success = new Color32(95, 211, 155, 255); // #5FD39B
             /// <summary>Weak network, upload under review.</summary>
             public static readonly Color32 Warning = new Color32(255, 181, 71, 255); // #FFB547
+            /// <summary>Text and icons on destructive action fills.</summary>
+            public static readonly Color32 OnDanger = new Color32(20, 14, 31, 255); // #140E1F
             /// <summary>Report, block, end call, destructive confirm.</summary>
             public static readonly Color32 Danger = new Color32(255, 123, 123, 255); // #FF7B7B
         }
