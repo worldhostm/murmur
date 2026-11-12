@@ -407,47 +407,65 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
       "borderColor": "#A98BFF",
       "borderRadius": 24,
       "borderWidth": 2,
-      "flexDirection": "column",
-      "gap": 12,
-      "padding": 16,
+      "opacity": 1,
+      "overflow": "hidden",
     }
   }
   testID="character-card-seo-doyoon"
 >
-  <Image
-    accessible={false}
-    resizeMode="cover"
-    source={
-      {
-        "testUri": "../../../apps/mobile/assets/characters/seo-doyoon.png",
-      }
-    }
-    style={
-      {
-        "backgroundColor": "#2A2040",
-        "borderRadius": 16,
-        "height": 120,
-        "width": 68.5,
-      }
-    }
-    testID="character-portrait-seo-doyoon"
-  />
   <View
     style={
       {
-        "flex": 1,
-        "gap": 8,
+        "flexDirection": "column",
       }
     }
   >
+    <Image
+      accessible={false}
+      resizeMode="cover"
+      source={
+        {
+          "testUri": "../../../apps/mobile/assets/characters/seo-doyoon.png",
+        }
+      }
+      style={
+        {
+          "alignSelf": "center",
+          "backgroundColor": "#2A2040",
+          "height": 192,
+          "width": 109.6,
+        }
+      }
+      testID="character-portrait-seo-doyoon"
+    />
     <View
       style={
         {
-          "alignItems": "flex-start",
+          "flex": 1,
           "gap": 8,
+          "justifyContent": "center",
+          "padding": 16,
         }
       }
     >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "System",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+            },
+            {
+              "color": "#B3A8C4",
+            },
+            undefined,
+          ]
+        }
+      >
+        밤
+      </Text>
       <Text
         style={
           [
@@ -460,13 +478,29 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
             {
               "color": "#F2EDF8",
             },
-            {
-              "flexShrink": 1,
-            },
+            undefined,
           ]
         }
       >
         서도윤
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "System",
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 22,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        하루 끝에 말없이 들어주는 사람
       </Text>
       <View
         accessibilityLabel="AI 캐릭터"
@@ -504,23 +538,35 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
         </Text>
       </View>
     </View>
+  </View>
+  <View
+    style={
+      {
+        "borderTopColor": "#2F2640",
+        "borderTopWidth": 1,
+        "gap": 4,
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      }
+    }
+  >
     <Text
       style={
         [
           {
             "fontFamily": "System",
-            "fontSize": 14,
-            "fontWeight": "400",
+            "fontSize": 15,
+            "fontWeight": "600",
             "lineHeight": 22,
           },
           {
-            "color": "#F2EDF8",
+            "color": "#A98BFF",
           },
           undefined,
         ]
       }
     >
-      하루 끝에 말없이 들어주는 사람
+      선택됨
     </Text>
     <Text
       style={
@@ -540,54 +586,6 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
     >
       새벽 3시의 서울, 골목 끝 작은 바
     </Text>
-    <Text
-      style={
-        [
-          {
-            "fontFamily": "System",
-            "fontSize": 15,
-            "fontWeight": "600",
-            "lineHeight": 22,
-          },
-          {
-            "color": "#F2EDF8",
-          },
-          undefined,
-        ]
-      }
-    >
-      선택됨
-    </Text>
-    <View
-      style={
-        {
-          "alignSelf": "flex-start",
-          "backgroundColor": "#2C2142",
-          "borderRadius": 8,
-          "paddingHorizontal": 8,
-          "paddingVertical": 4,
-        }
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#A98BFF",
-            },
-            undefined,
-          ]
-        }
-      >
-        밤
-      </Text>
-    </View>
   </View>
 </View>
 `;
@@ -1373,47 +1371,65 @@ exports[`components snapshot (light) CharacterCard 1`] = `
       "borderColor": "#6B3FD4",
       "borderRadius": 24,
       "borderWidth": 2,
-      "flexDirection": "column",
-      "gap": 12,
-      "padding": 16,
+      "opacity": 1,
+      "overflow": "hidden",
     }
   }
   testID="character-card-seo-doyoon"
 >
-  <Image
-    accessible={false}
-    resizeMode="cover"
-    source={
-      {
-        "testUri": "../../../apps/mobile/assets/characters/seo-doyoon.png",
-      }
-    }
-    style={
-      {
-        "backgroundColor": "#1A1324",
-        "borderRadius": 16,
-        "height": 120,
-        "width": 68.5,
-      }
-    }
-    testID="character-portrait-seo-doyoon"
-  />
   <View
     style={
       {
-        "flex": 1,
-        "gap": 8,
+        "flexDirection": "column",
       }
     }
   >
+    <Image
+      accessible={false}
+      resizeMode="cover"
+      source={
+        {
+          "testUri": "../../../apps/mobile/assets/characters/seo-doyoon.png",
+        }
+      }
+      style={
+        {
+          "alignSelf": "center",
+          "backgroundColor": "#1A1324",
+          "height": 192,
+          "width": 109.6,
+        }
+      }
+      testID="character-portrait-seo-doyoon"
+    />
     <View
       style={
         {
-          "alignItems": "flex-start",
+          "flex": 1,
           "gap": 8,
+          "justifyContent": "center",
+          "padding": 16,
         }
       }
     >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "System",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+            },
+            {
+              "color": "#5E5470",
+            },
+            undefined,
+          ]
+        }
+      >
+        밤
+      </Text>
       <Text
         style={
           [
@@ -1426,13 +1442,29 @@ exports[`components snapshot (light) CharacterCard 1`] = `
             {
               "color": "#1E1729",
             },
-            {
-              "flexShrink": 1,
-            },
+            undefined,
           ]
         }
       >
         서도윤
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "System",
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 22,
+            },
+            {
+              "color": "#1E1729",
+            },
+            undefined,
+          ]
+        }
+      >
+        하루 끝에 말없이 들어주는 사람
       </Text>
       <View
         accessibilityLabel="AI 캐릭터"
@@ -1470,23 +1502,35 @@ exports[`components snapshot (light) CharacterCard 1`] = `
         </Text>
       </View>
     </View>
+  </View>
+  <View
+    style={
+      {
+        "borderTopColor": "#E2DAF0",
+        "borderTopWidth": 1,
+        "gap": 4,
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      }
+    }
+  >
     <Text
       style={
         [
           {
             "fontFamily": "System",
-            "fontSize": 14,
-            "fontWeight": "400",
+            "fontSize": 15,
+            "fontWeight": "600",
             "lineHeight": 22,
           },
           {
-            "color": "#1E1729",
+            "color": "#6B3FD4",
           },
           undefined,
         ]
       }
     >
-      하루 끝에 말없이 들어주는 사람
+      선택됨
     </Text>
     <Text
       style={
@@ -1506,54 +1550,6 @@ exports[`components snapshot (light) CharacterCard 1`] = `
     >
       새벽 3시의 서울, 골목 끝 작은 바
     </Text>
-    <Text
-      style={
-        [
-          {
-            "fontFamily": "System",
-            "fontSize": 15,
-            "fontWeight": "600",
-            "lineHeight": 22,
-          },
-          {
-            "color": "#1E1729",
-          },
-          undefined,
-        ]
-      }
-    >
-      선택됨
-    </Text>
-    <View
-      style={
-        {
-          "alignSelf": "flex-start",
-          "backgroundColor": "#EBE3FD",
-          "borderRadius": 8,
-          "paddingHorizontal": 8,
-          "paddingVertical": 4,
-        }
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#6B3FD4",
-            },
-            undefined,
-          ]
-        }
-      >
-        밤
-      </Text>
-    </View>
   </View>
 </View>
 `;

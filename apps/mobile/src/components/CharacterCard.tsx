@@ -13,7 +13,6 @@ export interface CharacterCardProps {
   onPress?: () => void;
 }
 
-/** 캐릭터 카드: surface-300, radius-lg, 왼쪽 초상(137:240), 이름 display-md, 세계관 한 줄 body-sm ink-muted. */
 export function CharacterCard({
   character,
   selected = false,
@@ -23,71 +22,66 @@ export function CharacterCard({
   const { color, space, radius, layout } = useTheme();
   const { width, fontScale } = useWindowDimensions();
   const compact = width < layout.compactWidth || fontScale >= layout.largeFontScale;
-  const name = t(character.nameKey);
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityState={{ selected }}
-      accessibilityLabel={name}
+      accessibilityLabel={t(character.nameKey)}
       onPress={onPress}
       testID={`character-card-${character.id}`}
-      style={{
-        padding: space[4],
+      style={({ pressed }) => ({
         borderRadius: radius.lg,
+        overflow: 'hidden',
         backgroundColor: color.surface300,
-        borderWidth: selected ? 2 : 1,
+        borderWidth: 2,
         borderColor: selected ? color.brand : color.border,
-        flexDirection: compact ? 'column' : 'row',
-        gap: space[3],
-      }}
+        opacity: pressed ? 0.85 : 1,
+      })}
     >
-      <Image
-        testID={`character-portrait-${character.id}`}
-        accessible={false}
-        source={characterPortrait(character.id)}
-        resizeMode="cover"
-        style={{
-          height: space[12] * 2.5,
-          width: space[12] * 2.5 * PORTRAIT_ASPECT,
-          borderRadius: radius.md,
-          backgroundColor: color.night,
-        }}
-      />
-      <View style={{ flex: 1, gap: space[2] }}>
-        <View
+      <View style={{ flexDirection: compact ? 'column' : 'row' }}>
+        <Image
+          testID={`character-portrait-${character.id}`}
+          accessible={false}
+          source={characterPortrait(character.id)}
+          resizeMode="cover"
           style={{
-            alignItems: 'flex-start',
-            gap: space[2],
+            height: space[12] * 4,
+            width: space[12] * 4 * PORTRAIT_ASPECT,
+            alignSelf: compact ? 'center' : undefined,
+            backgroundColor: color.night,
           }}
-        >
-          <AppText variant="characterName" color="ink" style={{ flexShrink: 1 }}>
-            {name}
+        />
+        <View style={{ flex: 1, padding: space[4], gap: space[2], justifyContent: 'center' }}>
+          <AppText variant="caption" color="inkMuted">
+            {t(
+              character.tone === 'night'
+                ? 'characterSelect.toneNight'
+                : 'characterSelect.toneLight',
+            )}
           </AppText>
+          <AppText variant="characterName">{t(character.nameKey)}</AppText>
+          <AppText variant="bodySm">{t(character.roleKey)}</AppText>
           <AiCharacterBadge />
         </View>
-        <AppText variant="bodySm" color="ink">
-          {t(character.roleKey)}
-        </AppText>
-        <AppText variant="bodySm" color="inkMuted">
-          {t(character.taglineKey)}
-        </AppText>
-        {selected && <AppText variant="label">{t('characterSelect.selected')}</AppText>}
+      </View>
+      {selected && (
         <View
           style={{
-            alignSelf: 'flex-start',
-            paddingHorizontal: space[2],
-            paddingVertical: space[1],
-            borderRadius: radius.sm,
-            backgroundColor: color.brandSoft,
+            paddingHorizontal: space[4],
+            paddingVertical: space[3],
+            borderTopWidth: 1,
+            borderTopColor: color.border,
+            gap: space[1],
           }}
         >
-          <AppText variant="caption" color="brand">
-            {character.tone === 'night'
-              ? t('characterSelect.toneNight')
-              : t('characterSelect.toneLight')}
+          <AppText variant="label" color="brand">
+            {t('characterSelect.selected')}
+          </AppText>
+          <AppText variant="bodySm" color="inkMuted">
+            {t(character.taglineKey)}
           </AppText>
         </View>
-      </View>
+      )}
     </Pressable>
   );
 }

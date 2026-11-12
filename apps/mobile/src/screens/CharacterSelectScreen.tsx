@@ -24,7 +24,7 @@ export function CharacterSelectScreen({
   return (
     <Screen
       testID="screen-character-select"
-      title={t('characterSelect.title')}
+      title={t('design.companions')}
       onBack={onBack}
       footer={
         <PrimaryButton
@@ -42,11 +42,12 @@ export function CharacterSelectScreen({
       }
     >
       <View style={{ gap: space[2] }}>
+        <AppText variant="characterName">{t('characterSelect.title')}</AppText>
         <AppText variant="bodySm" color="inkMuted">
           {t('characterSelect.subtitle')}
         </AppText>
       </View>
-      <View style={{ gap: space[3] }}>
+      <View style={{ gap: space[4] }}>
         {AI_CHARACTERS.map((c) => (
           <CharacterCard
             key={c.id}

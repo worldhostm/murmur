@@ -234,6 +234,7 @@
   "design": {
     "onboardingEyebrow": "당신만의 조용한 대화 공간",
     "onboardingInvitation": "오늘 이야기를 들려줄래요?",
-    "radioRoom": "심야 라디오"
+    "radioRoom": "심야 라디오",
+    "companions": "대화 상대"
   }
 }
