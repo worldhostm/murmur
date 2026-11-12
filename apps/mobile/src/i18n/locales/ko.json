@@ -239,6 +239,8 @@
     "journalShort": "기록",
     "friendShort": "친구 연결",
     "chatWelcome": "편한 속도로, 당신의 이야기부터.",
-    "samples": "표정 테스트 문장 보기"
+    "samples": "표정 테스트 문장 보기",
+    "journalTitle": "마음에 남은 오늘",
+    "journalPrompt": "길게 쓰지 않아도 괜찮아요. 기억하고 싶은 한 장면을 남겨 보세요."
   }
 }
