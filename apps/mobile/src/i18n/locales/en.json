@@ -14,7 +14,7 @@
     "reconnecting": "Reconnecting"
   },
   "onboarding": {
-    "headline": "Hide your face.\nKeep your expressions.",
+    "headline": "Hide your face. Keep your expressions.",
     "body": "Your expressions move to a character in real time. The raw video never leaves your device.",
     "start": "Get started",
     "privacyNote": "Only expression values and your voice are sent"
@@ -182,7 +182,8 @@
       "no-64bit": "A 64-bit device is required",
       "unknown": "We couldn't read the device information"
     },
-    "continueText": "Continue with text, without a camera"
+    "continueText": "Continue with text, without a camera",
+    "textAvailableTitle": "You can chat with text"
   },
   "mood": {
     "privacy": "Records stay on this device, are not sent to AI or backed up to the cloud, and remain until you delete them or uninstall the app.",

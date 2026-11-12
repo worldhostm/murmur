@@ -21,7 +21,7 @@ export function UnsupportedDeviceScreen({
   return (
     <Screen fill testID="screen-unsupported-device">
       <View style={{ flex: 1, justifyContent: 'center', gap: space[6] }}>
-        <AppText variant="displayMd">{t('device.unsupportedTitle')}</AppText>
+        <AppText variant="title">{t('device.textAvailableTitle')}</AppText>
         <AppText variant="body" color="inkMuted">
           {t('device.unsupportedBody')}
         </AppText>

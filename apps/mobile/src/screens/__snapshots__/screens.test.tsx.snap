@@ -757,153 +757,154 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
         }
       }
     >
-      <View
-        style={
+      <RCTScrollView
+        contentContainerStyle={
           {
-            "flex": 1,
             "gap": 24,
-            "minHeight": 0,
+            "paddingBottom": 24,
           }
         }
+        keyboardShouldPersistTaps="handled"
       >
-        <View
-          style={
-            {
-              "flex": 1,
-              "gap": 24,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "Noto Serif KR",
-                  "fontSize": 40,
-                  "fontWeight": "600",
-                  "lineHeight": 48,
-                },
-                {
-                  "color": "#F2EDF8",
-                },
-                undefined,
-              ]
-            }
-          >
-            얼굴은 감추고,
-표정은 그대로.
-          </Text>
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 26,
-                },
-                {
-                  "color": "#B3A8C4",
-                },
-                undefined,
-              ]
-            }
-          >
-            카메라 속 표정이 캐릭터에 실시간으로 옮겨져요. 원본 영상은 기기 밖으로 나가지 않아요.
-          </Text>
-        </View>
-        <View
-          style={
-            {
-              "gap": 12,
-            }
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#B3A8C4",
-                },
-                {
-                  "textAlign": "center",
-                },
-              ]
-            }
-          >
-            전송되는 건 표정 수치와 목소리뿐이에요
-          </Text>
+        <View>
           <View
-            accessibilityRole="button"
-            accessibilityState={
-              {
-                "busy": undefined,
-                "checked": undefined,
-                "disabled": false,
-                "expanded": undefined,
-                "selected": undefined,
-              }
-            }
-            accessibilityValue={
-              {
-                "max": undefined,
-                "min": undefined,
-                "now": undefined,
-                "text": undefined,
-              }
-            }
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "#A98BFF",
-                "borderRadius": 999,
+                "flex": 1,
+                "gap": 24,
                 "justifyContent": "center",
-                "minHeight": 52,
-                "opacity": 1,
-                "paddingHorizontal": 24,
-                "paddingVertical": 12,
               }
             }
-            testID="onboarding-start"
           >
             <Text
               style={
                 [
                   {
-                    "fontFamily": "Noto Sans KR",
-                    "fontSize": 15,
+                    "fontFamily": "Noto Serif KR",
+                    "fontSize": 32,
                     "fontWeight": "600",
-                    "lineHeight": 22,
+                    "lineHeight": 42,
                   },
                   {
-                    "color": "#140E1F",
+                    "color": "#F2EDF8",
                   },
                   undefined,
                 ]
               }
             >
-              시작하기
+              얼굴은 감추고, 표정은 그대로.
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "Noto Sans KR",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 26,
+                  },
+                  {
+                    "color": "#B3A8C4",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              카메라 속 표정이 캐릭터에 실시간으로 옮겨져요. 원본 영상은 기기 밖으로 나가지 않아요.
             </Text>
           </View>
+        </View>
+      </RCTScrollView>
+      <View
+        style={
+          {
+            "gap": 12,
+          }
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              },
+              {
+                "color": "#B3A8C4",
+              },
+              {
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          전송되는 건 표정 수치와 목소리뿐이에요
+        </Text>
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#A98BFF",
+              "borderRadius": 999,
+              "justifyContent": "center",
+              "minHeight": 52,
+              "opacity": 1,
+              "paddingHorizontal": 24,
+              "paddingVertical": 12,
+            }
+          }
+          testID="onboarding-start"
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 15,
+                  "fontWeight": "600",
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#140E1F",
+                },
+                undefined,
+              ]
+            }
+          >
+            시작하기
+          </Text>
         </View>
       </View>
     </View>
@@ -2608,153 +2609,154 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
         }
       }
     >
-      <View
-        style={
+      <RCTScrollView
+        contentContainerStyle={
           {
-            "flex": 1,
             "gap": 24,
-            "minHeight": 0,
+            "paddingBottom": 24,
           }
         }
+        keyboardShouldPersistTaps="handled"
       >
-        <View
-          style={
-            {
-              "flex": 1,
-              "gap": 24,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "Noto Serif KR",
-                  "fontSize": 40,
-                  "fontWeight": "600",
-                  "lineHeight": 48,
-                },
-                {
-                  "color": "#1E1729",
-                },
-                undefined,
-              ]
-            }
-          >
-            얼굴은 감추고,
-표정은 그대로.
-          </Text>
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 26,
-                },
-                {
-                  "color": "#5E5470",
-                },
-                undefined,
-              ]
-            }
-          >
-            카메라 속 표정이 캐릭터에 실시간으로 옮겨져요. 원본 영상은 기기 밖으로 나가지 않아요.
-          </Text>
-        </View>
-        <View
-          style={
-            {
-              "gap": 12,
-            }
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#5E5470",
-                },
-                {
-                  "textAlign": "center",
-                },
-              ]
-            }
-          >
-            전송되는 건 표정 수치와 목소리뿐이에요
-          </Text>
+        <View>
           <View
-            accessibilityRole="button"
-            accessibilityState={
-              {
-                "busy": undefined,
-                "checked": undefined,
-                "disabled": false,
-                "expanded": undefined,
-                "selected": undefined,
-              }
-            }
-            accessibilityValue={
-              {
-                "max": undefined,
-                "min": undefined,
-                "now": undefined,
-                "text": undefined,
-              }
-            }
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "#6B3FD4",
-                "borderRadius": 999,
+                "flex": 1,
+                "gap": 24,
                 "justifyContent": "center",
-                "minHeight": 52,
-                "opacity": 1,
-                "paddingHorizontal": 24,
-                "paddingVertical": 12,
               }
             }
-            testID="onboarding-start"
           >
             <Text
               style={
                 [
                   {
-                    "fontFamily": "Noto Sans KR",
-                    "fontSize": 15,
+                    "fontFamily": "Noto Serif KR",
+                    "fontSize": 32,
                     "fontWeight": "600",
-                    "lineHeight": 22,
+                    "lineHeight": 42,
                   },
                   {
-                    "color": "#FFFFFF",
+                    "color": "#1E1729",
                   },
                   undefined,
                 ]
               }
             >
-              시작하기
+              얼굴은 감추고, 표정은 그대로.
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "Noto Sans KR",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 26,
+                  },
+                  {
+                    "color": "#5E5470",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              카메라 속 표정이 캐릭터에 실시간으로 옮겨져요. 원본 영상은 기기 밖으로 나가지 않아요.
             </Text>
           </View>
+        </View>
+      </RCTScrollView>
+      <View
+        style={
+          {
+            "gap": 12,
+          }
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              },
+              {
+                "color": "#5E5470",
+              },
+              {
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          전송되는 건 표정 수치와 목소리뿐이에요
+        </Text>
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#6B3FD4",
+              "borderRadius": 999,
+              "justifyContent": "center",
+              "minHeight": 52,
+              "opacity": 1,
+              "paddingHorizontal": 24,
+              "paddingVertical": 12,
+            }
+          }
+          testID="onboarding-start"
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 15,
+                  "fontWeight": "600",
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#FFFFFF",
+                },
+                undefined,
+              ]
+            }
+          >
+            시작하기
+          </Text>
         </View>
       </View>
     </View>
