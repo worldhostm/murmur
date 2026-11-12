@@ -223,6 +223,12 @@
     "block": "Block and leave",
     "ageRequired": "Random matching requires adult verification. Use a friend invitation for now.",
     "requestError": "Request failed. Please check the invitation code.",
-    "preview": "Preview my expressions"
+    "preview": "Preview my expressions",
+    "inviteTab": "Invite a friend",
+    "joinTab": "Enter a code",
+    "share": "Share invitation",
+    "shareMessage": "Join me on Murmur. Invitation code: {{code}}",
+    "shareError": "Could not share. Press and hold the invitation code to copy it.",
+    "otherOptions": "Other ways to connect"
   }
 }

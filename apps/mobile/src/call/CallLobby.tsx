@@ -1,8 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { Share, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import type { ClientMessage, ServerEvent } from '@murmur/shared-types';
-import { AppText, Screen, SecondaryButton } from '../components';
+import {
+  AppText,
+  LabeledInput,
+  PrimaryButton,
+  Screen,
+  SecondaryButton,
+  TextButton,
+} from '../components';
 import { useTheme } from '../theme';
 import type { ConnectSignaling, SignalingConnection } from './SignalingClient';
 
@@ -18,11 +25,13 @@ export function CallLobby({
   onPreview?: (() => void) | undefined;
 }): React.JSX.Element {
   const { t } = useTranslation();
-  const { color, space, text } = useTheme();
+  const { space } = useTheme();
   const connection = useRef<SignalingConnection>();
   const [ready, setReady] = useState(false);
   const [status, setStatus] = useState(connect ? 'lobby.connecting' : 'lobby.unavailable');
   const [code, setCode] = useState('');
+  const [intent, setIntent] = useState<'invite' | 'join'>('invite');
+  const [shareError, setShareError] = useState(false);
   const [invite, setInvite] = useState('');
   const [mode, setMode] = useState<'friend' | 'random' | null>(null);
   const [peer, setPeer] = useState<{ id: string; session: string }>();
@@ -97,47 +106,88 @@ export function CallLobby({
     }
   };
   return (
-    <Screen testID="screen-call-lobby" onBack={onBack}>
-      <AppText variant="heading">{t('lobby.title')}</AppText>
-      <AppText>{t('lobby.mediaPending')}</AppText>
+    <Screen testID="screen-call-lobby" title={t('lobby.title')} onBack={onBack} keyboardAvoiding>
+      <AppText variant="bodySm" color="inkMuted">
+        {t('lobby.mediaPending')}
+      </AppText>
       {onPreview && <SecondaryButton label={t('lobby.preview')} onPress={onPreview} />}
       <AppText testID="lobby-status" accessibilityLiveRegion="polite">
         {t(status)}
       </AppText>
       <View style={{ gap: space[3] }}>
-        <SecondaryButton
-          testID="lobby-create"
-          label={t('lobby.create')}
-          disabled={!ready || busy || mode !== null}
-          onPress={() => {
-            void send({ type: 'create-room', maxParticipants: 2 }, 'friend');
-          }}
-        />
-        {!!invite && (
-          <AppText testID="lobby-invite" selectable>
-            {invite}
-          </AppText>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space[3] }}>
+          <TextButton
+            label={t('lobby.inviteTab')}
+            accessibilityState={{ selected: intent === 'invite' }}
+            disabled={mode !== null}
+            onPress={() => setIntent('invite')}
+          />
+          <TextButton
+            testID="lobby-join-tab"
+            label={t('lobby.joinTab')}
+            accessibilityState={{ selected: intent === 'join' }}
+            disabled={mode !== null}
+            onPress={() => setIntent('join')}
+          />
+        </View>
+        {intent === 'invite' && !invite && (
+          <PrimaryButton
+            testID="lobby-create"
+            label={t('lobby.create')}
+            disabled={!ready || busy || mode !== null}
+            onPress={() => {
+              void send({ type: 'create-room', maxParticipants: 2 }, 'friend');
+            }}
+          />
         )}
-        <TextInput
-          testID="lobby-code"
-          accessibilityLabel={t('lobby.code')}
-          value={code}
-          maxLength={6}
-          autoCapitalize="characters"
-          autoCorrect={false}
-          onChangeText={(v) => setCode(v.toUpperCase().trim())}
-          placeholder={t('lobby.code')}
-          placeholderTextColor={color.inkMuted}
-          style={[text.body, { color: color.ink }]}
-        />
-        <SecondaryButton
-          testID="lobby-join"
-          label={t('lobby.join')}
-          disabled={!ready || busy || mode !== null || !/^[A-HJ-NP-Z2-9]{6}$/.test(code)}
-          onPress={() => {
-            void send({ type: 'join-room', code }, 'friend');
-          }}
-        />
+        {!!invite && (
+          <View style={{ gap: space[2] }}>
+            <AppText variant="bodySm">{t('lobby.code')}</AppText>
+            <AppText variant="title" testID="lobby-invite" selectable>
+              {invite}
+            </AppText>
+            <PrimaryButton
+              label={t('lobby.share')}
+              onPress={() => {
+                setShareError(false);
+                void Share.share({ message: t('lobby.shareMessage', { code: invite }) }).catch(() =>
+                  setShareError(true),
+                );
+              }}
+            />
+            {shareError && (
+              <AppText variant="bodySm" accessibilityLiveRegion="polite">
+                {t('lobby.shareError')}
+              </AppText>
+            )}
+          </View>
+        )}
+        {intent === 'join' && (
+          <>
+            <LabeledInput
+              testID="lobby-code"
+              label={t('lobby.code')}
+              value={code}
+              maxLength={6}
+              autoCapitalize="characters"
+              autoCorrect={false}
+              onChangeText={(v) => setCode(v.toUpperCase().trim())}
+              placeholder="ABC234"
+            />
+            <PrimaryButton
+              testID="lobby-join"
+              label={t('lobby.join')}
+              disabled={!ready || busy || mode !== null || !/^[A-HJ-NP-Z2-9]{6}$/.test(code)}
+              onPress={() => {
+                void send({ type: 'join-room', code }, 'friend');
+              }}
+            />
+          </>
+        )}
+        <AppText variant="heading">{t('lobby.otherOptions')}</AppText>
+        <AppText variant="bodySm" color="inkMuted">
+          {t('lobby.ageRequired')}
+        </AppText>
         <SecondaryButton
           testID="lobby-random"
           label={t('lobby.random')}
@@ -161,7 +211,8 @@ export function CallLobby({
         )}
         {peer && (
           <>
-            <SecondaryButton
+            <TextButton
+              destructive
               label={t('lobby.report')}
               disabled={!ready || busy}
               onPress={() => {
@@ -173,7 +224,8 @@ export function CallLobby({
                 });
               }}
             />
-            <SecondaryButton
+            <TextButton
+              destructive
               label={t('lobby.block')}
               disabled={!ready || busy}
               onPress={() => {

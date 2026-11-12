@@ -223,6 +223,12 @@
     "block": "상대 차단하고 나가기",
     "ageRequired": "랜덤 매칭에는 성인 인증이 필요해요. 지금은 친구 초대를 이용해 주세요.",
     "requestError": "요청을 처리하지 못했어요. 초대 코드를 확인해 주세요.",
-    "preview": "내 표정 미리보기"
+    "preview": "내 표정 미리보기",
+    "inviteTab": "친구 초대",
+    "joinTab": "코드로 입장",
+    "share": "초대 코드 공유",
+    "shareMessage": "Murmur에서 함께 이야기해요. 초대 코드: {{code}}",
+    "shareError": "공유하지 못했어요. 초대 코드를 길게 눌러 복사할 수 있어요.",
+    "otherOptions": "다른 연결 방법"
   }
 }
