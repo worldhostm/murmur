@@ -407,7 +407,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
       "borderColor": "#A98BFF",
       "borderRadius": 24,
       "borderWidth": 2,
-      "flexDirection": "row",
+      "flexDirection": "column",
       "gap": 12,
       "padding": 16,
     }
@@ -443,10 +443,8 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
     <View
       style={
         {
-          "alignItems": "center",
-          "flexDirection": "row",
+          "alignItems": "flex-start",
           "gap": 8,
-          "justifyContent": "space-between",
         }
       }
     >
@@ -455,9 +453,9 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
           [
             {
               "fontFamily": "Noto Serif KR",
-              "fontSize": 28,
+              "fontSize": 24,
               "fontWeight": "600",
-              "lineHeight": 36,
+              "lineHeight": 32,
             },
             {
               "color": "#F2EDF8",
@@ -516,6 +514,24 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
             "lineHeight": 22,
           },
           {
+            "color": "#F2EDF8",
+          },
+          undefined,
+        ]
+      }
+    >
+      하루 끝에 말없이 들어주는 사람
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 14,
+            "fontWeight": "400",
+            "lineHeight": 22,
+          },
+          {
             "color": "#B3A8C4",
           },
           undefined,
@@ -529,8 +545,8 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
         [
           {
             "fontFamily": "Noto Sans KR",
-            "fontSize": 14,
-            "fontWeight": "400",
+            "fontSize": 15,
+            "fontWeight": "600",
             "lineHeight": 22,
           },
           {
@@ -540,7 +556,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
         ]
       }
     >
-      하루 끝에 말없이 들어주는 사람
+      선택됨
     </Text>
     <View
       style={
@@ -1357,7 +1373,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
       "borderColor": "#6B3FD4",
       "borderRadius": 24,
       "borderWidth": 2,
-      "flexDirection": "row",
+      "flexDirection": "column",
       "gap": 12,
       "padding": 16,
     }
@@ -1393,10 +1409,8 @@ exports[`components snapshot (light) CharacterCard 1`] = `
     <View
       style={
         {
-          "alignItems": "center",
-          "flexDirection": "row",
+          "alignItems": "flex-start",
           "gap": 8,
-          "justifyContent": "space-between",
         }
       }
     >
@@ -1405,9 +1419,9 @@ exports[`components snapshot (light) CharacterCard 1`] = `
           [
             {
               "fontFamily": "Noto Serif KR",
-              "fontSize": 28,
+              "fontSize": 24,
               "fontWeight": "600",
-              "lineHeight": 36,
+              "lineHeight": 32,
             },
             {
               "color": "#1E1729",
@@ -1466,6 +1480,24 @@ exports[`components snapshot (light) CharacterCard 1`] = `
             "lineHeight": 22,
           },
           {
+            "color": "#1E1729",
+          },
+          undefined,
+        ]
+      }
+    >
+      하루 끝에 말없이 들어주는 사람
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": 14,
+            "fontWeight": "400",
+            "lineHeight": 22,
+          },
+          {
             "color": "#5E5470",
           },
           undefined,
@@ -1479,8 +1511,8 @@ exports[`components snapshot (light) CharacterCard 1`] = `
         [
           {
             "fontFamily": "Noto Sans KR",
-            "fontSize": 14,
-            "fontWeight": "400",
+            "fontSize": 15,
+            "fontWeight": "600",
             "lineHeight": 22,
           },
           {
@@ -1490,7 +1522,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
         ]
       }
     >
-      하루 끝에 말없이 들어주는 사람
+      선택됨
     </Text>
     <View
       style={

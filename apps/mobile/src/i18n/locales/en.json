@@ -24,7 +24,9 @@
     "subtitle": "They are all AI characters. You can switch anytime",
     "confirm": "Start with this character",
     "toneNight": "Night",
-    "toneLight": "Day"
+    "toneLight": "Day",
+    "selected": "Selected",
+    "startWith": "Talk with {{name}}"
   },
   "character": {
     "seo-doyoon": {

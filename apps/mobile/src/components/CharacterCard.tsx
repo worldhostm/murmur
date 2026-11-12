@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Pressable, View } from 'react-native';
+import { Image, Pressable, View, useWindowDimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import type { AiCharacterSummary } from '@murmur/shared-types';
 import { AppText } from './AppText';
@@ -20,7 +20,9 @@ export function CharacterCard({
   onPress,
 }: CharacterCardProps): React.JSX.Element {
   const { t } = useTranslation();
-  const { color, space, radius } = useTheme();
+  const { color, space, radius, layout } = useTheme();
+  const { width, fontScale } = useWindowDimensions();
+  const compact = width < layout.compactWidth || fontScale >= layout.largeFontScale;
   const name = t(character.nameKey);
   return (
     <Pressable
@@ -35,7 +37,7 @@ export function CharacterCard({
         backgroundColor: color.surface300,
         borderWidth: selected ? 2 : 1,
         borderColor: selected ? color.brand : color.border,
-        flexDirection: 'row',
+        flexDirection: compact ? 'column' : 'row',
         gap: space[3],
       }}
     >
@@ -54,23 +56,22 @@ export function CharacterCard({
       <View style={{ flex: 1, gap: space[2] }}>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             gap: space[2],
           }}
         >
-          <AppText variant="displayMd" color="ink" style={{ flexShrink: 1 }}>
+          <AppText variant="characterName" color="ink" style={{ flexShrink: 1 }}>
             {name}
           </AppText>
           <AiCharacterBadge />
         </View>
-        <AppText variant="bodySm" color="inkMuted">
-          {t(character.taglineKey)}
-        </AppText>
         <AppText variant="bodySm" color="ink">
           {t(character.roleKey)}
         </AppText>
+        <AppText variant="bodySm" color="inkMuted">
+          {t(character.taglineKey)}
+        </AppText>
+        {selected && <AppText variant="label">{t('characterSelect.selected')}</AppText>}
         <View
           style={{
             alignSelf: 'flex-start',

@@ -22,9 +22,26 @@ export function CharacterSelectScreen({
   const { space } = useTheme();
   const [selected, setSelected] = useState<AiCharacterId | undefined>(initial);
   return (
-    <Screen testID="screen-character-select" onBack={onBack}>
+    <Screen
+      testID="screen-character-select"
+      title={t('characterSelect.title')}
+      onBack={onBack}
+      footer={
+        <PrimaryButton
+          label={
+            selected
+              ? t('characterSelect.startWith', {
+                  name: t(AI_CHARACTERS.find((c) => c.id === selected)!.nameKey),
+                })
+              : t('characterSelect.confirm')
+          }
+          disabled={!selected}
+          onPress={() => selected && onConfirm(selected)}
+          testID="character-select-confirm"
+        />
+      }
+    >
       <View style={{ gap: space[2] }}>
-        <AppText variant="title">{t('characterSelect.title')}</AppText>
         <AppText variant="bodySm" color="inkMuted">
           {t('characterSelect.subtitle')}
         </AppText>
@@ -39,12 +56,6 @@ export function CharacterSelectScreen({
           />
         ))}
       </View>
-      <PrimaryButton
-        label={t('characterSelect.confirm')}
-        disabled={!selected}
-        onPress={() => selected && onConfirm(selected)}
-        testID="character-select-confirm"
-      />
     </Screen>
   );
 }

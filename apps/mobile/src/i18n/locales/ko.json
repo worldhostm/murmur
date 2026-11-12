@@ -24,7 +24,9 @@
     "subtitle": "모두 AI 캐릭터예요. 언제든 바꿀 수 있어요",
     "confirm": "이 캐릭터와 시작하기",
     "toneNight": "밤",
-    "toneLight": "낮"
+    "toneLight": "낮",
+    "selected": "선택됨",
+    "startWith": "{{name}}과 대화 시작"
   },
   "character": {
     "seo-doyoon": {

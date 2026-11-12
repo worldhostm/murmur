@@ -143,7 +143,7 @@ function resolveTheme(params: {
 | 내 말풍선 | 배경 `brand`, 글자 `on-brand` `body`, 패딩 `space-3`, `radius-md` |
 | 상대 말풍선 | 배경 `surface-300`, 글자 `ink` `body`, 테두리 `border` |
 | AI 캐릭터 말풍선 | 상대 말풍선과 같되, 위에 캐릭터 이름(`accent` `caption`)과 "AI 캐릭터" 표시 |
-| 캐릭터 카드 | 배경 `surface-300`, `radius-lg`, 이름 `display-md`, 세계관 한 줄 `body-sm` `ink-muted` |
+| 캐릭터 카드 | 배경 `surface-300`, `radius-lg`, 이름 `character-name`, 세계관 한 줄 `body-sm` `ink-muted` |
 | 통화 컨트롤 | 지름 56 원형(`radius-pill`), 배경 `night` 80% 불투명, 아이콘 `ink-on-night`, 종료 버튼만 `danger` 배경. 터치 영역 최소 48 |
 | 말하는 중 표시 | 캐릭터 이름표 주위 물결 링 3개, 색 `accent`, 1.2초 주기로 퍼짐. "동작 줄이기" 설정 시 정지 상태로 표시 |
 | 솔로 모드 기분 카드 | 배경 `cream`, `radius-md`, 글자 `ink` |
