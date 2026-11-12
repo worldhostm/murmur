@@ -145,6 +145,7 @@ adb logcat -s MurmurFaceTracker MurmurUnity Unity ReactNativeJS
 
 ## 캐릭터 로스터 확장 (2026-11-12)
 
-- 적용: 신규 10인 추가(14인), 컨셉 4종 분류와 선택 화면 섹션, 페르소나·설정 문서·스크립트 답·초상·Unity 아틀라스. 기획: `docs/specs/character-roster.md`.
-- 미완료: 신규 10인의 아틀라스와 초상은 상반신 표정 세트(`scripts/slice-character-expressions.py`, 표정 8칸을 10칸에 매핑, 칸 약 52×75 를 2.6배 확대)로 만든 저해상도 PoC 자산이다. 외주 원화(기존 4인처럼 시트 전체 폭 시안)로 교체해야 한다. 새 캐릭터 TTS 음성 id 는 자리표시자.
+- 적용: 신규 10인 추가(14인), 컨셉 4종 분류와 선택 화면 섹션, 페르소나·설정 문서·스크립트 답. 기획: `docs/specs/character-roster.md`.
+- 2026-11-12 보류: 신규 10인은 `availability: 'coming-soon'` 으로 바꿔 선택 화면·서버에서 쓰지 않고(안내 문구도 없음), 표정 어셋(아틀라스·초상)은 지웠다. 쓸 수 있는 캐릭터는 MVP 4인.
+- 미완료(출시 시): 신규 10인의 표정 어셋을 다시 만든다(`scripts/slice-character-expressions.py`, 저해상도 시트라 외주 원화가 낫다). 새 캐릭터 TTS 음성 id 는 자리표시자.
 

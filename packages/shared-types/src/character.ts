@@ -13,8 +13,9 @@ export interface AvatarRef {
 }
 
 /**
- * AI 캐릭터 ID. MVP 4종 + 2026-11-12 로스터 10종. 설정 문서는 services/ai-character/characters/<id>.md,
- * 아틀라스는 apps/avatar-unity/Assets/Murmur/Resources/Characters/<id>.png.
+ * AI 캐릭터 ID. MVP 4종 + 2026-11-12 로스터 10종(출시 예정, 화면에 보이지 않는다). 설정 문서는
+ * services/ai-character/characters/<id>.md, 아틀라스는 apps/avatar-unity/Assets/Murmur/Resources/Characters/<id>.png
+ * (출시 예정 캐릭터는 아틀라스·초상이 아직 없다).
  */
 export type AiCharacterId =
   | 'seo-doyoon'
@@ -77,6 +78,12 @@ export const CHARACTER_CONCEPTS: readonly CharacterConceptSummary[] = [
   { id: 'other-world', nameKey: 'concept.other-world.name', descriptionKey: 'concept.other-world.description' },
 ] as const;
 
+/**
+ * 캐릭터 공개 상태. available 만 선택 화면·채팅·ai-character 서버에서 쓸 수 있다.
+ * coming-soon 은 설정(페르소나·문구·컨셉)만 있고 표정 어셋이 없으며 어디에도 표시하지 않는다.
+ */
+export type CharacterAvailability = 'available' | 'coming-soon';
+
 export interface AiCharacterSummary {
   id: AiCharacterId;
   /** i18n 키. 실제 이름 문구는 apps/mobile/src/i18n에서 가져온다. */
@@ -87,6 +94,7 @@ export interface AiCharacterSummary {
   age: number;
   tone: SceneTone;
   concept: CharacterConcept;
+  availability: CharacterAvailability;
   /** 로맨스형 대화는 18세 이상 인증 사용자에게만 연다. */
   adultOnlyRomance: boolean;
   avatar: AvatarRef;
@@ -97,6 +105,7 @@ function builtin(
   age: number,
   tone: SceneTone,
   concept: CharacterConcept,
+  availability: CharacterAvailability = 'available',
 ): AiCharacterSummary {
   return {
     id,
@@ -106,6 +115,7 @@ function builtin(
     age,
     tone,
     concept,
+    availability,
     adultOnlyRomance: true,
     avatar: { id: `av-${id}`, style: 'portrait', source: 'builtin', assetKey: `characters/${id}/front` },
   };
@@ -117,27 +127,36 @@ export const AI_CHARACTERS: readonly AiCharacterSummary[] = [
   builtin('leon-hart', 27, 'night', 'other-world'),
   builtin('han-seorin', 28, 'light', 'quiet-night'),
   builtin('sera', 26, 'light', 'other-world'),
-  // 2026-11-12 로스터 10종 (docs/specs/character-roster.md). 순서는 로스터 시트 행 순서.
-  builtin('lee-junseo', 25, 'light', 'steady-ally'),
-  builtin('kai', 24, 'light', 'bright-stage'),
-  builtin('ha-jun', 31, 'night', 'quiet-night'),
-  builtin('noah', 28, 'night', 'bright-stage'),
-  builtin('jeon-yuhyeon', 30, 'night', 'steady-ally'),
-  builtin('yoon-arin', 24, 'light', 'bright-stage'),
-  builtin('ciel', 26, 'light', 'other-world'),
-  builtin('do-hayeon', 27, 'light', 'steady-ally'),
-  builtin('ji-yuna', 29, 'night', 'quiet-night'),
-  builtin('moka', 23, 'light', 'bright-stage'),
+  // 2026-11-12 로스터 10종 (docs/specs/character-roster.md). 순서는 로스터 시트 행 순서. 출시 예정이라 표시하지 않는다.
+  builtin('lee-junseo', 25, 'light', 'steady-ally', 'coming-soon'),
+  builtin('kai', 24, 'light', 'bright-stage', 'coming-soon'),
+  builtin('ha-jun', 31, 'night', 'quiet-night', 'coming-soon'),
+  builtin('noah', 28, 'night', 'bright-stage', 'coming-soon'),
+  builtin('jeon-yuhyeon', 30, 'night', 'steady-ally', 'coming-soon'),
+  builtin('yoon-arin', 24, 'light', 'bright-stage', 'coming-soon'),
+  builtin('ciel', 26, 'light', 'other-world', 'coming-soon'),
+  builtin('do-hayeon', 27, 'light', 'steady-ally', 'coming-soon'),
+  builtin('ji-yuna', 29, 'night', 'quiet-night', 'coming-soon'),
+  builtin('moka', 23, 'light', 'bright-stage', 'coming-soon'),
 ] as const;
+
+/** 지금 쓸 수 있는 캐릭터. 선택 화면·채팅·서버는 이 목록만 쓴다. */
+export const AVAILABLE_CHARACTERS: readonly AiCharacterSummary[] = AI_CHARACTERS.filter(
+  (c) => c.availability === 'available',
+);
+
+export function isCharacterAvailable(id: AiCharacterId): boolean {
+  return AVAILABLE_CHARACTERS.some((c) => c.id === id);
+}
 
 export interface CharacterConceptGroup {
   concept: CharacterConceptSummary;
   characters: readonly AiCharacterSummary[];
 }
 
-/** 컨셉 순서대로 캐릭터를 묶는다. 캐릭터가 없는 컨셉은 뺀다. */
+/** 컨셉 순서대로 캐릭터를 묶는다. 기본은 쓸 수 있는 캐릭터만이며, 캐릭터가 없는 컨셉은 뺀다. */
 export function charactersByConcept(
-  characters: readonly AiCharacterSummary[] = AI_CHARACTERS,
+  characters: readonly AiCharacterSummary[] = AVAILABLE_CHARACTERS,
 ): CharacterConceptGroup[] {
   return CHARACTER_CONCEPTS.map((concept) => ({
     concept,

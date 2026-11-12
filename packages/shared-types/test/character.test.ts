@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { THEME_IDS } from '@murmur/design-tokens';
-import { AI_CHARACTERS, AI_CHARACTER_IDS, CHARACTER_CONCEPTS, charactersByConcept } from '../src';
+import {
+  AI_CHARACTERS,
+  AI_CHARACTER_IDS,
+  AVAILABLE_CHARACTERS,
+  CHARACTER_CONCEPTS,
+  charactersByConcept,
+  isCharacterAvailable,
+} from '../src';
 import type { ThemeId } from '../src';
 
 describe('shared-types', () => {
@@ -44,20 +51,32 @@ describe('shared-types', () => {
     }
   });
 
-  it('assigns every character to one of the four concepts, and every concept has characters', () => {
+  it('only the 4 MVP characters are available; the roster 10 are coming soon', () => {
+    expect(AVAILABLE_CHARACTERS.map((c) => c.id)).toEqual(['seo-doyoon', 'leon-hart', 'han-seorin', 'sera']);
+    for (const c of AI_CHARACTERS.slice(4)) expect(c.availability).toBe('coming-soon');
+    expect(isCharacterAvailable('sera')).toBe(true);
+    expect(isCharacterAvailable('moka')).toBe(false);
+  });
+
+  it('assigns every character to one of the four concepts', () => {
     const conceptIds = CHARACTER_CONCEPTS.map((k) => k.id);
     expect(conceptIds).toEqual(['quiet-night', 'bright-stage', 'steady-ally', 'other-world']);
     for (const c of AI_CHARACTERS) expect(conceptIds).toContain(c.concept);
-    const groups = charactersByConcept();
-    expect(groups.map((g) => g.concept.id)).toEqual(conceptIds);
-    expect(groups.flatMap((g) => g.characters.map((c) => c.id)).sort()).toEqual(
-      [...AI_CHARACTER_IDS].sort(),
-    );
-    expect(Object.fromEntries(groups.map((g) => [g.concept.id, g.characters.map((c) => c.id)]))).toEqual({
+    const all = charactersByConcept(AI_CHARACTERS);
+    expect(all.map((g) => g.concept.id)).toEqual(conceptIds);
+    expect(all.flatMap((g) => g.characters.map((c) => c.id)).sort()).toEqual([...AI_CHARACTER_IDS].sort());
+    expect(Object.fromEntries(all.map((g) => [g.concept.id, g.characters.map((c) => c.id)]))).toEqual({
       'quiet-night': ['seo-doyoon', 'han-seorin', 'ha-jun', 'ji-yuna'],
       'bright-stage': ['kai', 'noah', 'yoon-arin', 'moka'],
       'steady-ally': ['lee-junseo', 'jeon-yuhyeon', 'do-hayeon'],
       'other-world': ['leon-hart', 'sera', 'ciel'],
+    });
+  });
+
+  it('groups only available characters by default, dropping concepts that have none', () => {
+    expect(Object.fromEntries(charactersByConcept().map((g) => [g.concept.id, g.characters.map((c) => c.id)]))).toEqual({
+      'quiet-night': ['seo-doyoon', 'han-seorin'],
+      'other-world': ['leon-hart', 'sera'],
     });
   });
 

@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import type { IncomingMessage, Server, ServerResponse } from 'node:http';
-import { AI_CHARACTERS } from '@murmur/shared-types';
+import { AVAILABLE_CHARACTERS } from '@murmur/shared-types';
 import type { AiCharacterId } from '@murmur/shared-types';
 import type { SpriteExpression } from '@murmur/expression-cues';
 import type { LlmAdapter } from './adapters/types';
@@ -39,7 +39,8 @@ interface Session {
   lastUsed: number;
 }
 
-const CHARACTER_IDS = new Set<string>(AI_CHARACTERS.map((c) => c.id));
+/** 출시 예정(coming-soon) 캐릭터는 서버에서도 받지 않는다. */
+const CHARACTER_IDS = new Set<string>(AVAILABLE_CHARACTERS.map((c) => c.id));
 const MAX_TEXT_LENGTH = 2000;
 const MAX_BODY_BYTES = 64 * 1024;
 

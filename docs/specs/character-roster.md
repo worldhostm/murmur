@@ -1,6 +1,6 @@
 # AI 캐릭터 로스터 확장과 컨셉 분류
 
-작성: 2026-11-12. 상태: 구현됨 (Android 에뮬레이터 확인. 실기기 검수는 남음).
+작성: 2026-11-12. 상태: 신규 10인은 **출시 예정(coming-soon)** 으로 보류 (2026-11-12 결정). 설정·문구·컨셉 데이터만 두고 화면·서버에서 쓰지 않으며, 표정 어셋(아틀라스·초상)은 지웠다. 지금 쓸 수 있는 캐릭터는 MVP 4인(서도윤·한서린·레온 하르트·세라)뿐이다.
 
 ## 목적
 
@@ -35,6 +35,12 @@
 | `moka` | 모카 | 23 · 일본 | 버추얼 크리에이터(VTuber) | 발랄한, 상상력이 풍부한, 애교 많은 | 빛나는 무대 | light |
 
 모두 성인이고 로맨스형 대화는 성인 인증 사용자에게만 연다(기존 정책). 지유나는 정신과 전문의 설정이지만 의료 서비스가 아니며 진단·처방·치료 흉내를 금지 행동에 넣었다. 위기 대응(109 안내)은 전원 공통이다.
+
+## 출시 예정 처리 (2026-11-12)
+
+- `AiCharacterSummary.availability`: MVP 4인은 `available`, 로스터 10인은 `coming-soon`. `AVAILABLE_CHARACTERS`·`isCharacterAvailable()` 가 기준이고 `charactersByConcept()` 의 기본 입력도 available 뿐이다.
+- 선택 화면은 available 캐릭터만 그리고(컨셉 섹션은 캐릭터가 있는 고요한 밤·다른 세계 2개), "출시 예정" 같은 안내도 두지 않는다. ai-character 서버 `/chat` 도 available 만 받는다.
+- 표정 어셋 삭제: `Resources/Characters/<id>.png(+.meta)` 10장과 `apps/mobile/assets/characters/<id>.png` 10장. 출시할 때 `scripts/slice-character-expressions.py` 로 다시 만들고 `availability` 를 `available` 로 바꾼다 (초상 로더와 Unity 슬롯 교체 테스트에도 id 를 더한다).
 
 ## 범위
 

@@ -9,7 +9,7 @@
 - `src/main.ts` 로컬 개발 진입점. `.env`(OPENAI_API_KEY, OPENAI_MODEL, PORT)를 `src/env.ts` 로 읽는다
 - `src/signals.ts` face-protocol 프레임 → 표정 신호
 - `src/visemeToFace.ts` viseme → face-protocol 프레임 (입 모양)
-- `src/persona/` 캐릭터 14종 요약과 시스템 프롬프트. 원문은 `characters/<id>.md`. 새 캐릭터는 `@murmur/shared-types` 의 `AI_CHARACTER_IDS` 에 먼저 넣는다 (persona 테스트가 일치를 검사)
+- `src/persona/` 캐릭터 14종 요약과 시스템 프롬프트 (로스터 10종은 출시 예정이라 `/chat` 이 받지 않는다. `AVAILABLE_CHARACTERS` 기준). 원문은 `characters/<id>.md`. 새 캐릭터는 `@murmur/shared-types` 의 `AI_CHARACTER_IDS` 에 먼저 넣는다 (persona 테스트가 일치를 검사)
 - `src/safety.ts` 위기 감지, 위기 안내 문구(109), 휴식 권유 기준
 - `src/pipeline.ts` ConversationPipeline
 

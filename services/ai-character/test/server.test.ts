@@ -109,6 +109,11 @@ describe('ChatServer', () => {
       (await call(port, 'POST', '/chat', { sessionId: 's', characterId: 'nobody', text: 'x' }))
         .status,
     ).toBe(400);
+    // 출시 예정(coming-soon) 캐릭터도 받지 않는다.
+    expect(
+      (await call(port, 'POST', '/chat', { sessionId: 's', characterId: 'moka', text: 'x' }))
+        .status,
+    ).toBe(400);
     expect(
       (await call(port, 'POST', '/chat', { sessionId: 's', characterId: 'sera', text: '   ' }))
         .status,

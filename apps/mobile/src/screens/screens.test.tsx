@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Dimensions } from 'react-native';
 import { fireEvent, screen, within } from '@testing-library/react-native';
-import { AI_CHARACTERS, CHARACTER_CONCEPTS, charactersByConcept } from '@murmur/shared-types';
+import { AI_CHARACTERS, AVAILABLE_CHARACTERS, charactersByConcept } from '@murmur/shared-types';
 import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen } from './index';
 import { ThemeProvider } from '../theme';
 import { renderWithTheme, THEMES } from '../test/render';
@@ -62,34 +62,39 @@ describe('OnboardingScreen', () => {
 });
 
 describe('CharacterSelectScreen', () => {
-  it('shows a portrait for every character', () => {
+  it('shows a portrait for every available character and nothing for coming-soon ones', () => {
     renderWithTheme(<CharacterSelectScreen onConfirm={() => undefined} />);
-    for (const c of AI_CHARACTERS) {
+    for (const c of AVAILABLE_CHARACTERS) {
       expect(screen.getByTestId(`character-portrait-${c.id}`)).toBeTruthy();
     }
+    for (const c of AI_CHARACTERS.filter((x) => x.availability === 'coming-soon')) {
+      expect(screen.queryByTestId(`character-card-${c.id}`)).toBeNull();
+      expect(screen.queryByText(`character.${c.id}.name`)).toBeNull();
+    }
+    expect(screen.queryByText('출시 예정')).toBeNull();
   });
 
-  it('groups the characters under the four concepts in order, each character once', () => {
+  it('groups the available characters under their concepts in order, each character once', () => {
     renderWithTheme(<CharacterSelectScreen onConfirm={() => undefined} />);
-    const sections = CHARACTER_CONCEPTS.map((k) => screen.getByTestId(`concept-${k.id}`));
-    expect(sections).toHaveLength(4);
+    const groups = charactersByConcept();
+    expect(groups.map((g) => g.concept.id)).toEqual(['quiet-night', 'other-world']);
     expect(screen.getByText('고요한 밤')).toBeTruthy();
-    expect(screen.getByText('빛나는 무대')).toBeTruthy();
-    expect(screen.getByText('든든한 동료')).toBeTruthy();
     expect(screen.getByText('다른 세계')).toBeTruthy();
-    for (const { concept, characters } of charactersByConcept()) {
+    expect(screen.queryByText('빛나는 무대')).toBeNull();
+    expect(screen.queryByText('든든한 동료')).toBeNull();
+    for (const { concept, characters } of groups) {
       const section = screen.getByTestId(`concept-${concept.id}`);
       for (const c of characters) {
         expect(within(section).getByTestId(`character-card-${c.id}`)).toBeTruthy();
       }
     }
-    expect(screen.getAllByTestId(/^character-card-/)).toHaveLength(AI_CHARACTERS.length);
+    expect(screen.getAllByTestId(/^character-card-/)).toHaveLength(AVAILABLE_CHARACTERS.length);
   });
 
   it('lists every AI character with an AI badge and confirms the selection', () => {
     const onConfirm = jest.fn();
     renderWithTheme(<CharacterSelectScreen onConfirm={onConfirm} />);
-    expect(screen.getAllByTestId('ai-character-badge')).toHaveLength(AI_CHARACTERS.length);
+    expect(screen.getAllByTestId('ai-character-badge')).toHaveLength(AVAILABLE_CHARACTERS.length);
     fireEvent.press(screen.getByTestId('character-select-confirm'));
     expect(onConfirm).not.toHaveBeenCalled();
     fireEvent.press(screen.getByTestId('character-card-sera'));
