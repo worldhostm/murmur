@@ -39,6 +39,21 @@ namespace Murmur
             _consumers = GetComponentsInChildren<IFaceFrameConsumer>(true);
         }
 
+        /// <summary>Destroy 는 프레임 끝까지 지연된다. 즉시 숨기고 슬롯에서 분리해 다음 로드/consumer 검색에 남지 않게 한다.</summary>
+        public void ClearAvatar()
+        {
+            for (var i = transform.childCount - 1; i >= 0; i--)
+            {
+                var child = transform.GetChild(i);
+                if (child.name != SpriteSheetAvatarLoader.RootName && child.name != PrimitiveAvatarLoader.RootName) continue;
+                child.gameObject.SetActive(false);
+                child.SetParent(null, false);
+                if (Application.isPlaying) Destroy(child.gameObject);
+                else DestroyImmediate(child.gameObject);
+            }
+            RefreshConsumers();
+        }
+
         public void Load(string assetKey)
         {
             LoadedAssetKey = assetKey;

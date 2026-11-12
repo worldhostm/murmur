@@ -36,11 +36,7 @@ namespace Murmur
             var texture = Resources.Load<Texture2D>(ResourceFolder + id);
             if (texture == null) { Debug.LogWarning($"[{slot.Slot}] Resources/{ResourceFolder}{id} 아틀라스가 없다"); return; }
 
-            foreach (var name in new[] { RootName, PrimitiveAvatarLoader.RootName })
-            {
-                var old = slot.transform.Find(name);
-                if (old != null) { if (Application.isPlaying) Destroy(old.gameObject); else DestroyImmediate(old.gameObject); }
-            }
+            slot.ClearAvatar();
             Build(slot.transform, texture);
             slot.RefreshConsumers();
             Debug.Log($"[SpriteAvatar] [{slot.Slot}] loaded {id} ({texture.width}x{texture.height})");

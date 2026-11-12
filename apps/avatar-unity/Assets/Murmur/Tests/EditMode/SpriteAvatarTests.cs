@@ -74,6 +74,28 @@ namespace Murmur.Tests
         }
 
         [Test]
+        public void CharacterSwitchRemovesAllPreviousAvatars()
+        {
+            var slotGo = new GameObject("slot");
+            try
+            {
+                slotGo.AddComponent<SpriteSheetAvatarLoader>();
+                var slot = slotGo.AddComponent<AvatarSlotController>();
+                // 같은 프레임에 여러 LoadAvatar 가 오면 지연 Destroy 때문에 같은 이름의 루트가 남을 수 있었다.
+                SpriteSheetAvatarLoader.Build(slotGo.transform, Texture2D.whiteTexture);
+                SpriteSheetAvatarLoader.Build(slotGo.transform, Texture2D.blackTexture);
+                foreach (var id in new[] { "sera", "han-seorin", "seo-doyoon", "leon-hart", "sera" })
+                {
+                    slot.Load($"characters/{id}/front");
+                    Assert.AreEqual(1, slotGo.GetComponentsInChildren<SpriteExpressionDriver>(true).Length);
+                    var renderer = slotGo.GetComponentInChildren<MeshRenderer>();
+                    Assert.AreSame(Resources.Load<Texture2D>("Characters/" + id), renderer.sharedMaterial.mainTexture);
+                }
+            }
+            finally { Object.DestroyImmediate(slotGo); }
+        }
+
+        [Test]
         public void QuadFacesTheCallCameraWithoutMirroring()
         {
             // 통화 씬 카메라는 +Z 쪽에서 -Z 를 본다 (Editor/SceneSetup). 내장 Quad 의 정면 법선(-Z 로컬)이 월드 +Z 를 향해야 보인다.

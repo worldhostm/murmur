@@ -19,11 +19,7 @@ namespace Murmur
 
         public void Load(string assetKey, AvatarSlotController slot)
         {
-            foreach (var name in new[] { RootName, SpriteSheetAvatarLoader.RootName })
-            {
-                var old = slot.transform.Find(name);
-                if (old != null) { if (Application.isPlaying) Destroy(old.gameObject); else DestroyImmediate(old.gameObject); }
-            }
+            slot.ClearAvatar();
             var root = Build(slot.transform);
             slot.RefreshConsumers();
             LogLayout(root);
