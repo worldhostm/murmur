@@ -194,7 +194,11 @@
     "deleteAll": "Delete all records",
     "deleteTitle": "Delete records?",
     "deleteBody": "Deleted records cannot be recovered.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "write": "Write today",
+    "characters": "{{count}} / 500 characters",
+    "dateHint": "Showing the latest 7 dates. Enter a date to find older records.",
+    "more": "Show more records"
   },
   "lobby": {
     "title": "Connect with people",

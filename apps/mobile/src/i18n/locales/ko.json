@@ -194,7 +194,11 @@
     "deleteAll": "모든 기록 삭제",
     "deleteTitle": "기록을 삭제할까요?",
     "deleteBody": "삭제한 기록은 되돌릴 수 없어요.",
-    "cancel": "취소"
+    "cancel": "취소",
+    "write": "오늘 기록",
+    "characters": "{{count}} / 500자",
+    "dateHint": "최근 7개 날짜를 표시해요. 이전 기록은 날짜를 입력해 찾아보세요.",
+    "more": "기록 더 보기"
   },
   "lobby": {
     "title": "사람과 연결하기",

@@ -1,17 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, TextInput, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText, MoodCard, SecondaryButton } from '../components';
+import { AppText, LabeledInput, MoodCard, PrimaryButton, TextButton } from '../components';
 import { useTheme } from '../theme';
 import { localDate, type MoodStore, type MoodEntry } from './MoodStore';
 
 export function MoodPanel({ store }: { store: MoodStore }): React.JSX.Element {
   const { t } = useTranslation();
-  const { color, space, text } = useTheme();
+  const { space } = useTheme();
   const [entries, setEntries] = useState<MoodEntry[]>([]);
   const [draft, setDraft] = useState('');
   const [date, setDate] = useState(localDate(new Date()));
   const [status, setStatus] = useState('');
+  const [tab, setTab] = useState<'write' | 'history'>('write');
+  const [visibleCount, setVisibleCount] = useState(20);
   const [busy, setBusy] = useState(true);
   const lock = useRef(false);
   const alive = useRef(true);
@@ -63,74 +65,101 @@ export function MoodPanel({ store }: { store: MoodStore }): React.JSX.Element {
         },
       },
     ]);
-  const inputStyle = [text.body, { color: color.ink, paddingVertical: space[2] }];
+  const selected = entries.filter((entry) => entry.date === date);
+  const dates = [...new Set(entries.map((entry) => entry.date))].sort().reverse().slice(0, 7);
+  const selectDate = (value: string) => {
+    setDate(value);
+    setVisibleCount(20);
+  };
   return (
     <MoodCard title={t('solo.moodTitle')}>
-      <AppText variant="caption" color="inkMuted">
-        {t('mood.privacy')}
-      </AppText>
-      <TextInput
-        testID="mood-input"
-        accessibilityLabel={t('solo.moodTitle')}
-        value={draft}
-        onChangeText={setDraft}
-        maxLength={500}
-        editable={!busy}
-        placeholder={t('solo.moodPlaceholder')}
-        placeholderTextColor={color.inkMuted}
-        style={inputStyle}
-      />
-      <SecondaryButton
-        testID="mood-save"
-        label={t('solo.moodSave')}
-        disabled={busy || !draft.trim()}
-        onPress={() => {
-          void change(() => store.save(draft), true);
-        }}
-      />
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space[3] }}>
+        <TextButton
+          label={t('mood.write')}
+          accessibilityState={{ selected: tab === 'write' }}
+          onPress={() => setTab('write')}
+        />
+        <TextButton
+          label={t('mood.history')}
+          accessibilityState={{ selected: tab === 'history' }}
+          onPress={() => setTab('history')}
+        />
+      </View>
       {!!status && (
-        <AppText testID="mood-status" accessibilityLiveRegion="polite">
+        <AppText testID="mood-status" variant="bodySm" accessibilityLiveRegion="polite">
           {t(status)}
         </AppText>
       )}
-      <AppText variant="heading">{t('mood.history')}</AppText>
-      <TextInput
-        testID="mood-date"
-        accessibilityLabel={t('mood.date')}
-        value={date}
-        onChangeText={setDate}
-        placeholder="YYYY-MM-DD"
-        maxLength={10}
-        style={inputStyle}
-      />
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space[2] }}>
-        {[...new Set(entries.map((entry) => entry.date))]
-          .sort()
-          .reverse()
-          .map((day) => (
-            <SecondaryButton key={day} label={day} onPress={() => setDate(day)} />
-          ))}
-      </View>
-      {entries
-        .filter((entry) => entry.date === date)
-        .map((entry) => (
-          <View key={entry.id} style={{ gap: space[2] }}>
-            <AppText>{entry.text}</AppText>
-            <SecondaryButton
-              label={t('mood.delete')}
-              disabled={busy}
-              onPress={() => confirm(() => store.remove(entry.id))}
-            />
+      {tab === 'write' ? (
+        <>
+          <AppText variant="bodySm" color="inkMuted">
+            {t('mood.privacy')}
+          </AppText>
+          <LabeledInput
+            label={t('solo.moodTitle')}
+            testID="mood-input"
+            value={draft}
+            onChangeText={setDraft}
+            maxLength={500}
+            multiline
+            editable={!busy}
+            placeholder={t('solo.moodPlaceholder')}
+            hint={t('mood.characters', { count: draft.length })}
+          />
+          <PrimaryButton
+            testID="mood-save"
+            label={t('solo.moodSave')}
+            disabled={busy || !draft.trim()}
+            onPress={() => {
+              void change(() => store.save(draft), true);
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <LabeledInput
+            testID="mood-date"
+            label={t('mood.date')}
+            value={date}
+            onChangeText={selectDate}
+            placeholder="YYYY-MM-DD"
+            maxLength={10}
+            autoCorrect={false}
+            hint={t('mood.dateHint')}
+          />
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space[2] }}>
+            {dates.map((day) => (
+              <TextButton
+                key={day}
+                label={day}
+                accessibilityState={{ selected: day === date }}
+                onPress={() => selectDate(day)}
+              />
+            ))}
           </View>
-        ))}
-      {!entries.some((entry) => entry.date === date) && (
-        <AppText color="inkMuted">{t('mood.empty')}</AppText>
+          {selected.slice(0, visibleCount).map((entry) => (
+            <View key={entry.id} style={{ gap: space[2], paddingVertical: space[3] }}>
+              <AppText>{entry.text}</AppText>
+              <TextButton
+                destructive
+                label={t('mood.delete')}
+                disabled={busy}
+                onPress={() => confirm(() => store.remove(entry.id))}
+              />
+            </View>
+          ))}
+          {!selected.length && <AppText color="inkMuted">{t('mood.empty')}</AppText>}
+          {selected.length > visibleCount && (
+            <TextButton label={t('mood.more')} onPress={() => setVisibleCount((n) => n + 20)} />
+          )}
+          <TextButton
+            destructive
+            label={t('mood.deleteAll')}
+            disabled={busy}
+            onPress={() => confirm(() => store.clear())}
+          />
+        </>
       )}
-      <SecondaryButton
-        label={t('mood.deleteAll')}
-        disabled={busy}
-        onPress={() => confirm(() => store.clear())}
-      />
     </MoodCard>
   );
 }

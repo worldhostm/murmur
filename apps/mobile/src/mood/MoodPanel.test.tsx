@@ -17,9 +17,11 @@ it('saves, browses dates, confirms deletion, and retains a draft on storage fail
   });
   await store.save('yesterday', new Date(2026, 0, 1));
   renderWithTheme(<MoodPanel store={store} />);
+  fireEvent.press(screen.getByText('기분 기록 돌아보기'));
   await waitFor(() => expect(screen.getByText('2026-01-01')).toBeTruthy());
   fireEvent.press(screen.getByText('2026-01-01'));
   expect(screen.getByText('yesterday')).toBeTruthy();
+  fireEvent.press(screen.getByText('오늘 기록'));
   fireEvent.changeText(screen.getByTestId('mood-input'), 'today');
   fireEvent.press(screen.getByTestId('mood-save'));
   await waitFor(() => expect(screen.getByText('저장했어요')).toBeTruthy());
@@ -35,6 +37,7 @@ it('saves, browses dates, confirms deletion, and retains a draft on storage fail
   expect(screen.getByTestId('mood-input').props.value).toBe('keep draft');
   fail = false;
   const alert = jest.spyOn(Alert, 'alert');
+  fireEvent.press(screen.getByText('기분 기록 돌아보기'));
   fireEvent.press(screen.getByText('모든 기록 삭제'));
   expect(await store.list()).toHaveLength(2);
   const action = alert.mock.calls[0]![2]![1]!;
