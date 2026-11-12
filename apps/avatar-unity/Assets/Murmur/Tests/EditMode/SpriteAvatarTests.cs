@@ -84,7 +84,7 @@ namespace Murmur.Tests
                 // 같은 프레임에 여러 LoadAvatar 가 오면 지연 Destroy 때문에 같은 이름의 루트가 남을 수 있었다.
                 SpriteSheetAvatarLoader.Build(slotGo.transform, Texture2D.whiteTexture);
                 SpriteSheetAvatarLoader.Build(slotGo.transform, Texture2D.blackTexture);
-                foreach (var id in new[] { "sera", "han-seorin", "seo-doyoon", "leon-hart", "sera" })
+                foreach (var id in new[] { "sera", "han-seorin", "seo-doyoon", "leon-hart", "moka", "kai", "sera" })
                 {
                     slot.Load($"characters/{id}/front");
                     Assert.AreEqual(1, slotGo.GetComponentsInChildren<SpriteExpressionDriver>(true).Length);

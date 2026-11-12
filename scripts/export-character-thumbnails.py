@@ -12,7 +12,12 @@ from PIL import Image
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 ATLAS_DIR = os.path.join(ROOT, "apps/avatar-unity/Assets/Murmur/Resources/Characters")
 OUT_DIR = os.path.join(ROOT, "apps/mobile/assets/characters")
-CHARACTER_IDS = ["seo-doyoon", "leon-hart", "han-seorin", "sera"]
+CHARACTER_IDS = [
+    "seo-doyoon", "leon-hart", "han-seorin", "sera",
+    # 신규 10인 (scripts/slice-character-roster.py)
+    "lee-junseo", "kai", "ha-jun", "noah", "jeon-yuhyeon",
+    "yoon-arin", "ciel", "do-hayeon", "ji-yuna", "moka",
+]
 CELL_W, CELL_H = 137, 240
 
 
