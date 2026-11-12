@@ -12,7 +12,7 @@ from PIL import Image
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 ATLAS_DIR = os.path.join(ROOT, "apps/avatar-unity/Assets/Murmur/Resources/Characters")
 OUT_DIR = os.path.join(ROOT, "apps/mobile/assets/characters")
-# MVP 4인만. 2026-11-12 로스터 10인의 초상은 프로필 시트에서 scripts/slice-character-profiles.py 가 만든다
+# MVP 4인만. 2026-11-12 로스터 10인의 초상은 상반신 표정 세트에서 scripts/slice-character-expressions.py 가 만든다
 # (로스터 아틀라스의 첫 칸은 가로형 저해상도 레터박스라 초상으로 쓰지 않는다).
 CHARACTER_IDS = ["seo-doyoon", "leon-hart", "han-seorin", "sera"]
 CELL_W, CELL_H = 137, 240

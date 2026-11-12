@@ -12,7 +12,7 @@
 
 ### 1. 캐릭터 목록 초상 (apps/mobile)
 
-- `scripts/export-character-thumbnails.py` (MVP 4인. 2026-11-12 로스터 10인은 프로필 시트에서 `scripts/slice-character-profiles.py` 가 만든다): Unity 아틀라스 `apps/avatar-unity/Assets/Murmur/Resources/Characters/<id>.png` 의 첫 칸(기본 표정, 137×240)을 잘라 `apps/mobile/assets/characters/<id>.png` 로 저장한다. `slice-expression-sheet.py` 를 다시 돌리면 이 스크립트도 돌린다(문서화).
+- `scripts/export-character-thumbnails.py` (MVP 4인. 2026-11-12 로스터 10인은 상반신 표정 세트에서 `scripts/slice-character-expressions.py` 가 만든다): Unity 아틀라스 `apps/avatar-unity/Assets/Murmur/Resources/Characters/<id>.png` 의 첫 칸(기본 표정, 137×240)을 잘라 `apps/mobile/assets/characters/<id>.png` 로 저장한다. `slice-expression-sheet.py` 를 다시 돌리면 이 스크립트도 돌린다(문서화).
 - `src/avatar/characterImages.ts`: `characterPortrait(id)` → `require` 한 이미지 소스. 캐릭터 4종.
 - `CharacterCard`: 왼쪽에 초상(높이 `space[12] × 2.5`, 137:240 비율, `radius.md`, 배경 `night`), 오른쪽에 기존 글자. 이미지 `testID="character-portrait-<id>"`, 접근성은 카드 라벨(이름)에 포함.
 - `SoloScreen` 상단 이름 옆 보라색 원 → 같은 초상을 원형으로 자른 썸네일.

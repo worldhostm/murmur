@@ -1,10 +1,10 @@
 # AI 캐릭터 로스터 확장과 컨셉 분류
 
-작성: 2026-11-12. 상태: 구현됨 (정적 검사·테스트 기준. 실기기 화면 검수는 남음).
+작성: 2026-11-12. 상태: 구현됨 (Android 에뮬레이터 확인. 실기기 검수는 남음).
 
 ## 목적
 
-로스터 시트(`~/Downloads/murmur_character_roster_1112.png`, 기존 4인 + 신규 10인 × 표정 10열)의 신규 캐릭터 10인을 AI 캐릭터 목록에 넣고, 14인을 생김새·세계관·솔로 모드 역할에 따라 네 컨셉으로 나눠 캐릭터 선택 화면에서 구분해 보여 준다. 사용자가 "오늘 기분에 맞는 사람"을 고르기 쉽게 하는 것이 목적이다.
+신규 캐릭터 10인(설정은 로스터 시트 `~/Downloads/murmur_character_roster_1112.png`, 그림은 상반신 표정 세트 `~/Downloads/murmur_character_expressions_1112.png`)을 AI 캐릭터 목록에 넣고, 14인을 생김새·세계관·솔로 모드 역할에 따라 네 컨셉으로 나눠 캐릭터 선택 화면에서 구분해 보여 준다. 사용자가 "오늘 기분에 맞는 사람"을 고르기 쉽게 하는 것이 목적이다.
 
 ## 컨셉 설계
 
@@ -41,12 +41,14 @@
 - `@murmur/shared-types`: `AiCharacterId` 14종, `CharacterConcept` 4종과 `CHARACTER_CONCEPTS`, `AiCharacterSummary.concept/age`, `charactersByConcept()`.
 - 앱: 캐릭터 선택 화면이 컨셉 섹션(이름·한 줄 설명)으로 묶어 보여 주고, 카드 캡션에 컨셉·톤을 적는다. i18n `character.<id>.*`, `concept.<id>.*`, `reply.<id>.<down|up|neutral>`(스크립트 답 2줄씩), 초상 14장.
 - ai-character: `PERSONAS` 14종과 `characters/<id>.md` 설정 문서(성격·말투·세계관·컨셉·관계·기억 범위·금지 행동·위기 대응).
-- Unity: `Resources/Characters/<id>.png` 아틀라스 10장(+.meta). `scripts/slice-character-roster.py` 가 로스터 시트에서 만든다.
-- 앱 초상(목록 카드·온보딩 히어로·채팅 상단 이름표): 프로필 시트(`~/Downloads/murmur_character_profiles_1112.png`, 998×279, 카드 5×2, 카드 왼쪽에 상반신 1포즈)에서 `scripts/slice-character-profiles.py` 가 137×240 으로 잘라 만든다. 세로형이라 레터박스가 없고, 얼굴이 원형 썸네일 영역에 들어오도록 상반신 아래 12% 는 버린다. 표정은 1포즈뿐이므로 아틀라스(표정 10칸)에는 쓰지 않는다.
+- Unity 아틀라스 `Resources/Characters/<id>.png` 10장(+.meta)과 앱 초상(목록 카드·온보딩 히어로·채팅 상단 이름표) 10장: 상반신 표정 세트(`~/Downloads/murmur_character_expressions_1112.png`, 1999×668, 캐릭터 블록 5×2. 블록마다 큰 상반신 1장 + 표정 상반신 8칸: 기본·미소·활짝 웃음·놀람·화남·슬픔·당황·윙크)에서 `scripts/slice-character-expressions.py` 가 만든다. 블록마다 칸 격자가 몇 px 어긋나 `BLOCK_OFFSETS` 로 맞춘다(`--debug` 오버레이로 확인).
+- 표정 8칸 → `SpriteExpression` 10칸 매핑: neutral·serious←기본, softSmile·smile←미소, bigSmile←활짝 웃음, surprised←놀람, flustered←당황, worried·sad←슬픔, angry←화남. 윙크는 분류기에 칸이 없어 쓰지 않는다.
+- 칸은 가로 137 로 키워(약 2.6배) 상반신 전체를 넣고 위아래 짧은 띠(약 21px)는 어둡게 블러한 배경으로 채운다. 초상은 큰 상반신을 가로 137 로 맞추고 아래를 잘라 240 을 남긴다(얼굴이 원형 썸네일 영역 안에 온다).
 
 ## 범위 밖
 
-- 출시용 원화. 로스터 시트의 신규 셀은 약 110×64 의 가로형 저해상도라, 높이를 1.75배로 키우고 위아래를 배경색으로 채운 레터박스 아틀라스다. 기존 4인(시트 전체 폭 시안)보다 흐리고 얼굴이 작다. 외주 원화가 오면 `slice-expression-sheet.py` 규격으로 다시 만든다.
+- 출시용 원화. 상반신 표정 세트의 칸은 약 52×75 의 저해상도라 2.6배 확대한 아틀라스는 기존 4인(시트 전체 폭 시안)보다 흐리다. 같은 시트의 원본 해상도 파일이 오면 `slice-character-expressions.py` 의 좌표만 다시 재고 돌리고, 외주 원화가 오면 `slice-expression-sheet.py` 규격으로 다시 만든다.
+- 미소 2단계(은은·살짝)와 걱정·슬픔, 진지·기본의 구분. 시트에 칸이 하나뿐이라 같은 그림을 쓴다.
 - 새 캐릭터의 TTS 음성(`<id>-v1` 는 자리표시자), 캐릭터 간 관계를 쓰는 대화, 컨셉별 테마 색.
 - 컨셉 필터·검색. 지금은 섹션 나열만 한다.
 
@@ -57,4 +59,4 @@
 - [x] ko·en 키 집합 동일, 재촉 문구 없음, 모든 캐릭터에 스크립트 답 3그룹 (i18n 테스트).
 - [x] `PERSONAS` 가 `AI_CHARACTER_IDS` 와 일치 (persona 테스트).
 - [x] Unity C# 컴파일 검사 통과, 슬롯 교체 테스트가 신규 아틀라스(모카·카이)도 돈다.
-- [ ] 에뮬레이터에서 선택 화면 14인과 솔로 화면의 신규 아바타 표정 전환을 눈으로 확인.
+- [x] 에뮬레이터에서 선택 화면 14인과 솔로 화면의 신규 아바타 표정 전환을 눈으로 확인 (2026-11-12 모카·시엘: 첫 인사 미소 → 즐거운 메시지에 활짝 웃음 → 슬픈 메시지에 슬픔 칸. 좌우 반전 없음).

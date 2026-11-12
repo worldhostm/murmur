@@ -18,8 +18,7 @@ import moka from '../../assets/characters/moka.png';
 /**
  * 캐릭터 초상(기본 표정). scripts/export-character-thumbnails.py 가 Unity 아틀라스 첫 칸을 잘라 만든다.
  * 137×240. 통화·솔로 화면의 실제 아바타는 Unity 가 그리고, 이 이미지는 목록·이름표 같은 RN 화면용이다.
- * 2026-11-12 로스터 10인은 프로필 시트의 상반신 1포즈를 자른 초상이다 (scripts/slice-character-profiles.py).
- * 표정 아틀라스(Unity)와 그림 출처가 달라 같은 캐릭터라도 포즈·화질이 다르다 (docs/specs/character-roster.md 범위 밖).
+ * 2026-11-12 로스터 10인은 상반신 표정 세트의 큰 상반신을 자른 초상이다 (scripts/slice-character-expressions.py).
  */
 const PORTRAITS: Record<AiCharacterId, ImageSourcePropType> = {
   'seo-doyoon': seoDoyoon,
