@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
-<View
+<RCTSafeAreaView
   style={
     {
       "backgroundColor": "#2A2040",
@@ -13,313 +13,319 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
   <View
     style={
       {
-        "borderRadius": 24,
         "flex": 1,
-        "overflow": "hidden",
-      }
-    }
-    testID="avatar-renderer"
-  />
-  <View
-    pointerEvents="box-none"
-    style={
-      {
-        "gap": 8,
-        "left": 16,
-        "position": "absolute",
-        "right": 16,
-        "top": 32,
       }
     }
   >
     <View
       style={
         {
-          "alignItems": "center",
-          "alignSelf": "flex-start",
-          "backgroundColor": "rgba(42, 32, 64, 0.8)",
-          "borderRadius": 999,
-          "flexDirection": "row",
-          "gap": 12,
-          "padding": 8,
-          "paddingRight": 16,
+          "borderRadius": 24,
+          "flex": 1,
+          "overflow": "hidden",
+        }
+      }
+      testID="avatar-renderer"
+    />
+    <View
+      pointerEvents="box-none"
+      style={
+        {
+          "backgroundColor": "#2A2040",
+          "borderRadius": 24,
+          "gap": 8,
+          "left": 16,
+          "padding": 12,
+          "position": "absolute",
+          "right": 16,
+          "top": 16,
         }
       }
     >
       <View
-        accessibilityLabel="말하는 중"
         style={
           {
             "alignItems": "center",
-            "height": 40,
-            "justifyContent": "center",
-            "width": 40,
-          }
-        }
-        testID="speaking-indicator"
-      >
-        <View
-          collapsable={false}
-          pointerEvents="none"
-          style={
-            {
-              "borderColor": "#FF8FBE",
-              "borderRadius": 20,
-              "borderWidth": 2,
-              "height": 40,
-              "opacity": 0.5,
-              "position": "absolute",
-              "transform": [
-                {
-                  "scale": 1.25,
-                },
-              ],
-              "width": 40,
-            }
-          }
-          testID="speaking-ring-static"
-        />
-        <View
-          collapsable={false}
-          pointerEvents="none"
-          style={
-            {
-              "borderColor": "#FF8FBE",
-              "borderRadius": 20,
-              "borderWidth": 2,
-              "height": 40,
-              "opacity": 0.35,
-              "position": "absolute",
-              "transform": [
-                {
-                  "scale": 1.5,
-                },
-              ],
-              "width": 40,
-            }
-          }
-          testID="speaking-ring-static"
-        />
-        <View
-          collapsable={false}
-          pointerEvents="none"
-          style={
-            {
-              "borderColor": "#FF8FBE",
-              "borderRadius": 20,
-              "borderWidth": 2,
-              "height": 40,
-              "opacity": 0.2,
-              "position": "absolute",
-              "transform": [
-                {
-                  "scale": 1.75,
-                },
-              ],
-              "width": 40,
-            }
-          }
-          testID="speaking-ring-static"
-        />
-        <View
-          style={
-            {
-              "backgroundColor": "#5B45A0",
-              "borderRadius": 999,
-              "height": 24,
-              "width": 24,
-            }
-          }
-        />
-      </View>
-      <View
-        style={
-          {
-            "gap": 4,
+            "alignSelf": "flex-start",
+            "backgroundColor": "rgba(42, 32, 64, 0.8)",
+            "borderRadius": 999,
+            "flexDirection": "row",
+            "gap": 12,
+            "padding": 8,
+            "paddingRight": 16,
           }
         }
       >
-        <Text
-          maxFontSizeMultiplier={1.3}
+        <View
+          accessibilityLabel="말하는 중"
           style={
-            [
+            {
+              "alignItems": "center",
+              "height": 40,
+              "justifyContent": "center",
+              "width": 40,
+            }
+          }
+          testID="speaking-indicator"
+        >
+          <View
+            collapsable={false}
+            pointerEvents="none"
+            style={
               {
-                "fontFamily": "System",
-                "fontSize": 15,
-                "fontWeight": "600",
-                "lineHeight": 22,
-              },
+                "borderColor": "#FF8FBE",
+                "borderRadius": 20,
+                "borderWidth": 2,
+                "height": 40,
+                "opacity": 0.5,
+                "position": "absolute",
+                "transform": [
+                  {
+                    "scale": 1.25,
+                  },
+                ],
+                "width": 40,
+              }
+            }
+            testID="speaking-ring-static"
+          />
+          <View
+            collapsable={false}
+            pointerEvents="none"
+            style={
               {
-                "color": "#FF8FBE",
-              },
-              undefined,
-            ]
+                "borderColor": "#FF8FBE",
+                "borderRadius": 20,
+                "borderWidth": 2,
+                "height": 40,
+                "opacity": 0.35,
+                "position": "absolute",
+                "transform": [
+                  {
+                    "scale": 1.5,
+                  },
+                ],
+                "width": 40,
+              }
+            }
+            testID="speaking-ring-static"
+          />
+          <View
+            collapsable={false}
+            pointerEvents="none"
+            style={
+              {
+                "borderColor": "#FF8FBE",
+                "borderRadius": 20,
+                "borderWidth": 2,
+                "height": 40,
+                "opacity": 0.2,
+                "position": "absolute",
+                "transform": [
+                  {
+                    "scale": 1.75,
+                  },
+                ],
+                "width": 40,
+              }
+            }
+            testID="speaking-ring-static"
+          />
+          <View
+            style={
+              {
+                "backgroundColor": "#5B45A0",
+                "borderRadius": 999,
+                "height": 24,
+                "width": 24,
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            {
+              "gap": 4,
+            }
           }
         >
-          서도윤
-        </Text>
+          <Text
+            maxFontSizeMultiplier={1.3}
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 15,
+                  "fontWeight": "600",
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#F2EDF8",
+                },
+                undefined,
+              ]
+            }
+          >
+            서도윤
+          </Text>
+          <View
+            accessibilityLabel="AI 캐릭터"
+            accessibilityRole="text"
+            style={
+              {
+                "alignSelf": "flex-start",
+                "backgroundColor": "#211A2C",
+                "borderColor": "#FF8FBE",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "paddingHorizontal": 8,
+                "paddingVertical": 4,
+              }
+            }
+            testID="ai-character-badge"
+          >
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 12,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                  },
+                  {
+                    "color": "#FF8FBE",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              AI 캐릭터
+            </Text>
+          </View>
+        </View>
+      </View>
+      <Text
+        maxFontSizeMultiplier={1.3}
+        style={
+          [
+            {
+              "fontFamily": "System",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        상대는 AI 캐릭터예요
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "flex-start",
+          "backgroundColor": "#2A2040",
+          "borderRadius": 24,
+          "bottom": 16,
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "gap": 8,
+          "justifyContent": "space-around",
+          "left": 16,
+          "padding": 12,
+          "position": "absolute",
+          "right": 16,
+        }
+      }
+    >
+      <View
+        accessibilityLabel="음소거"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        hitSlop={0}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "gap": 4,
+            "minWidth": 48,
+          }
+        }
+        testID="call-mute"
+      >
         <View
-          accessibilityLabel="AI 캐릭터"
-          accessibilityRole="text"
+          pointerEvents="none"
           style={
             {
-              "alignSelf": "flex-start",
-              "backgroundColor": "#211A2C",
-              "borderColor": "#FF8FBE",
-              "borderRadius": 8,
-              "borderWidth": 1,
-              "paddingHorizontal": 8,
-              "paddingVertical": 4,
+              "alignItems": "center",
+              "backgroundColor": "rgba(42, 32, 64, 0.8)",
+              "borderRadius": 999,
+              "height": 56,
+              "justifyContent": "center",
+              "width": 56,
             }
           }
-          testID="ai-character-badge"
         >
           <Text
             style={
               [
                 {
                   "fontFamily": "System",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
+                  "fontSize": 17,
+                  "fontWeight": "600",
+                  "lineHeight": 24,
                 },
                 {
-                  "color": "#FF8FBE",
+                  "color": "#F2EDF8",
                 },
                 undefined,
               ]
             }
           >
-            AI 캐릭터
+            🎙
           </Text>
         </View>
-      </View>
-    </View>
-    <Text
-      maxFontSizeMultiplier={1.3}
-      style={
-        [
-          {
-            "fontFamily": "System",
-            "fontSize": 12,
-            "fontWeight": "500",
-            "lineHeight": 16,
-          },
-          {
-            "color": "#F2EDF8",
-          },
-          undefined,
-        ]
-      }
-    >
-      상대는 AI 캐릭터예요
-    </Text>
-  </View>
-  <View
-    style={
-      {
-        "alignItems": "flex-start",
-        "bottom": 48,
-        "flexDirection": "row",
-        "justifyContent": "space-around",
-        "left": 16,
-        "position": "absolute",
-        "right": 16,
-      }
-    }
-  >
-    <View
-      accessibilityLabel="음소거"
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      hitSlop={0}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "gap": 4,
-          "minWidth": 48,
-        }
-      }
-      testID="call-mute"
-    >
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        pointerEvents="none"
-        style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "rgba(42, 32, 64, 0.8)",
-            "borderRadius": 999,
-            "height": 56,
-            "justifyContent": "center",
-            "width": 56,
-          }
-        }
-      >
         <Text
+          maxFontSizeMultiplier={1.3}
           style={
             [
               {
                 "fontFamily": "System",
-                "fontSize": 17,
-                "fontWeight": "600",
-                "lineHeight": 24,
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
               },
               {
                 "color": "#F2EDF8",
@@ -328,71 +334,12 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
             ]
           }
         >
-          🎙
+          음소거
         </Text>
       </View>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#F2EDF8",
-            },
-            undefined,
-          ]
-        }
-      >
-        음소거
-      </Text>
-    </View>
-    <View
-      accessibilityLabel="캐릭터 바꾸기"
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      hitSlop={0}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "gap": 4,
-          "minWidth": 48,
-        }
-      }
-      testID="call-swap"
-    >
       <View
+        accessibilityLabel="캐릭터 바꾸기"
+        accessibilityRole="button"
         accessibilityState={
           {
             "busy": undefined,
@@ -413,6 +360,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
         accessible={true}
         collapsable={false}
         focusable={true}
+        hitSlop={0}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -422,26 +370,56 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        pointerEvents="none"
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(42, 32, 64, 0.8)",
-            "borderRadius": 999,
-            "height": 56,
-            "justifyContent": "center",
-            "width": 56,
+            "gap": 4,
+            "minWidth": 48,
           }
         }
+        testID="call-swap"
       >
+        <View
+          pointerEvents="none"
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "rgba(42, 32, 64, 0.8)",
+              "borderRadius": 999,
+              "height": 56,
+              "justifyContent": "center",
+              "width": 56,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 17,
+                  "fontWeight": "600",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#F2EDF8",
+                },
+                undefined,
+              ]
+            }
+          >
+            ◐
+          </Text>
+        </View>
         <Text
+          maxFontSizeMultiplier={1.3}
           style={
             [
               {
                 "fontFamily": "System",
-                "fontSize": 17,
-                "fontWeight": "600",
-                "lineHeight": 24,
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
               },
               {
                 "color": "#F2EDF8",
@@ -450,71 +428,12 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
             ]
           }
         >
-          ◐
+          캐릭터 바꾸기
         </Text>
       </View>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#F2EDF8",
-            },
-            undefined,
-          ]
-        }
-      >
-        캐릭터 바꾸기
-      </Text>
-    </View>
-    <View
-      accessibilityLabel="신고"
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      hitSlop={0}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "gap": 4,
-          "minWidth": 48,
-        }
-      }
-      testID="call-report"
-    >
       <View
+        accessibilityLabel="신고"
+        accessibilityRole="button"
         accessibilityState={
           {
             "busy": undefined,
@@ -535,6 +454,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
         accessible={true}
         collapsable={false}
         focusable={true}
+        hitSlop={0}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -544,148 +464,56 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        pointerEvents="none"
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(42, 32, 64, 0.8)",
-            "borderRadius": 999,
-            "height": 56,
-            "justifyContent": "center",
-            "width": 56,
+            "gap": 4,
+            "minWidth": 48,
           }
         }
+        testID="call-report"
       >
-        <Text
+        <View
+          pointerEvents="none"
           style={
-            [
-              {
-                "fontFamily": "System",
-                "fontSize": 17,
-                "fontWeight": "600",
-                "lineHeight": 24,
-              },
-              {
-                "color": "#FF7B7B",
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "backgroundColor": "rgba(42, 32, 64, 0.8)",
+              "borderRadius": 999,
+              "height": 56,
+              "justifyContent": "center",
+              "width": 56,
+            }
           }
         >
-          ⚑
-        </Text>
-      </View>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#FF7B7B",
-            },
-            undefined,
-          ]
-        }
-      >
-        신고
-      </Text>
-    </View>
-    <View
-      accessibilityLabel="통화 끝내기"
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      hitSlop={0}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "gap": 4,
-          "minWidth": 48,
-        }
-      }
-      testID="call-end"
-    >
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        pointerEvents="none"
-        style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "#FF7B7B",
-            "borderRadius": 999,
-            "height": 56,
-            "justifyContent": "center",
-            "width": 56,
-          }
-        }
-      >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 17,
+                  "fontWeight": "600",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#F2EDF8",
+                },
+                undefined,
+              ]
+            }
+          >
+            ⚑
+          </Text>
+        </View>
         <Text
+          maxFontSizeMultiplier={1.3}
           style={
             [
               {
                 "fontFamily": "System",
-                "fontSize": 17,
-                "fontWeight": "600",
-                "lineHeight": 24,
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
               },
               {
                 "color": "#F2EDF8",
@@ -694,30 +522,106 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
             ]
           }
         >
-          ✕
+          신고
         </Text>
       </View>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#F2EDF8",
-            },
-            undefined,
-          ]
+      <View
+        accessibilityLabel="통화 끝내기"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
         }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        hitSlop={0}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "gap": 4,
+            "minWidth": 48,
+          }
+        }
+        testID="call-end"
       >
-        통화 끝내기
-      </Text>
+        <View
+          pointerEvents="none"
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#FF7B7B",
+              "borderRadius": 999,
+              "height": 56,
+              "justifyContent": "center",
+              "width": 56,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 17,
+                  "fontWeight": "600",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#140E1F",
+                },
+                undefined,
+              ]
+            }
+          >
+            ✕
+          </Text>
+        </View>
+        <Text
+          maxFontSizeMultiplier={1.3}
+          style={
+            [
+              {
+                "fontFamily": "System",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              },
+              {
+                "color": "#F2EDF8",
+              },
+              undefined,
+            ]
+          }
+        >
+          통화 끝내기
+        </Text>
+      </View>
     </View>
   </View>
-</View>
+</RCTSafeAreaView>
 `;
 
 exports[`screens snapshot (dark) OnboardingScreen 1`] = `
@@ -2175,7 +2079,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
 `;
 
 exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
-<View
+<RCTSafeAreaView
   style={
     {
       "backgroundColor": "#1A1324",
@@ -2187,313 +2091,319 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
   <View
     style={
       {
-        "borderRadius": 24,
         "flex": 1,
-        "overflow": "hidden",
-      }
-    }
-    testID="avatar-renderer"
-  />
-  <View
-    pointerEvents="box-none"
-    style={
-      {
-        "gap": 8,
-        "left": 16,
-        "position": "absolute",
-        "right": 16,
-        "top": 32,
       }
     }
   >
     <View
       style={
         {
-          "alignItems": "center",
-          "alignSelf": "flex-start",
-          "backgroundColor": "rgba(26, 19, 36, 0.8)",
-          "borderRadius": 999,
-          "flexDirection": "row",
-          "gap": 12,
-          "padding": 8,
-          "paddingRight": 16,
+          "borderRadius": 24,
+          "flex": 1,
+          "overflow": "hidden",
+        }
+      }
+      testID="avatar-renderer"
+    />
+    <View
+      pointerEvents="box-none"
+      style={
+        {
+          "backgroundColor": "#1A1324",
+          "borderRadius": 24,
+          "gap": 8,
+          "left": 16,
+          "padding": 12,
+          "position": "absolute",
+          "right": 16,
+          "top": 16,
         }
       }
     >
       <View
-        accessibilityLabel="말하는 중"
         style={
           {
             "alignItems": "center",
-            "height": 40,
-            "justifyContent": "center",
-            "width": 40,
-          }
-        }
-        testID="speaking-indicator"
-      >
-        <View
-          collapsable={false}
-          pointerEvents="none"
-          style={
-            {
-              "borderColor": "#B8366E",
-              "borderRadius": 20,
-              "borderWidth": 2,
-              "height": 40,
-              "opacity": 0.5,
-              "position": "absolute",
-              "transform": [
-                {
-                  "scale": 1.25,
-                },
-              ],
-              "width": 40,
-            }
-          }
-          testID="speaking-ring-static"
-        />
-        <View
-          collapsable={false}
-          pointerEvents="none"
-          style={
-            {
-              "borderColor": "#B8366E",
-              "borderRadius": 20,
-              "borderWidth": 2,
-              "height": 40,
-              "opacity": 0.35,
-              "position": "absolute",
-              "transform": [
-                {
-                  "scale": 1.5,
-                },
-              ],
-              "width": 40,
-            }
-          }
-          testID="speaking-ring-static"
-        />
-        <View
-          collapsable={false}
-          pointerEvents="none"
-          style={
-            {
-              "borderColor": "#B8366E",
-              "borderRadius": 20,
-              "borderWidth": 2,
-              "height": 40,
-              "opacity": 0.2,
-              "position": "absolute",
-              "transform": [
-                {
-                  "scale": 1.75,
-                },
-              ],
-              "width": 40,
-            }
-          }
-          testID="speaking-ring-static"
-        />
-        <View
-          style={
-            {
-              "backgroundColor": "#D9CCFF",
-              "borderRadius": 999,
-              "height": 24,
-              "width": 24,
-            }
-          }
-        />
-      </View>
-      <View
-        style={
-          {
-            "gap": 4,
+            "alignSelf": "flex-start",
+            "backgroundColor": "rgba(26, 19, 36, 0.8)",
+            "borderRadius": 999,
+            "flexDirection": "row",
+            "gap": 12,
+            "padding": 8,
+            "paddingRight": 16,
           }
         }
       >
-        <Text
-          maxFontSizeMultiplier={1.3}
+        <View
+          accessibilityLabel="말하는 중"
           style={
-            [
+            {
+              "alignItems": "center",
+              "height": 40,
+              "justifyContent": "center",
+              "width": 40,
+            }
+          }
+          testID="speaking-indicator"
+        >
+          <View
+            collapsable={false}
+            pointerEvents="none"
+            style={
               {
-                "fontFamily": "System",
-                "fontSize": 15,
-                "fontWeight": "600",
-                "lineHeight": 22,
-              },
+                "borderColor": "#B8366E",
+                "borderRadius": 20,
+                "borderWidth": 2,
+                "height": 40,
+                "opacity": 0.5,
+                "position": "absolute",
+                "transform": [
+                  {
+                    "scale": 1.25,
+                  },
+                ],
+                "width": 40,
+              }
+            }
+            testID="speaking-ring-static"
+          />
+          <View
+            collapsable={false}
+            pointerEvents="none"
+            style={
               {
-                "color": "#B8366E",
-              },
-              undefined,
-            ]
+                "borderColor": "#B8366E",
+                "borderRadius": 20,
+                "borderWidth": 2,
+                "height": 40,
+                "opacity": 0.35,
+                "position": "absolute",
+                "transform": [
+                  {
+                    "scale": 1.5,
+                  },
+                ],
+                "width": 40,
+              }
+            }
+            testID="speaking-ring-static"
+          />
+          <View
+            collapsable={false}
+            pointerEvents="none"
+            style={
+              {
+                "borderColor": "#B8366E",
+                "borderRadius": 20,
+                "borderWidth": 2,
+                "height": 40,
+                "opacity": 0.2,
+                "position": "absolute",
+                "transform": [
+                  {
+                    "scale": 1.75,
+                  },
+                ],
+                "width": 40,
+              }
+            }
+            testID="speaking-ring-static"
+          />
+          <View
+            style={
+              {
+                "backgroundColor": "#D9CCFF",
+                "borderRadius": 999,
+                "height": 24,
+                "width": 24,
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            {
+              "gap": 4,
+            }
           }
         >
-          서도윤
-        </Text>
+          <Text
+            maxFontSizeMultiplier={1.3}
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 15,
+                  "fontWeight": "600",
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#F2EDF8",
+                },
+                undefined,
+              ]
+            }
+          >
+            서도윤
+          </Text>
+          <View
+            accessibilityLabel="AI 캐릭터"
+            accessibilityRole="text"
+            style={
+              {
+                "alignSelf": "flex-start",
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#B8366E",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "paddingHorizontal": 8,
+                "paddingVertical": 4,
+              }
+            }
+            testID="ai-character-badge"
+          >
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 12,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                  },
+                  {
+                    "color": "#B8366E",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              AI 캐릭터
+            </Text>
+          </View>
+        </View>
+      </View>
+      <Text
+        maxFontSizeMultiplier={1.3}
+        style={
+          [
+            {
+              "fontFamily": "System",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+            },
+            {
+              "color": "#F2EDF8",
+            },
+            undefined,
+          ]
+        }
+      >
+        상대는 AI 캐릭터예요
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "flex-start",
+          "backgroundColor": "#1A1324",
+          "borderRadius": 24,
+          "bottom": 16,
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "gap": 8,
+          "justifyContent": "space-around",
+          "left": 16,
+          "padding": 12,
+          "position": "absolute",
+          "right": 16,
+        }
+      }
+    >
+      <View
+        accessibilityLabel="음소거"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        hitSlop={0}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "gap": 4,
+            "minWidth": 48,
+          }
+        }
+        testID="call-mute"
+      >
         <View
-          accessibilityLabel="AI 캐릭터"
-          accessibilityRole="text"
+          pointerEvents="none"
           style={
             {
-              "alignSelf": "flex-start",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#B8366E",
-              "borderRadius": 8,
-              "borderWidth": 1,
-              "paddingHorizontal": 8,
-              "paddingVertical": 4,
+              "alignItems": "center",
+              "backgroundColor": "rgba(26, 19, 36, 0.8)",
+              "borderRadius": 999,
+              "height": 56,
+              "justifyContent": "center",
+              "width": 56,
             }
           }
-          testID="ai-character-badge"
         >
           <Text
             style={
               [
                 {
                   "fontFamily": "System",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
+                  "fontSize": 17,
+                  "fontWeight": "600",
+                  "lineHeight": 24,
                 },
                 {
-                  "color": "#B8366E",
+                  "color": "#F2EDF8",
                 },
                 undefined,
               ]
             }
           >
-            AI 캐릭터
+            🎙
           </Text>
         </View>
-      </View>
-    </View>
-    <Text
-      maxFontSizeMultiplier={1.3}
-      style={
-        [
-          {
-            "fontFamily": "System",
-            "fontSize": 12,
-            "fontWeight": "500",
-            "lineHeight": 16,
-          },
-          {
-            "color": "#F2EDF8",
-          },
-          undefined,
-        ]
-      }
-    >
-      상대는 AI 캐릭터예요
-    </Text>
-  </View>
-  <View
-    style={
-      {
-        "alignItems": "flex-start",
-        "bottom": 48,
-        "flexDirection": "row",
-        "justifyContent": "space-around",
-        "left": 16,
-        "position": "absolute",
-        "right": 16,
-      }
-    }
-  >
-    <View
-      accessibilityLabel="음소거"
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      hitSlop={0}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "gap": 4,
-          "minWidth": 48,
-        }
-      }
-      testID="call-mute"
-    >
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        pointerEvents="none"
-        style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "rgba(26, 19, 36, 0.8)",
-            "borderRadius": 999,
-            "height": 56,
-            "justifyContent": "center",
-            "width": 56,
-          }
-        }
-      >
         <Text
+          maxFontSizeMultiplier={1.3}
           style={
             [
               {
                 "fontFamily": "System",
-                "fontSize": 17,
-                "fontWeight": "600",
-                "lineHeight": 24,
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
               },
               {
                 "color": "#F2EDF8",
@@ -2502,71 +2412,12 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
             ]
           }
         >
-          🎙
+          음소거
         </Text>
       </View>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#F2EDF8",
-            },
-            undefined,
-          ]
-        }
-      >
-        음소거
-      </Text>
-    </View>
-    <View
-      accessibilityLabel="캐릭터 바꾸기"
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      hitSlop={0}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "gap": 4,
-          "minWidth": 48,
-        }
-      }
-      testID="call-swap"
-    >
       <View
+        accessibilityLabel="캐릭터 바꾸기"
+        accessibilityRole="button"
         accessibilityState={
           {
             "busy": undefined,
@@ -2587,6 +2438,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
         accessible={true}
         collapsable={false}
         focusable={true}
+        hitSlop={0}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -2596,26 +2448,56 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        pointerEvents="none"
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(26, 19, 36, 0.8)",
-            "borderRadius": 999,
-            "height": 56,
-            "justifyContent": "center",
-            "width": 56,
+            "gap": 4,
+            "minWidth": 48,
           }
         }
+        testID="call-swap"
       >
+        <View
+          pointerEvents="none"
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "rgba(26, 19, 36, 0.8)",
+              "borderRadius": 999,
+              "height": 56,
+              "justifyContent": "center",
+              "width": 56,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 17,
+                  "fontWeight": "600",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#F2EDF8",
+                },
+                undefined,
+              ]
+            }
+          >
+            ◐
+          </Text>
+        </View>
         <Text
+          maxFontSizeMultiplier={1.3}
           style={
             [
               {
                 "fontFamily": "System",
-                "fontSize": 17,
-                "fontWeight": "600",
-                "lineHeight": 24,
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
               },
               {
                 "color": "#F2EDF8",
@@ -2624,71 +2506,12 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
             ]
           }
         >
-          ◐
+          캐릭터 바꾸기
         </Text>
       </View>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#F2EDF8",
-            },
-            undefined,
-          ]
-        }
-      >
-        캐릭터 바꾸기
-      </Text>
-    </View>
-    <View
-      accessibilityLabel="신고"
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      hitSlop={0}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "gap": 4,
-          "minWidth": 48,
-        }
-      }
-      testID="call-report"
-    >
       <View
+        accessibilityLabel="신고"
+        accessibilityRole="button"
         accessibilityState={
           {
             "busy": undefined,
@@ -2709,6 +2532,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
         accessible={true}
         collapsable={false}
         focusable={true}
+        hitSlop={0}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -2718,148 +2542,56 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        pointerEvents="none"
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(26, 19, 36, 0.8)",
-            "borderRadius": 999,
-            "height": 56,
-            "justifyContent": "center",
-            "width": 56,
+            "gap": 4,
+            "minWidth": 48,
           }
         }
+        testID="call-report"
       >
-        <Text
+        <View
+          pointerEvents="none"
           style={
-            [
-              {
-                "fontFamily": "System",
-                "fontSize": 17,
-                "fontWeight": "600",
-                "lineHeight": 24,
-              },
-              {
-                "color": "#B42E2E",
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "backgroundColor": "rgba(26, 19, 36, 0.8)",
+              "borderRadius": 999,
+              "height": 56,
+              "justifyContent": "center",
+              "width": 56,
+            }
           }
         >
-          ⚑
-        </Text>
-      </View>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#B42E2E",
-            },
-            undefined,
-          ]
-        }
-      >
-        신고
-      </Text>
-    </View>
-    <View
-      accessibilityLabel="통화 끝내기"
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      hitSlop={0}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "gap": 4,
-          "minWidth": 48,
-        }
-      }
-      testID="call-end"
-    >
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        pointerEvents="none"
-        style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "#B42E2E",
-            "borderRadius": 999,
-            "height": 56,
-            "justifyContent": "center",
-            "width": 56,
-          }
-        }
-      >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 17,
+                  "fontWeight": "600",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#F2EDF8",
+                },
+                undefined,
+              ]
+            }
+          >
+            ⚑
+          </Text>
+        </View>
         <Text
+          maxFontSizeMultiplier={1.3}
           style={
             [
               {
                 "fontFamily": "System",
-                "fontSize": 17,
-                "fontWeight": "600",
-                "lineHeight": 24,
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
               },
               {
                 "color": "#F2EDF8",
@@ -2868,30 +2600,106 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
             ]
           }
         >
-          ✕
+          신고
         </Text>
       </View>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "System",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-            },
-            {
-              "color": "#F2EDF8",
-            },
-            undefined,
-          ]
+      <View
+        accessibilityLabel="통화 끝내기"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
         }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        hitSlop={0}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "gap": 4,
+            "minWidth": 48,
+          }
+        }
+        testID="call-end"
       >
-        통화 끝내기
-      </Text>
+        <View
+          pointerEvents="none"
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#B42E2E",
+              "borderRadius": 999,
+              "height": 56,
+              "justifyContent": "center",
+              "width": 56,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 17,
+                  "fontWeight": "600",
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#FFFFFF",
+                },
+                undefined,
+              ]
+            }
+          >
+            ✕
+          </Text>
+        </View>
+        <Text
+          maxFontSizeMultiplier={1.3}
+          style={
+            [
+              {
+                "fontFamily": "System",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 16,
+              },
+              {
+                "color": "#F2EDF8",
+              },
+              undefined,
+            ]
+          }
+        >
+          통화 끝내기
+        </Text>
+      </View>
     </View>
   </View>
-</View>
+</RCTSafeAreaView>
 `;
 
 exports[`screens snapshot (light) OnboardingScreen 1`] = `

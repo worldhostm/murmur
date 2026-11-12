@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import type { CallMode, CallState, Participant } from '@murmur/shared-types';
 import { AiCharacterBadge, AppText, CallControl, SpeakingIndicator } from '../components';
@@ -31,7 +31,9 @@ export interface CallScreenProps {
 export function CallScreen(props: CallScreenProps): React.JSX.Element {
   const { t } = useTranslation();
   const { color, space, radius, size } = useTheme();
-  const peerName = props.peer.displayNameKey ? t(props.peer.displayNameKey) : (props.peer.displayName ?? '');
+  const peerName = props.peer.displayNameKey
+    ? t(props.peer.displayNameKey)
+    : (props.peer.displayName ?? '');
   const statusKey =
     props.state === 'connecting'
       ? props.mode === 'random-match'
@@ -42,80 +44,147 @@ export function CallScreen(props: CallScreenProps): React.JSX.Element {
         : null;
 
   return (
-    <View testID="screen-call" style={{ flex: 1, backgroundColor: color.night }}>
-      <View testID="avatar-renderer" style={{ flex: 1, borderRadius: radius.lg, overflow: 'hidden' }}>
-        {props.renderer}
-      </View>
-
-      <View
-        pointerEvents="box-none"
-        style={{ position: 'absolute', top: space[8], left: space[4], right: space[4], gap: space[2] }}
-      >
+    <SafeAreaView testID="screen-call" style={{ flex: 1, backgroundColor: color.night }}>
+      <View style={{ flex: 1 }}>
         <View
+          testID="avatar-renderer"
+          style={{ flex: 1, borderRadius: radius.lg, overflow: 'hidden' }}
+        >
+          {props.renderer}
+        </View>
+
+        <View
+          pointerEvents="box-none"
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: space[3],
-            alignSelf: 'flex-start',
-            padding: space[2],
-            paddingRight: space[4],
-            borderRadius: radius.pill,
-            backgroundColor: withAlpha(color.night, 0.8),
+            position: 'absolute',
+            top: space[4],
+            left: space[4],
+            right: space[4],
+            gap: space[2],
+            padding: space[3],
+            borderRadius: radius.lg,
+            backgroundColor: color.night,
           }}
         >
-          <SpeakingIndicator speaking={!!props.peerSpeaking} diameter={size.touchTarget - space[2]}>
-            <View style={{ width: space[6], height: space[6], borderRadius: radius.pill, backgroundColor: color.lavender }} />
-          </SpeakingIndicator>
-          <View style={{ gap: space[1] }}>
-            <AppText variant="label" color={props.peer.isAi ? 'accent' : 'inkOnNight'} maxFontSizeMultiplier={size.callOverlayMaxFontScale}>
-              {peerName}
-            </AppText>
-            {props.peer.isAi && <AiCharacterBadge />}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: space[3],
+              alignSelf: 'flex-start',
+              padding: space[2],
+              paddingRight: space[4],
+              borderRadius: radius.pill,
+              backgroundColor: withAlpha(color.night, 0.8),
+            }}
+          >
+            <SpeakingIndicator
+              speaking={!!props.peerSpeaking}
+              diameter={size.touchTarget - space[2]}
+            >
+              <View
+                style={{
+                  width: space[6],
+                  height: space[6],
+                  borderRadius: radius.pill,
+                  backgroundColor: color.lavender,
+                }}
+              />
+            </SpeakingIndicator>
+            <View style={{ gap: space[1] }}>
+              <AppText
+                variant="label"
+                color="inkOnNight"
+                maxFontSizeMultiplier={size.callOverlayMaxFontScale}
+              >
+                {peerName}
+              </AppText>
+              {props.peer.isAi && <AiCharacterBadge />}
+            </View>
           </View>
+          {props.peer.isAi && (
+            <AppText
+              variant="caption"
+              color="inkOnNight"
+              maxFontSizeMultiplier={size.callOverlayMaxFontScale}
+            >
+              {t('call.aiNotice')}
+            </AppText>
+          )}
+          {props.roomCode && (
+            <AppText
+              variant="caption"
+              color="inkOnNight"
+              maxFontSizeMultiplier={size.callOverlayMaxFontScale}
+            >
+              {t('call.roomCode')} {props.roomCode}
+            </AppText>
+          )}
+          {statusKey && (
+            <AppText
+              variant="bodySm"
+              color="inkOnNight"
+              maxFontSizeMultiplier={size.callOverlayMaxFontScale}
+            >
+              {t(statusKey)}
+            </AppText>
+          )}
+          {props.trackingLabel && (
+            <AppText
+              testID="tracking-label"
+              variant="caption"
+              color="inkOnNight"
+              maxFontSizeMultiplier={size.callOverlayMaxFontScale}
+            >
+              {props.trackingLabel}
+            </AppText>
+          )}
         </View>
-        {props.peer.isAi && (
-          <AppText variant="caption" color="inkOnNight" maxFontSizeMultiplier={size.callOverlayMaxFontScale}>
-            {t('call.aiNotice')}
-          </AppText>
-        )}
-        {props.roomCode && (
-          <AppText variant="caption" color="inkOnNight" maxFontSizeMultiplier={size.callOverlayMaxFontScale}>
-            {t('call.roomCode')} {props.roomCode}
-          </AppText>
-        )}
-        {statusKey && (
-          <AppText variant="bodySm" color="inkOnNight" maxFontSizeMultiplier={size.callOverlayMaxFontScale}>
-            {t(statusKey)}
-          </AppText>
-        )}
-        {props.trackingLabel && (
-          <AppText testID="tracking-label" variant="caption" color="inkOnNight" maxFontSizeMultiplier={size.callOverlayMaxFontScale}>
-            {props.trackingLabel}
-          </AppText>
-        )}
-      </View>
 
-      <View
-        style={{
-          position: 'absolute',
-          left: space[4],
-          right: space[4],
-          bottom: space[12],
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'flex-start',
-        }}
-      >
-        <CallControl
-          label={props.muted ? t('call.unmute') : t('call.mute')}
-          glyph={props.muted ? '🔇' : '🎙'}
-          onPress={props.onToggleMute}
-          testID="call-mute"
-        />
-        <CallControl label={t('call.swapAvatar')} glyph="◐" onPress={props.onSwapAvatar} testID="call-swap" />
-        <CallControl label={t('safety.report')} glyph="⚑" variant="report" onPress={props.onReport} testID="call-report" />
-        <CallControl label={t('call.end')} glyph="✕" variant="end" onPress={props.onEnd} testID="call-end" />
+        <View
+          style={{
+            position: 'absolute',
+            left: space[4],
+            right: space[4],
+            bottom: space[4],
+            padding: space[3],
+            gap: space[2],
+            borderRadius: radius.lg,
+            backgroundColor: color.night,
+            flexWrap: 'wrap',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'flex-start',
+          }}
+        >
+          <CallControl
+            label={props.muted ? t('call.unmute') : t('call.mute')}
+            glyph={props.muted ? '🔇' : '🎙'}
+            onPress={props.onToggleMute}
+            testID="call-mute"
+          />
+          <CallControl
+            label={t('call.swapAvatar')}
+            glyph="◐"
+            onPress={props.onSwapAvatar}
+            testID="call-swap"
+          />
+          <CallControl
+            label={t('safety.report')}
+            glyph="⚑"
+            variant="report"
+            onPress={props.onReport}
+            testID="call-report"
+          />
+          <CallControl
+            label={t('call.end')}
+            glyph="✕"
+            variant="end"
+            onPress={props.onEnd}
+            testID="call-end"
+          />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
