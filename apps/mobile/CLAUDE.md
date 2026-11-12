@@ -58,7 +58,7 @@ pnpm --filter @murmur/mobile typecheck
 
 - `pnpm unity:export:android` 로 `apps/avatar-unity/Builds/android/unityLibrary` 가 생기면 `settings.gradle` 이 자동으로 `:unityLibrary` 를 포함하고, `app/build.gradle` 이 `src/unity/java` 소스셋(UnityHost, UnityViewManager)을 켠다. 없으면 둘 다 빠져서 앱은 그대로 빌드된다.
 - `MainApplication` 은 리플렉션으로 `UnityHost.install()` 을 불러 `UnityPlayerProxy.sender/viewFactory/lifecycle` 를 연결한다. `MainActivity` 가 pause/resume/destroy 를 전달한다.
-- JS `UnityView` 는 네이티브 `MurmurUnityView` 가 등록돼 있으면 그리고, 아니면 자리 표시만 둔다. 통화 화면의 `renderer` 자리에 넣는다.
+- JS `UnityView` 는 네이티브 `MurmurUnityView` 가 등록돼 있으면 그리고, 아니면 자리 표시만 둔다. 통화 화면의 `renderer` 자리에 넣는다. `UnityViewManager` 는 뷰가 떨어질 때 플레이어를 `pause()`, 다시 붙을 때 `resume()` 한다 (멈추지 않으면 재진입 시 이전 캐릭터의 마지막 프레임이 남는다).
 
 ### Unity as a Library (iOS)
 
