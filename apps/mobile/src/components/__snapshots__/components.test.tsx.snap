@@ -380,7 +380,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
           ]
         }
       >
-        밤
+        고요한 밤 · 밤
       </Text>
       <Text
         style={
@@ -1269,7 +1269,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
           ]
         }
       >
-        밤
+        고요한 밤 · 밤
       </Text>
       <Text
         style={

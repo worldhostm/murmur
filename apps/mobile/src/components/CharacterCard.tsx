@@ -53,11 +53,11 @@ export function CharacterCard({
         />
         <View style={{ flex: 1, padding: space[4], gap: space[2], justifyContent: 'center' }}>
           <AppText variant="caption" color="inkMuted">
-            {t(
+            {`${t(`concept.${character.concept}.name`)} · ${t(
               character.tone === 'night'
                 ? 'characterSelect.toneNight'
                 : 'characterSelect.toneLight',
-            )}
+            )}`}
           </AppText>
           <AppText variant="characterName">{t(character.nameKey)}</AppText>
           <AppText variant="bodySm">{t(character.roleKey)}</AppText>

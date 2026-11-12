@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Dimensions } from 'react-native';
-import { fireEvent, screen } from '@testing-library/react-native';
-import { AI_CHARACTERS } from '@murmur/shared-types';
+import { fireEvent, screen, within } from '@testing-library/react-native';
+import { AI_CHARACTERS, CHARACTER_CONCEPTS, charactersByConcept } from '@murmur/shared-types';
 import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen } from './index';
 import { ThemeProvider } from '../theme';
 import { renderWithTheme, THEMES } from '../test/render';
@@ -67,6 +67,23 @@ describe('CharacterSelectScreen', () => {
     for (const c of AI_CHARACTERS) {
       expect(screen.getByTestId(`character-portrait-${c.id}`)).toBeTruthy();
     }
+  });
+
+  it('groups the characters under the four concepts in order, each character once', () => {
+    renderWithTheme(<CharacterSelectScreen onConfirm={() => undefined} />);
+    const sections = CHARACTER_CONCEPTS.map((k) => screen.getByTestId(`concept-${k.id}`));
+    expect(sections).toHaveLength(4);
+    expect(screen.getByText('고요한 밤')).toBeTruthy();
+    expect(screen.getByText('빛나는 무대')).toBeTruthy();
+    expect(screen.getByText('든든한 동료')).toBeTruthy();
+    expect(screen.getByText('다른 세계')).toBeTruthy();
+    for (const { concept, characters } of charactersByConcept()) {
+      const section = screen.getByTestId(`concept-${concept.id}`);
+      for (const c of characters) {
+        expect(within(section).getByTestId(`character-card-${c.id}`)).toBeTruthy();
+      }
+    }
+    expect(screen.getAllByTestId(/^character-card-/)).toHaveLength(AI_CHARACTERS.length);
   });
 
   it('lists every AI character with an AI badge and confirms the selection', () => {

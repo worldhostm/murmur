@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AI_CHARACTERS } from '@murmur/shared-types';
+import { AI_CHARACTERS, charactersByConcept } from '@murmur/shared-types';
 import type { AiCharacterId } from '@murmur/shared-types';
 import { AppText, CharacterCard, PrimaryButton, Screen } from '../components';
 import { useTheme } from '../theme';
@@ -13,6 +13,7 @@ export interface CharacterSelectScreenProps {
   onBack?: () => void;
 }
 
+/** 캐릭터는 컨셉(docs/specs/character-roster.md) 순서로 묶어 보여 준다. 컨셉마다 이름과 한 줄 설명이 붙는다. */
 export function CharacterSelectScreen({
   onConfirm,
   initial,
@@ -46,17 +47,32 @@ export function CharacterSelectScreen({
         <AppText variant="bodySm" color="inkMuted">
           {t('characterSelect.subtitle')}
         </AppText>
+        <AppText variant="bodySm" color="inkMuted">
+          {t('characterSelect.conceptHint')}
+        </AppText>
       </View>
-      <View style={{ gap: space[4] }}>
-        {AI_CHARACTERS.map((c) => (
-          <CharacterCard
-            key={c.id}
-            character={c}
-            selected={selected === c.id}
-            onPress={() => setSelected(c.id)}
-          />
-        ))}
-      </View>
+      {charactersByConcept().map(({ concept, characters }) => (
+        <View key={concept.id} testID={`concept-${concept.id}`} style={{ gap: space[3] }}>
+          <View style={{ gap: space[1] }}>
+            <AppText variant="heading" accessibilityRole="header">
+              {t(concept.nameKey)}
+            </AppText>
+            <AppText variant="bodySm" color="inkMuted">
+              {t(concept.descriptionKey)}
+            </AppText>
+          </View>
+          <View style={{ gap: space[4] }}>
+            {characters.map((c) => (
+              <CharacterCard
+                key={c.id}
+                character={c}
+                selected={selected === c.id}
+                onPress={() => setSelected(c.id)}
+              />
+            ))}
+          </View>
+        </View>
+      ))}
     </Screen>
   );
 }
