@@ -593,7 +593,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
           "borderColor": "#2F2640",
           "borderRadius": 16,
           "borderWidth": 0,
-          "maxWidth": "80%",
+          "maxWidth": "86%",
           "padding": 12,
         }
       }
@@ -653,7 +653,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
           "borderColor": "#2F2640",
           "borderRadius": 16,
           "borderWidth": 1,
-          "maxWidth": "80%",
+          "maxWidth": "86%",
           "padding": 12,
         }
       }
@@ -757,7 +757,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
           "borderColor": "#2F2640",
           "borderRadius": 16,
           "borderWidth": 1,
-          "maxWidth": "80%",
+          "maxWidth": "86%",
           "padding": 12,
         }
       }
@@ -858,6 +858,7 @@ exports[`components snapshot (dark) PrimaryButton 1`] = `
       "minHeight": 52,
       "opacity": 1,
       "paddingHorizontal": 24,
+      "paddingVertical": 12,
     }
   }
 >
@@ -924,6 +925,7 @@ exports[`components snapshot (dark) SecondaryButton 1`] = `
       "minHeight": 52,
       "opacity": 1,
       "paddingHorizontal": 24,
+      "paddingVertical": 12,
     }
   }
 >
@@ -1541,7 +1543,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
           "borderColor": "#E2DAF0",
           "borderRadius": 16,
           "borderWidth": 0,
-          "maxWidth": "80%",
+          "maxWidth": "86%",
           "padding": 12,
         }
       }
@@ -1601,7 +1603,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
           "borderColor": "#E2DAF0",
           "borderRadius": 16,
           "borderWidth": 1,
-          "maxWidth": "80%",
+          "maxWidth": "86%",
           "padding": 12,
         }
       }
@@ -1705,7 +1707,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
           "borderColor": "#E2DAF0",
           "borderRadius": 16,
           "borderWidth": 1,
-          "maxWidth": "80%",
+          "maxWidth": "86%",
           "padding": 12,
         }
       }
@@ -1806,6 +1808,7 @@ exports[`components snapshot (light) PrimaryButton 1`] = `
       "minHeight": 52,
       "opacity": 1,
       "paddingHorizontal": 24,
+      "paddingVertical": 12,
     }
   }
 >
@@ -1872,6 +1875,7 @@ exports[`components snapshot (light) SecondaryButton 1`] = `
       "minHeight": 52,
       "opacity": 1,
       "paddingHorizontal": 24,
+      "paddingVertical": 12,
     }
   }
 >

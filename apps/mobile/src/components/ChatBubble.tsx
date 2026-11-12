@@ -14,14 +14,21 @@ export type ChatBubbleProps =
  * 내 것: brand/on-brand. 상대: surface-300 + border. AI: 상대와 같되 위에 이름(accent caption)과 "AI 캐릭터" 표시.
  */
 export function ChatBubble(props: ChatBubbleProps): React.JSX.Element {
-  const { color, space, radius } = useTheme();
+  const { color, space, radius, layout } = useTheme();
   const mine = props.side === 'me';
   const isAi = props.side === 'other' && props.isAi === true;
 
   return (
     <View style={{ alignItems: mine ? 'flex-end' : 'flex-start', marginBottom: space[2] }}>
       {isAi && (
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[2], marginBottom: space[1] }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: space[2],
+            marginBottom: space[1],
+          }}
+        >
           <AppText variant="caption" color="accent">
             {props.name}
           </AppText>
@@ -35,7 +42,7 @@ export function ChatBubble(props: ChatBubbleProps): React.JSX.Element {
       )}
       <View
         style={{
-          maxWidth: '80%',
+          maxWidth: `${layout.bubbleMaxWidthRatio * 100}%`,
           padding: space[3],
           borderRadius: radius.md,
           backgroundColor: mine ? color.brand : color.surface300,

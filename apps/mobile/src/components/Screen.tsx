@@ -1,40 +1,80 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, View } from 'react-native';
 import { useTheme } from '../theme';
 import { BackButton } from './BackButton';
+import { AppText } from './AppText';
 
 export interface ScreenProps {
   children: React.ReactNode;
-  /** 통화 화면처럼 스크롤 없이 꽉 채우는 경우. */
   fill?: boolean;
   testID?: string;
-  /** 있으면 왼쪽 상단에 뒤로가기를 둔다. */
   onBack?: (() => void) | undefined;
+  title?: string;
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
+  keyboardAvoiding?: boolean;
+  compact?: boolean;
 }
 
-/** 화면 바탕: surface-100, 좌우 space-4, 상단 space-8 (뒤로가기가 있으면 space-4). */
-export function Screen({ children, fill = false, testID, onBack }: ScreenProps): React.JSX.Element {
-  const { color, space } = useTheme();
-  const inner = {
-    paddingHorizontal: space[4],
-    paddingTop: onBack ? space[4] : space[8],
-    paddingBottom: space[6],
-    gap: space[6],
-  };
-  const back = onBack ? <BackButton onPress={onBack} /> : null;
+/** Safe-area frame. Header and footer stay outside the single scrolling content region. */
+export function Screen({
+  children,
+  fill = false,
+  testID,
+  onBack,
+  title,
+  header,
+  footer,
+  keyboardAvoiding = false,
+  compact = false,
+}: ScreenProps): React.JSX.Element {
+  const { color, space, layout } = useTheme();
+  const gap = compact ? space[2] : space[6];
   return (
     <SafeAreaView testID={testID} style={{ flex: 1, backgroundColor: color.surface100 }}>
-      {fill ? (
-        <View style={[inner, { flex: 1 }]}>
-          {back}
-          {children}
+      <KeyboardAvoidingView
+        enabled={keyboardAvoiding}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={{ flex: 1 }}
+      >
+        <View
+          style={{
+            flex: 1,
+            width: '100%',
+            maxWidth: layout.contentMaxWidth,
+            alignSelf: 'center',
+            paddingHorizontal: space[4],
+            paddingTop: space[4],
+            paddingBottom: space[2],
+            gap,
+          }}
+        >
+          {(onBack || title || header) && (
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[2] }}>
+              {onBack && <BackButton onPress={onBack} />}
+              <View style={{ flex: 1 }}>
+                {header ??
+                  (title && (
+                    <AppText variant="title" accessibilityRole="header">
+                      {title}
+                    </AppText>
+                  ))}
+              </View>
+            </View>
+          )}
+          {fill ? (
+            <View style={{ flex: 1, minHeight: 0, gap }}>{children}</View>
+          ) : (
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={{ gap: space[6], paddingBottom: space[6] }}
+            >
+              {children}
+            </ScrollView>
+          )}
+          {footer}
         </View>
-      ) : (
-        <ScrollView contentContainerStyle={inner}>
-          {back}
-          {children}
-        </ScrollView>
-      )}
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

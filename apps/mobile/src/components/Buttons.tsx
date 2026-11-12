@@ -20,6 +20,7 @@ export function PrimaryButton({ label, disabled, ...rest }: ButtonProps): React.
       style={({ pressed }) => ({
         minHeight: size.buttonHeight,
         paddingHorizontal: space[6],
+        paddingVertical: space[3],
         borderRadius: radius.pill,
         backgroundColor: color.brand,
         alignItems: 'center',
@@ -46,6 +47,7 @@ export function SecondaryButton({ label, disabled, ...rest }: ButtonProps): Reac
       style={({ pressed }) => ({
         minHeight: size.buttonHeight,
         paddingHorizontal: space[6],
+        paddingVertical: space[3],
         borderRadius: radius.pill,
         borderWidth: 1,
         borderColor: color.border,
@@ -55,6 +57,40 @@ export function SecondaryButton({ label, disabled, ...rest }: ButtonProps): Reac
       })}
     >
       <AppText variant="label" color="ink">
+        {label}
+      </AppText>
+    </Pressable>
+  );
+}
+
+/** Secondary navigation with a full accessible touch target. */
+export function TextButton({
+  label,
+  disabled,
+  destructive = false,
+  ...rest
+}: ButtonProps & { destructive?: boolean }): React.JSX.Element {
+  const { space, size, color, radius } = useTheme();
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ disabled: !!disabled }}
+      disabled={disabled}
+      {...rest}
+      style={({ pressed }) => ({
+        backgroundColor: rest.accessibilityState?.selected ? color.surface200 : undefined,
+        borderRadius: radius.sm,
+        borderBottomWidth: rest.accessibilityState?.selected ? 2 : 0,
+        borderColor: color.brand,
+        minHeight: size.touchTarget,
+        minWidth: size.touchTarget,
+        paddingHorizontal: space[2],
+        paddingVertical: space[2],
+        justifyContent: 'center',
+        opacity: disabled ? 0.5 : pressed ? 0.7 : 1,
+      })}
+    >
+      <AppText variant="label" color={destructive ? 'danger' : 'ink'}>
         {label}
       </AppText>
     </Pressable>
