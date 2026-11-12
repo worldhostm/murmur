@@ -1,0 +1,36 @@
+{
+  "enabled": false,
+  "fonts": [
+    {
+      "file": "NotoSansKR-Regular.ttf",
+      "family": "Noto Sans KR",
+      "weight": "400",
+      "postScriptName": "NotoSansKR-Regular"
+    },
+    {
+      "file": "NotoSansKR-Medium.ttf",
+      "family": "Noto Sans KR",
+      "weight": "500",
+      "postScriptName": "NotoSansKR-Medium"
+    },
+    {
+      "file": "NotoSansKR-SemiBold.ttf",
+      "family": "Noto Sans KR",
+      "weight": "600",
+      "postScriptName": "NotoSansKR-SemiBold"
+    },
+    {
+      "file": "NotoSansKR-Bold.ttf",
+      "family": "Noto Sans KR",
+      "weight": "700",
+      "postScriptName": "NotoSansKR-Bold"
+    },
+    {
+      "file": "NotoSerifKR-SemiBold.ttf",
+      "family": "Noto Serif KR",
+      "weight": "600",
+      "postScriptName": "NotoSerifKR-SemiBold"
+    }
+  ],
+  "licenses": ["OFL-NotoSansKR.txt", "OFL-NotoSerifKR.txt"]
+}

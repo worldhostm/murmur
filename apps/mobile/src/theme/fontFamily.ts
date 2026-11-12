@@ -1,27 +1,25 @@
 import { Platform } from 'react-native';
 import { fontFamily } from '@murmur/design-tokens';
+import manifest from '../../assets/fonts/manifest.json';
 
-type Weight = '400' | '500' | '600' | '700';
+/** Until bundled assets and native registration pass fonts:check, use known system families. */
+export function resolveFontFamily(
+  family: string,
+  weight: string,
+  platform: string,
+  bundled = manifest.enabled,
+): string {
+  const known = family === fontFamily.sans || family === fontFamily.display;
+  if (!known) return family;
+  if (bundled) {
+    const asset = manifest.fonts.find((font) => font.family === family && font.weight === weight);
+    if (asset)
+      return platform === 'android' ? asset.file.replace(/\.ttf$/, '') : asset.postScriptName;
+  }
+  // Keep a predictable Korean-capable system fallback. Display intentionally uses sans too.
+  return platform === 'android' ? 'sans-serif' : 'System';
+}
 
-const FILE_BY_FAMILY: Record<string, string> = {
-  [fontFamily.sans]: 'NotoSansKR',
-  [fontFamily.display]: 'NotoSerifKR',
-};
-const SUFFIX_BY_WEIGHT: Record<Weight, string> = {
-  '400': 'Regular',
-  '500': 'Medium',
-  '600': 'SemiBold',
-  '700': 'Bold',
-};
-
-/**
- * Android는 fontWeight를 패밀리 이름에 합성하지 못하므로 파일명("NotoSansKR-Bold")으로 바꾼다.
- * iOS는 패밀리 이름("Noto Sans KR") + fontWeight로 동작한다.
- */
 export function platformFontFamily(family: string, weight: string): string {
-  if (Platform.OS !== 'android') return family;
-  const file = FILE_BY_FAMILY[family];
-  const suffix = SUFFIX_BY_WEIGHT[weight as Weight];
-  if (!file || !suffix) return family;
-  return `${file}-${suffix}`;
+  return resolveFontFamily(family, weight, Platform.OS);
 }

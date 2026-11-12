@@ -89,7 +89,7 @@ exports[`components snapshot (dark) CallControl default/end/report 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 17,
               "fontWeight": "600",
               "lineHeight": 24,
@@ -108,7 +108,7 @@ exports[`components snapshot (dark) CallControl default/end/report 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -210,7 +210,7 @@ exports[`components snapshot (dark) CallControl default/end/report 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 17,
               "fontWeight": "600",
               "lineHeight": 24,
@@ -229,7 +229,7 @@ exports[`components snapshot (dark) CallControl default/end/report 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -331,7 +331,7 @@ exports[`components snapshot (dark) CallControl default/end/report 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 17,
               "fontWeight": "600",
               "lineHeight": 24,
@@ -350,7 +350,7 @@ exports[`components snapshot (dark) CallControl default/end/report 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -452,7 +452,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Serif KR",
+              "fontFamily": "System",
               "fontSize": 24,
               "fontWeight": "600",
               "lineHeight": 32,
@@ -488,7 +488,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 12,
                 "fontWeight": "500",
                 "lineHeight": 16,
@@ -508,7 +508,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 14,
             "fontWeight": "400",
             "lineHeight": 22,
@@ -526,7 +526,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 14,
             "fontWeight": "400",
             "lineHeight": 22,
@@ -544,7 +544,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 15,
             "fontWeight": "600",
             "lineHeight": 22,
@@ -573,7 +573,7 @@ exports[`components snapshot (dark) CharacterCard 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -618,7 +618,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 26,
@@ -646,7 +646,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -678,7 +678,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 26,
@@ -716,7 +716,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -750,7 +750,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 12,
                 "fontWeight": "500",
                 "lineHeight": 16,
@@ -782,7 +782,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 26,
@@ -816,7 +816,7 @@ exports[`components snapshot (dark) MoodCard 1`] = `
     style={
       [
         {
-          "fontFamily": "Noto Sans KR",
+          "fontFamily": "System",
           "fontSize": 17,
           "fontWeight": "600",
           "lineHeight": 24,
@@ -882,7 +882,7 @@ exports[`components snapshot (dark) PrimaryButton 1`] = `
     style={
       [
         {
-          "fontFamily": "Noto Sans KR",
+          "fontFamily": "System",
           "fontSize": 15,
           "fontWeight": "600",
           "lineHeight": 22,
@@ -949,7 +949,7 @@ exports[`components snapshot (dark) SecondaryButton 1`] = `
     style={
       [
         {
-          "fontFamily": "Noto Sans KR",
+          "fontFamily": "System",
           "fontSize": 15,
           "fontWeight": "600",
           "lineHeight": 22,
@@ -1055,7 +1055,7 @@ exports[`components snapshot (light) CallControl default/end/report 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 17,
               "fontWeight": "600",
               "lineHeight": 24,
@@ -1074,7 +1074,7 @@ exports[`components snapshot (light) CallControl default/end/report 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -1176,7 +1176,7 @@ exports[`components snapshot (light) CallControl default/end/report 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 17,
               "fontWeight": "600",
               "lineHeight": 24,
@@ -1195,7 +1195,7 @@ exports[`components snapshot (light) CallControl default/end/report 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -1297,7 +1297,7 @@ exports[`components snapshot (light) CallControl default/end/report 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 17,
               "fontWeight": "600",
               "lineHeight": 24,
@@ -1316,7 +1316,7 @@ exports[`components snapshot (light) CallControl default/end/report 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -1418,7 +1418,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Serif KR",
+              "fontFamily": "System",
               "fontSize": 24,
               "fontWeight": "600",
               "lineHeight": 32,
@@ -1454,7 +1454,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 12,
                 "fontWeight": "500",
                 "lineHeight": 16,
@@ -1474,7 +1474,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 14,
             "fontWeight": "400",
             "lineHeight": 22,
@@ -1492,7 +1492,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 14,
             "fontWeight": "400",
             "lineHeight": 22,
@@ -1510,7 +1510,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 15,
             "fontWeight": "600",
             "lineHeight": 22,
@@ -1539,7 +1539,7 @@ exports[`components snapshot (light) CharacterCard 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -1584,7 +1584,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 26,
@@ -1612,7 +1612,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -1644,7 +1644,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 26,
@@ -1682,7 +1682,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -1716,7 +1716,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 12,
                 "fontWeight": "500",
                 "lineHeight": 16,
@@ -1748,7 +1748,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 26,
@@ -1782,7 +1782,7 @@ exports[`components snapshot (light) MoodCard 1`] = `
     style={
       [
         {
-          "fontFamily": "Noto Sans KR",
+          "fontFamily": "System",
           "fontSize": 17,
           "fontWeight": "600",
           "lineHeight": 24,
@@ -1848,7 +1848,7 @@ exports[`components snapshot (light) PrimaryButton 1`] = `
     style={
       [
         {
-          "fontFamily": "Noto Sans KR",
+          "fontFamily": "System",
           "fontSize": 15,
           "fontWeight": "600",
           "lineHeight": 22,
@@ -1915,7 +1915,7 @@ exports[`components snapshot (light) SecondaryButton 1`] = `
     style={
       [
         {
-          "fontFamily": "Noto Sans KR",
+          "fontFamily": "System",
           "fontSize": 15,
           "fontWeight": "600",
           "lineHeight": 22,

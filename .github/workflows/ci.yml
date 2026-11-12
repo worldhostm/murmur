@@ -18,6 +18,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Generated files are up to date
         run: pnpm generate:check
+      - name: Font assets or explicit system fallback
+        run: pnpm fonts:test && pnpm fonts:check
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test

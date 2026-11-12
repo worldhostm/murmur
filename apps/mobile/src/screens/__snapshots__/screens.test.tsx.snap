@@ -144,7 +144,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 15,
                 "fontWeight": "600",
                 "lineHeight": 22,
@@ -178,7 +178,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
             style={
               [
                 {
-                  "fontFamily": "Noto Sans KR",
+                  "fontFamily": "System",
                   "fontSize": 12,
                   "fontWeight": "500",
                   "lineHeight": 16,
@@ -200,7 +200,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -316,7 +316,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 17,
                 "fontWeight": "600",
                 "lineHeight": 24,
@@ -335,7 +335,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -438,7 +438,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 17,
                 "fontWeight": "600",
                 "lineHeight": 24,
@@ -457,7 +457,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -560,7 +560,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 17,
                 "fontWeight": "600",
                 "lineHeight": 24,
@@ -579,7 +579,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -682,7 +682,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 17,
                 "fontWeight": "600",
                 "lineHeight": 24,
@@ -701,7 +701,7 @@ exports[`screens snapshot (dark) CallScreen with AI peer 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -780,7 +780,7 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
               style={
                 [
                   {
-                    "fontFamily": "Noto Serif KR",
+                    "fontFamily": "System",
                     "fontSize": 32,
                     "fontWeight": "600",
                     "lineHeight": 42,
@@ -798,7 +798,7 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
               style={
                 [
                   {
-                    "fontFamily": "Noto Sans KR",
+                    "fontFamily": "System",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 26,
@@ -826,7 +826,7 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 12,
                 "fontWeight": "500",
                 "lineHeight": 16,
@@ -891,7 +891,7 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
             style={
               [
                 {
-                  "fontFamily": "Noto Sans KR",
+                  "fontFamily": "System",
                   "fontSize": 15,
                   "fontWeight": "600",
                   "lineHeight": 22,
@@ -1026,7 +1026,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                       style={
                         [
                           {
-                            "fontFamily": "Noto Sans KR",
+                            "fontFamily": "System",
                             "fontSize": 17,
                             "fontWeight": "600",
                             "lineHeight": 24,
@@ -1060,7 +1060,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                         style={
                           [
                             {
-                              "fontFamily": "Noto Sans KR",
+                              "fontFamily": "System",
                               "fontSize": 12,
                               "fontWeight": "500",
                               "lineHeight": 16,
@@ -1127,7 +1127,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                       style={
                         [
                           {
-                            "fontFamily": "Noto Sans KR",
+                            "fontFamily": "System",
                             "fontSize": 15,
                             "fontWeight": "600",
                             "lineHeight": 22,
@@ -1216,7 +1216,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                   style={
                     [
                       {
-                        "fontFamily": "Noto Sans KR",
+                        "fontFamily": "System",
                         "fontSize": 15,
                         "fontWeight": "600",
                         "lineHeight": 22,
@@ -1305,7 +1305,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                         style={
                           [
                             {
-                              "fontFamily": "Noto Sans KR",
+                              "fontFamily": "System",
                               "fontSize": 12,
                               "fontWeight": "500",
                               "lineHeight": 16,
@@ -1339,7 +1339,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                           style={
                             [
                               {
-                                "fontFamily": "Noto Sans KR",
+                                "fontFamily": "System",
                                 "fontSize": 12,
                                 "fontWeight": "500",
                                 "lineHeight": 16,
@@ -1371,7 +1371,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                         style={
                           [
                             {
-                              "fontFamily": "Noto Sans KR",
+                              "fontFamily": "System",
                               "fontSize": 16,
                               "fontWeight": "400",
                               "lineHeight": 26,
@@ -1421,7 +1421,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                 style={
                   [
                     {
-                      "fontFamily": "Noto Sans KR",
+                      "fontFamily": "System",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 26,
@@ -1494,7 +1494,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                   style={
                     [
                       {
-                        "fontFamily": "Noto Sans KR",
+                        "fontFamily": "System",
                         "fontSize": 15,
                         "fontWeight": "600",
                         "lineHeight": 22,
@@ -1620,7 +1620,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                 style={
                   [
                     {
-                      "fontFamily": "Noto Sans KR",
+                      "fontFamily": "System",
                       "fontSize": 17,
                       "fontWeight": "600",
                       "lineHeight": 24,
@@ -1638,7 +1638,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                 style={
                   [
                     {
-                      "fontFamily": "Noto Sans KR",
+                      "fontFamily": "System",
                       "fontSize": 15,
                       "fontWeight": "600",
                       "lineHeight": 22,
@@ -1665,7 +1665,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                 style={
                   [
                     {
-                      "fontFamily": "Noto Sans KR",
+                      "fontFamily": "System",
                       "fontSize": 20,
                       "fontWeight": "700",
                       "lineHeight": 28,
@@ -1705,7 +1705,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                   style={
                     [
                       {
-                        "fontFamily": "Noto Sans KR",
+                        "fontFamily": "System",
                         "fontSize": 17,
                         "fontWeight": "600",
                         "lineHeight": 24,
@@ -1730,7 +1730,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                     style={
                       [
                         {
-                          "fontFamily": "Noto Sans KR",
+                          "fontFamily": "System",
                           "fontSize": 15,
                           "fontWeight": "600",
                           "lineHeight": 22,
@@ -1756,7 +1756,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                     style={
                       [
                         {
-                          "fontFamily": "Noto Sans KR",
+                          "fontFamily": "System",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 26,
@@ -1827,7 +1827,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                     style={
                       [
                         {
-                          "fontFamily": "Noto Sans KR",
+                          "fontFamily": "System",
                           "fontSize": 15,
                           "fontWeight": "600",
                           "lineHeight": 22,
@@ -1996,7 +1996,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 15,
                 "fontWeight": "600",
                 "lineHeight": 22,
@@ -2030,7 +2030,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
             style={
               [
                 {
-                  "fontFamily": "Noto Sans KR",
+                  "fontFamily": "System",
                   "fontSize": 12,
                   "fontWeight": "500",
                   "lineHeight": 16,
@@ -2052,7 +2052,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
       style={
         [
           {
-            "fontFamily": "Noto Sans KR",
+            "fontFamily": "System",
             "fontSize": 12,
             "fontWeight": "500",
             "lineHeight": 16,
@@ -2168,7 +2168,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 17,
                 "fontWeight": "600",
                 "lineHeight": 24,
@@ -2187,7 +2187,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -2290,7 +2290,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 17,
                 "fontWeight": "600",
                 "lineHeight": 24,
@@ -2309,7 +2309,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -2412,7 +2412,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 17,
                 "fontWeight": "600",
                 "lineHeight": 24,
@@ -2431,7 +2431,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -2534,7 +2534,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 17,
                 "fontWeight": "600",
                 "lineHeight": 24,
@@ -2553,7 +2553,7 @@ exports[`screens snapshot (light) CallScreen with AI peer 1`] = `
         style={
           [
             {
-              "fontFamily": "Noto Sans KR",
+              "fontFamily": "System",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
@@ -2632,7 +2632,7 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
               style={
                 [
                   {
-                    "fontFamily": "Noto Serif KR",
+                    "fontFamily": "System",
                     "fontSize": 32,
                     "fontWeight": "600",
                     "lineHeight": 42,
@@ -2650,7 +2650,7 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
               style={
                 [
                   {
-                    "fontFamily": "Noto Sans KR",
+                    "fontFamily": "System",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 26,
@@ -2678,7 +2678,7 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
           style={
             [
               {
-                "fontFamily": "Noto Sans KR",
+                "fontFamily": "System",
                 "fontSize": 12,
                 "fontWeight": "500",
                 "lineHeight": 16,
@@ -2743,7 +2743,7 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
             style={
               [
                 {
-                  "fontFamily": "Noto Sans KR",
+                  "fontFamily": "System",
                   "fontSize": 15,
                   "fontWeight": "600",
                   "lineHeight": 22,
@@ -2878,7 +2878,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                       style={
                         [
                           {
-                            "fontFamily": "Noto Sans KR",
+                            "fontFamily": "System",
                             "fontSize": 17,
                             "fontWeight": "600",
                             "lineHeight": 24,
@@ -2912,7 +2912,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                         style={
                           [
                             {
-                              "fontFamily": "Noto Sans KR",
+                              "fontFamily": "System",
                               "fontSize": 12,
                               "fontWeight": "500",
                               "lineHeight": 16,
@@ -2979,7 +2979,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                       style={
                         [
                           {
-                            "fontFamily": "Noto Sans KR",
+                            "fontFamily": "System",
                             "fontSize": 15,
                             "fontWeight": "600",
                             "lineHeight": 22,
@@ -3068,7 +3068,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                   style={
                     [
                       {
-                        "fontFamily": "Noto Sans KR",
+                        "fontFamily": "System",
                         "fontSize": 15,
                         "fontWeight": "600",
                         "lineHeight": 22,
@@ -3157,7 +3157,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                         style={
                           [
                             {
-                              "fontFamily": "Noto Sans KR",
+                              "fontFamily": "System",
                               "fontSize": 12,
                               "fontWeight": "500",
                               "lineHeight": 16,
@@ -3191,7 +3191,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                           style={
                             [
                               {
-                                "fontFamily": "Noto Sans KR",
+                                "fontFamily": "System",
                                 "fontSize": 12,
                                 "fontWeight": "500",
                                 "lineHeight": 16,
@@ -3223,7 +3223,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                         style={
                           [
                             {
-                              "fontFamily": "Noto Sans KR",
+                              "fontFamily": "System",
                               "fontSize": 16,
                               "fontWeight": "400",
                               "lineHeight": 26,
@@ -3273,7 +3273,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                 style={
                   [
                     {
-                      "fontFamily": "Noto Sans KR",
+                      "fontFamily": "System",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 26,
@@ -3346,7 +3346,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                   style={
                     [
                       {
-                        "fontFamily": "Noto Sans KR",
+                        "fontFamily": "System",
                         "fontSize": 15,
                         "fontWeight": "600",
                         "lineHeight": 22,
@@ -3472,7 +3472,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                 style={
                   [
                     {
-                      "fontFamily": "Noto Sans KR",
+                      "fontFamily": "System",
                       "fontSize": 17,
                       "fontWeight": "600",
                       "lineHeight": 24,
@@ -3490,7 +3490,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                 style={
                   [
                     {
-                      "fontFamily": "Noto Sans KR",
+                      "fontFamily": "System",
                       "fontSize": 15,
                       "fontWeight": "600",
                       "lineHeight": 22,
@@ -3517,7 +3517,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                 style={
                   [
                     {
-                      "fontFamily": "Noto Sans KR",
+                      "fontFamily": "System",
                       "fontSize": 20,
                       "fontWeight": "700",
                       "lineHeight": 28,
@@ -3557,7 +3557,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                   style={
                     [
                       {
-                        "fontFamily": "Noto Sans KR",
+                        "fontFamily": "System",
                         "fontSize": 17,
                         "fontWeight": "600",
                         "lineHeight": 24,
@@ -3582,7 +3582,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                     style={
                       [
                         {
-                          "fontFamily": "Noto Sans KR",
+                          "fontFamily": "System",
                           "fontSize": 15,
                           "fontWeight": "600",
                           "lineHeight": 22,
@@ -3608,7 +3608,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                     style={
                       [
                         {
-                          "fontFamily": "Noto Sans KR",
+                          "fontFamily": "System",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 26,
@@ -3679,7 +3679,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                     style={
                       [
                         {
-                          "fontFamily": "Noto Sans KR",
+                          "fontFamily": "System",
                           "fontSize": 15,
                           "fontWeight": "600",
                           "lineHeight": 22,
