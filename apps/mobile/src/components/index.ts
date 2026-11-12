@@ -10,3 +10,5 @@ export { Screen } from './Screen';
 export { BackButton } from './BackButton';
 export { LabeledInput } from './LabeledInput';
 export { TextButton } from './Buttons';
+export { RippleMark } from './RippleMark';
+export { SegmentedControl } from './SegmentedControl';
