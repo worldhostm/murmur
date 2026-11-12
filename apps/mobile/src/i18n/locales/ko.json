@@ -75,7 +75,11 @@
       "오늘 뭐 먹지"
     ],
     "avatarPinned": "고정됨",
-    "avatarScrolls": "같이 스크롤"
+    "avatarScrolls": "같이 스크롤",
+    "records": "기분 기록",
+    "avatarCollapse": "캐릭터 접기",
+    "avatarExpand": "캐릭터 펼치기",
+    "newMessages": "새 메시지 보기"
   },
   "reply": {
     "seo-doyoon": {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { fireEvent, screen } from '@testing-library/react-native';
 import { CallScreen, CharacterSelectScreen, OnboardingScreen, SoloScreen } from './index';
+import { ThemeProvider } from '../theme';
 import { renderWithTheme, THEMES } from '../test/render';
 
 describe.each(THEMES)('screens snapshot (%s)', (theme) => {
@@ -126,25 +127,58 @@ describe('SoloScreen', () => {
     expect(onSend).toHaveBeenCalledWith('ㅋㅋㅋ 완전 좋아');
   });
 
-  it('pins the avatar above a scroll view by default and lets the user toggle it to scroll along', () => {
+  it('keeps the composer outside the list and lets users collapse the avatar', () => {
+    const dimensions = jest
+      .spyOn(Dimensions, 'get')
+      .mockReturnValue({ width: 390, height: 844, scale: 3, fontScale: 1 });
     renderWithTheme(
       <SoloScreen {...base} messages={[]} renderer={<View testID="fake-renderer" />} />,
     );
     expect(screen.getByTestId('solo-avatar')).toBeTruthy();
+    fireEvent.press(screen.getByTestId('solo-avatar-toggle'));
+    expect(screen.queryByTestId('solo-avatar')).toBeNull();
     expect(screen.getByTestId('solo-scroll')).toBeTruthy();
-    expect(screen.getByTestId('solo-avatar-pin-on')).toBeTruthy();
-    fireEvent.press(screen.getByTestId('solo-avatar-pin-on'));
-    expect(screen.getByTestId('solo-avatar-pin-off')).toBeTruthy();
-    expect(screen.queryByTestId('solo-scroll')).toBeNull();
-    expect(screen.getByTestId('solo-avatar')).toBeTruthy();
-    expect(screen.getByTestId('solo-input')).toBeTruthy();
-    expect(screen.getByTestId('solo-call-friend')).toBeTruthy();
+    expect(screen.getByTestId('solo-composer')).toBeTruthy();
+    dimensions.mockRestore();
   });
 
-  it('shows no pin toggle and no inner scroll view without a renderer', () => {
+  it('keeps a message list in text mode and opens records separately without losing the chat draft', () => {
     renderWithTheme(<SoloScreen {...base} messages={[]} />);
-    expect(screen.queryByTestId('solo-avatar-pin-on')).toBeNull();
-    expect(screen.queryByTestId('solo-scroll')).toBeNull();
+    expect(screen.queryByTestId('solo-avatar-toggle')).toBeNull();
+    expect(screen.getByTestId('solo-scroll')).toBeTruthy();
+    fireEvent.changeText(screen.getByTestId('solo-input'), 'draft');
+    expect(screen.queryByTestId('mood-input')).toBeNull();
+    fireEvent.press(screen.getByTestId('solo-records-open'));
+    expect(screen.getByTestId('mood-input')).toBeTruthy();
+    fireEvent.press(screen.getByTestId('back-button'));
+    expect(screen.getByTestId('solo-input').props.value).toBe('draft');
+  });
+
+  it('offers new-message navigation instead of jumping while reading older messages', () => {
+    const view = renderWithTheme(
+      <SoloScreen {...base} messages={[{ id: '1', from: 'me', text: 'old' }]} />,
+    );
+    fireEvent.scroll(screen.getByTestId('solo-scroll'), {
+      nativeEvent: {
+        contentSize: { height: 2000, width: 390 },
+        contentOffset: { y: 0, x: 0 },
+        layoutMeasurement: { height: 400, width: 390 },
+      },
+    });
+    view.rerender(
+      <ThemeProvider screen="solo" reduceMotionOverride>
+        <SoloScreen
+          {...base}
+          messages={[
+            { id: '1', from: 'me', text: 'old' },
+            { id: '2', from: 'character', text: 'new' },
+          ]}
+        />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId('solo-new-messages')).toBeTruthy();
+    fireEvent.press(screen.getByTestId('solo-new-messages'));
+    expect(screen.queryByTestId('solo-new-messages')).toBeNull();
   });
 
   it('has no back button without onBack', () => {

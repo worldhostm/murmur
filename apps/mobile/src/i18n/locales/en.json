@@ -75,7 +75,11 @@
       "what should I eat today"
     ],
     "avatarPinned": "Pinned",
-    "avatarScrolls": "Scrolls along"
+    "avatarScrolls": "Scrolls along",
+    "records": "Mood journal",
+    "avatarCollapse": "Collapse character",
+    "avatarExpand": "Expand character",
+    "newMessages": "View new messages"
   },
   "reply": {
     "seo-doyoon": {

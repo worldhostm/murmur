@@ -1,5 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { Image, Pressable, ScrollView, TextInput, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  BackHandler,
+  FlatList,
+  Image,
+  Keyboard,
+  TextInput,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AI_CHARACTERS } from '@murmur/shared-types';
 import type { AiCharacterId } from '@murmur/shared-types';
@@ -7,13 +15,14 @@ import {
   AiCharacterBadge,
   AppText,
   ChatBubble,
+  LabeledInput,
   MoodCard,
   PrimaryButton,
   Screen,
   SecondaryButton,
-  SpeakingIndicator,
+  TextButton,
 } from '../components';
-import { useTheme, withAlpha } from '../theme';
+import { useTheme } from '../theme';
 import { characterPortrait } from '../avatar/characterImages';
 
 export interface SoloMessage {
@@ -41,246 +50,305 @@ export interface SoloScreenProps {
   onBack?: () => void;
   /** 표정 반응을 눌러서 확인하는 예시 문장 칩 (개발 빌드 전용). 누르면 그대로 보낸다. */
   samplePrompts?: readonly string[] | undefined;
-  /** 아바타 카드를 상단에 고정할지(기본 true). 해제하면 대화와 같이 스크롤된다. 카드의 토글로 바꾼다. */
+  /** 아바타 펼침 기본값. 키보드/작은 화면에서는 자동 축소한다. */
   defaultAvatarPinned?: boolean;
 }
 
-/**
- * 솔로 모드 (PLANNING.md 시나리오 C). 기본 light 테마.
- * 캐릭터가 먼저 말을 걸고, 대화 끝에 기분 한 줄을 남긴다. 친구 통화로 이어지는 동선을 둔다.
- * 화면에 "AI 캐릭터" 표시를 항상 둔다.
- */
+/** The message list scrolls independently; the composer stays above the keyboard. */
 export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
   const { t } = useTranslation();
-  const { color, space, radius, text, reduceMotion } = useTheme();
+  const { color, space, radius, text, layout, reduceMotion } = useTheme();
+  const { width, height, fontScale } = useWindowDimensions();
   const [draft, setDraft] = useState('');
   const [mood, setMood] = useState('');
-  const [pinned, setPinned] = useState(props.defaultAvatarPinned ?? true);
-  const scrollRef = useRef<ScrollView>(null);
-  const hasAvatar = props.renderer !== undefined;
-  const fixedAvatar = hasAvatar && pinned;
+  const [recordsOpen, setRecordsOpen] = useState(false);
+  const [expanded, setExpanded] = useState(props.defaultAvatarPinned ?? true);
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
+  const [inputHeight, setInputHeight] = useState<number>(layout.inputMinHeight);
+  const [availableHeight, setAvailableHeight] = useState(height);
+  const [unseen, setUnseen] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const list = useRef<FlatList<SoloMessage>>(null);
+  const following = useRef(true);
+  const lastMessage = props.messages.at(-1)?.id;
+  const lastSeen = useRef(lastMessage);
   const character = AI_CHARACTERS.find((c) => c.id === props.characterId) ?? AI_CHARACTERS[0]!;
   const name = t(character.nameKey);
+  const compact = width < layout.compactWidth || fontScale >= layout.largeFontScale;
+  const showAvatar =
+    props.renderer !== undefined && expanded && !keyboardOpen && !compact && height > width;
   const rest = props.restSuggestion ?? 'none';
 
-  const avatarCard = hasAvatar ? (
-    <View
-      testID="solo-avatar"
-      style={{
-        height: space[12] * 5,
-        borderRadius: radius.lg,
-        overflow: 'hidden',
-        backgroundColor: color.lavender,
-      }}
-    >
-      {props.renderer}
-      <Pressable
-        accessibilityRole="switch"
-        accessibilityState={{ checked: pinned }}
-        accessibilityLabel={pinned ? t('solo.avatarPinned') : t('solo.avatarScrolls')}
-        testID={pinned ? 'solo-avatar-pin-on' : 'solo-avatar-pin-off'}
-        onPress={() => setPinned((v) => !v)}
-        style={({ pressed }) => ({
-          position: 'absolute',
-          top: space[2],
-          right: space[2],
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: space[1],
-          paddingHorizontal: space[3],
-          paddingVertical: space[1],
-          borderRadius: radius.pill,
-          backgroundColor: withAlpha(color.night, 0.8),
-          opacity: pressed ? 0.7 : 1,
-        })}
-      >
-        <AppText variant="caption" color="inkOnNight">
-          {pinned ? '📌' : '↕'}
-        </AppText>
-        <AppText variant="caption" color="inkOnNight">
-          {pinned ? t('solo.avatarPinned') : t('solo.avatarScrolls')}
-        </AppText>
-      </Pressable>
-    </View>
-  ) : null;
-
-  const body = (
-    <>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[3] }}>
-        <SpeakingIndicator speaking={!!props.speaking} diameter={48}>
-          <Image
-            testID="solo-portrait"
-            accessible={false}
-            source={characterPortrait(character.id)}
-            resizeMode="cover"
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: radius.pill,
-              backgroundColor: color.lavender,
-            }}
-          />
-        </SpeakingIndicator>
-        <View style={{ gap: space[1] }}>
-          <AppText variant="heading">{name}</AppText>
-          <AiCharacterBadge />
-        </View>
-      </View>
-
-      {rest !== 'none' && (
-        <View
-          testID="rest-suggestion"
-          style={{
-            padding: space[4],
-            borderRadius: radius.md,
-            backgroundColor: color.brandSoft,
-            gap: space[3],
-          }}
-        >
-          <AppText variant="heading">{t('solo.restTitle')}</AppText>
-          <AppText variant="bodySm" color="inkMuted">
-            {rest === 'late-night' ? t('solo.lateNightBody') : t('solo.restBody')}
-          </AppText>
-          <View style={{ flexDirection: 'row', gap: space[2] }}>
-            <SecondaryButton label={t('solo.restOk')} onPress={props.onRest} />
-            <SecondaryButton label={t('solo.restContinue')} onPress={props.onDismissRest} />
-          </View>
-        </View>
-      )}
-
-      <View>
-        {props.messages.length === 0 && (
-          <ChatBubble side="other" isAi name={name} text={t('solo.greeting')} />
-        )}
-        {props.messages.map((m) =>
-          m.from === 'me' ? (
-            <ChatBubble key={m.id} side="me" text={m.text} />
-          ) : (
-            <ChatBubble key={m.id} side="other" isAi name={name} text={m.text} />
-          ),
-        )}
-      </View>
-
-      {props.samplePrompts && props.samplePrompts.length > 0 && (
-        <View
-          testID="solo-samples"
-          style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space[2] }}
-        >
-          {props.samplePrompts.map((sample) => (
-            <Pressable
-              key={sample}
-              accessibilityRole="button"
-              testID="solo-sample"
-              disabled={!!props.speaking}
-              accessibilityState={{ disabled: !!props.speaking }}
-              onPress={() => {
-                if (!props.speaking) props.onSend(sample);
-              }}
-              style={({ pressed }) => ({
-                paddingHorizontal: space[3],
-                paddingVertical: space[1],
-                borderRadius: radius.pill,
-                borderWidth: 1,
-                borderColor: color.border,
-                backgroundColor: color.surface200,
-                opacity: pressed ? 0.6 : 1,
-              })}
-            >
-              <AppText variant="caption" color="inkMuted">
-                {sample}
-              </AppText>
-            </Pressable>
-          ))}
-        </View>
-      )}
+  useEffect(() => {
+    const show = Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true));
+    const hide = Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false));
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
+  useEffect(() => {
+    if (lastSeen.current !== lastMessage && !following.current) setUnseen(true);
+    lastSeen.current = lastMessage;
+  }, [lastMessage]);
+  useEffect(() => {
+    if (!recordsOpen) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      setRecordsOpen(false);
+      return true;
+    });
+    return () => sub.remove();
+  }, [recordsOpen]);
+  const goToLatest = () => {
+    following.current = true;
+    setUnseen(false);
+    list.current?.scrollToEnd({ animated: !reduceMotion });
+  };
+  const send = (value: string) => {
+    if (props.speaking || !value.trim()) return;
+    following.current = true;
+    setUnseen(false);
+    props.onSend(value.trim());
+  };
+  const maxInputHeight = text.body.lineHeight * fontScale * layout.inputMaxLines + space[3] * 2;
+  const composer = (
+    <View testID="solo-composer" style={{ gap: space[2] }}>
       {(props.speaking || props.replyFailed) && (
-        <View accessibilityLiveRegion="polite" testID="solo-reply-status">
-          <AppText variant="bodySm" color="inkMuted">
-            {t(props.speaking ? 'solo.replyPending' : 'solo.replyFailed')}
-          </AppText>
-        </View>
+        <AppText variant="bodySm" accessibilityLiveRegion="polite" testID="solo-reply-status">
+          {t(props.speaking ? 'solo.replyPending' : 'solo.replyFailed')}
+        </AppText>
       )}
-      <View style={{ flexDirection: 'row', gap: space[2], alignItems: 'center' }}>
+      <View
+        style={{ flexDirection: compact ? 'column' : 'row', alignItems: 'stretch', gap: space[2] }}
+      >
         <TextInput
           testID="solo-input"
+          accessibilityLabel={t('solo.inputPlaceholder')}
           value={draft}
           onChangeText={setDraft}
           placeholder={t('solo.inputPlaceholder')}
           placeholderTextColor={color.inkMuted}
+          multiline
+          blurOnSubmit={false}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          onContentSizeChange={(event) => setInputHeight(event.nativeEvent.contentSize.height)}
           style={[
             text.body,
             {
-              flex: 1,
+              flex: compact ? undefined : 1,
+              minHeight: layout.inputMinHeight,
+              height: Math.max(layout.inputMinHeight, Math.min(inputHeight, maxInputHeight)),
+              maxHeight: maxInputHeight,
               color: color.ink,
               backgroundColor: color.surface200,
               borderRadius: radius.sm,
               borderWidth: 1,
-              borderColor: color.border,
+              borderColor: focused ? color.brand : color.borderStrong,
               paddingHorizontal: space[3],
               paddingVertical: space[3],
+              textAlignVertical: 'top',
             },
           ]}
         />
         <PrimaryButton
           label={t('solo.send')}
-          disabled={!!props.speaking || draft.trim().length === 0}
+          disabled={!!props.speaking || !draft.trim()}
+          testID="solo-send"
           onPress={() => {
             if (props.speaking || !draft.trim()) return;
-            props.onSend(draft.trim());
+            send(draft);
             setDraft('');
+            setInputHeight(layout.inputMinHeight);
           }}
-          testID="solo-send"
         />
       </View>
-
-      {props.moodPanel ?? (
-        <MoodCard title={t('solo.moodTitle')}>
-          <TextInput
-            testID="mood-input"
-            value={mood}
-            onChangeText={setMood}
-            placeholder={t('solo.moodPlaceholder')}
-            placeholderTextColor={color.inkMuted}
-            style={[text.body, { color: color.ink, paddingVertical: space[2] }]}
-          />
-          <SecondaryButton
-            label={t('solo.moodSave')}
-            disabled={mood.trim().length === 0}
-            onPress={() => props.onSaveMood(mood.trim())}
-          />
-        </MoodCard>
-      )}
-
-      <SecondaryButton
-        label={t('solo.callFriend')}
-        onPress={props.onCallFriend}
-        testID="solo-call-friend"
-      />
-    </>
+    </View>
   );
-
-  if (fixedAvatar) {
-    // 고정: 아바타는 스크롤 밖 상단, 나머지는 아래 ScrollView. 새 말풍선이 생기면 끝으로 내린다.
-    return (
-      <Screen testID="screen-solo" onBack={props.onBack} fill>
-        {avatarCard}
-        <ScrollView
-          ref={scrollRef}
-          testID="solo-scroll"
-          style={{ flex: 1 }}
-          contentContainerStyle={{ gap: space[6], paddingBottom: space[6] }}
-          keyboardShouldPersistTaps="handled"
-          onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: !reduceMotion })}
-        >
-          {body}
-        </ScrollView>
-      </Screen>
-    );
-  }
+  const header = (
+    <View style={{ gap: space[1] }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[2] }}>
+        <Image
+          testID="solo-portrait"
+          accessible={false}
+          source={characterPortrait(character.id)}
+          style={{
+            width: layout.compactAvatarSize,
+            height: layout.compactAvatarSize,
+            borderRadius: radius.pill,
+          }}
+        />
+        <View style={{ flex: 1, gap: space[1] }}>
+          <AppText variant="heading">{name}</AppText>
+          <AiCharacterBadge />
+        </View>
+        <TextButton
+          testID="solo-records-open"
+          label={t('solo.records')}
+          onPress={() => {
+            Keyboard.dismiss();
+            setRecordsOpen(true);
+          }}
+        />
+      </View>
+    </View>
+  );
   return (
-    <Screen testID="screen-solo" onBack={props.onBack}>
-      {avatarCard}
-      {body}
-    </Screen>
+    <View style={{ flex: 1 }}>
+      <View
+        style={{ flex: 1, display: recordsOpen ? 'none' : 'flex' }}
+        accessibilityElementsHidden={recordsOpen}
+        importantForAccessibility={recordsOpen ? 'no-hide-descendants' : 'auto'}
+      >
+        <Screen
+          testID="screen-solo"
+          fill
+          compact
+          keyboardAvoiding
+          onBack={props.onBack}
+          header={header}
+          footer={composer}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              gap: space[2],
+            }}
+          >
+            {props.renderer !== undefined && (
+              <TextButton
+                testID="solo-avatar-toggle"
+                accessibilityState={{ expanded: showAvatar }}
+                disabled={keyboardOpen || compact || height <= width}
+                label={t(showAvatar ? 'solo.avatarCollapse' : 'solo.avatarExpand')}
+                onPress={() => setExpanded((v) => !v)}
+              />
+            )}
+            <TextButton
+              label={t('solo.callFriend')}
+              onPress={props.onCallFriend}
+              testID="solo-call-friend"
+            />
+          </View>
+          <View
+            style={{ flex: 1, minHeight: 0, gap: space[2] }}
+            onLayout={(event) => setAvailableHeight(event.nativeEvent.layout.height)}
+          >
+            {showAvatar && (
+              <View
+                testID="solo-avatar"
+                style={{
+                  height: Math.min(
+                    layout.soloAvatarHeight,
+                    availableHeight * layout.soloAvatarMaxHeightRatio,
+                  ),
+                  borderRadius: radius.lg,
+                  overflow: 'hidden',
+                  backgroundColor: color.lavender,
+                }}
+              >
+                {props.renderer}
+              </View>
+            )}
+            <FlatList
+              ref={list}
+              testID="solo-scroll"
+              data={props.messages}
+              keyExtractor={(m) => m.id}
+              style={{ flex: 1 }}
+              keyboardShouldPersistTaps="handled"
+              scrollEventThrottle={16}
+              contentContainerStyle={{ paddingVertical: space[2] }}
+              onScroll={(event) => {
+                const { contentSize, contentOffset, layoutMeasurement } = event.nativeEvent;
+                following.current =
+                  contentSize.height - contentOffset.y - layoutMeasurement.height <= space[12];
+                if (following.current) setUnseen(false);
+              }}
+              onContentSizeChange={() => {
+                if (following.current) list.current?.scrollToEnd({ animated: !reduceMotion });
+              }}
+              ListHeaderComponent={
+                rest !== 'none' ? (
+                  <View testID="rest-suggestion" style={{ padding: space[4], gap: space[2] }}>
+                    <AppText variant="heading">{t('solo.restTitle')}</AppText>
+                    <AppText variant="bodySm">
+                      {t(rest === 'late-night' ? 'solo.lateNightBody' : 'solo.restBody')}
+                    </AppText>
+                    <SecondaryButton label={t('solo.restOk')} onPress={props.onRest} />
+                    <TextButton label={t('solo.restContinue')} onPress={props.onDismissRest} />
+                  </View>
+                ) : null
+              }
+              ListEmptyComponent={
+                <ChatBubble side="other" isAi name={name} text={t('solo.greeting')} />
+              }
+              renderItem={({ item }) =>
+                item.from === 'me' ? (
+                  <ChatBubble side="me" text={item.text} />
+                ) : (
+                  <ChatBubble side="other" isAi name={name} text={item.text} />
+                )
+              }
+              ListFooterComponent={
+                props.samplePrompts?.length ? (
+                  <View testID="solo-samples" style={{ gap: space[2] }}>
+                    {props.samplePrompts.map((sample) => (
+                      <TextButton
+                        key={sample}
+                        testID="solo-sample"
+                        label={sample}
+                        disabled={!!props.speaking}
+                        onPress={() => send(sample)}
+                      />
+                    ))}
+                  </View>
+                ) : null
+              }
+            />
+            {unseen && (
+              <TextButton
+                testID="solo-new-messages"
+                label={t('solo.newMessages')}
+                onPress={goToLatest}
+              />
+            )}
+          </View>
+        </Screen>
+      </View>
+      <View
+        style={{ flex: 1, display: recordsOpen ? 'flex' : 'none' }}
+        accessibilityElementsHidden={!recordsOpen}
+        importantForAccessibility={recordsOpen ? 'auto' : 'no-hide-descendants'}
+      >
+        <Screen
+          testID="screen-records"
+          title={t('solo.records')}
+          onBack={() => setRecordsOpen(false)}
+          keyboardAvoiding
+        >
+          {props.moodPanel ?? (
+            <MoodCard title={t('solo.moodTitle')}>
+              <LabeledInput
+                label={t('solo.moodTitle')}
+                testID="mood-input"
+                value={mood}
+                onChangeText={setMood}
+                multiline
+                maxLength={500}
+                placeholder={t('solo.moodPlaceholder')}
+              />
+              <PrimaryButton
+                label={t('solo.moodSave')}
+                disabled={!mood.trim()}
+                onPress={() => props.onSaveMood(mood.trim())}
+              />
+            </MoodCard>
+          )}
+        </Screen>
+      </View>
+    </View>
   );
 }

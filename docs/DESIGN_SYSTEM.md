@@ -212,4 +212,5 @@ const { color, space, radius, text } = useTheme();
 - body 16/26, body-sm 14/22, label 15/22 및 display-compact/character-name 역할을 토큰 원본에 적용했다. Noto 파일 번들은 아직 미완료다.
 - `layout` 토큰: content-max-width 560, compact-width 360, wide-width 600, solo-avatar-height 192, solo-avatar-max-height-ratio 0.30, compact-avatar-size 48, input-min-height 52, input-max-lines 5, bubble-max-width-ratio 0.86, large-font-scale 1.5. wide-width는 향후 분기용이며 현재 화면은 최대 폭으로 대응한다.
 - 입력창은 surface-200 + border-strong, 포커스 brand, 오류 danger. 관련 대비 테스트를 추가했다. 필수 설명은 body-sm 이상을 쓴다.
+- 대화는 고정 헤더/입력창과 별도 메시지 목록으로 구성한다. 기록 화면을 별도로 열고, 기록 작성/조회는 탭으로 전환한다. 기존 기록 초안과 채팅 초안은 화면 전환 중 유지한다.
 - 보조 이동/날짜 선택은 최소 터치 48의 TextButton, 주요 행동은 PrimaryButton을 사용한다. 선택 항목은 배경/밑줄과 접근성 상태를 함께 표시한다.

@@ -81,7 +81,7 @@ describe('AppNavigator', () => {
         replyAdapter={adapter}
       />,
     );
-    expect(screen.getByTestId('solo-avatar')).toBeTruthy();
+    expect(screen.getByTestId('solo-avatar-toggle')).toBeTruthy();
     fireEvent.changeText(screen.getByTestId('solo-input'), '오늘 좀 힘들었어');
     fireEvent.press(screen.getByTestId('solo-send'));
     expect(screen.getByText('오늘 좀 힘들었어')).toBeTruthy();
