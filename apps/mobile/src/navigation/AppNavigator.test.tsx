@@ -143,6 +143,7 @@ it('serializes turns, preserves the next draft, and includes the previous reply 
   openSolo(reply);
   sendText('first');
   sendText('next draft');
+  fireEvent.press(screen.getByTestId('solo-samples-toggle'));
   fireEvent.press(screen.getAllByTestId('solo-sample')[0]!);
   await act(async () => {});
   expect(reply).toHaveBeenCalledTimes(1);

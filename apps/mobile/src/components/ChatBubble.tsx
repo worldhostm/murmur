@@ -7,7 +7,7 @@ import { useTheme } from '../theme';
 export type ChatBubbleProps =
   | { side: 'me'; text: string }
   | { side: 'other'; text: string; isAi?: false; name?: string }
-  | { side: 'other'; text: string; isAi: true; name: string };
+  | { side: 'other'; text: string; isAi: true; name: string; hideIdentity?: boolean };
 
 /**
  * 말풍선 (DESIGN_SYSTEM.md §7).
@@ -19,8 +19,8 @@ export function ChatBubble(props: ChatBubbleProps): React.JSX.Element {
   const isAi = props.side === 'other' && props.isAi === true;
 
   return (
-    <View style={{ alignItems: mine ? 'flex-end' : 'flex-start', marginBottom: space[2] }}>
-      {isAi && (
+    <View style={{ alignItems: mine ? 'flex-end' : 'flex-start', marginBottom: space[3] }}>
+      {isAi && !props.hideIdentity && (
         <View
           style={{
             flexDirection: 'row',
@@ -43,8 +43,11 @@ export function ChatBubble(props: ChatBubbleProps): React.JSX.Element {
       <View
         style={{
           maxWidth: `${layout.bubbleMaxWidthRatio * 100}%`,
-          padding: space[3],
-          borderRadius: radius.md,
+          paddingHorizontal: space[4],
+          paddingVertical: space[3],
+          borderRadius: radius.lg,
+          borderBottomRightRadius: mine ? radius.sm : radius.lg,
+          borderBottomLeftRadius: mine ? radius.lg : radius.sm,
           backgroundColor: mine ? color.brand : color.surface300,
           borderWidth: mine ? 0 : 1,
           borderColor: color.border,

@@ -596,7 +596,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
     style={
       {
         "alignItems": "flex-end",
-        "marginBottom": 8,
+        "marginBottom": 12,
       }
     }
   >
@@ -604,11 +604,14 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
       style={
         {
           "backgroundColor": "#A98BFF",
+          "borderBottomLeftRadius": 24,
+          "borderBottomRightRadius": 8,
           "borderColor": "#2F2640",
-          "borderRadius": 16,
+          "borderRadius": 24,
           "borderWidth": 0,
           "maxWidth": "86%",
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         }
       }
     >
@@ -636,7 +639,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
     style={
       {
         "alignItems": "flex-start",
-        "marginBottom": 8,
+        "marginBottom": 12,
       }
     }
   >
@@ -664,11 +667,14 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
       style={
         {
           "backgroundColor": "#211A2C",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 24,
           "borderColor": "#2F2640",
-          "borderRadius": 16,
+          "borderRadius": 24,
           "borderWidth": 1,
           "maxWidth": "86%",
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         }
       }
     >
@@ -696,7 +702,7 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
     style={
       {
         "alignItems": "flex-start",
-        "marginBottom": 8,
+        "marginBottom": 12,
       }
     }
   >
@@ -768,11 +774,14 @@ exports[`components snapshot (dark) ChatBubble me/other/ai 1`] = `
       style={
         {
           "backgroundColor": "#211A2C",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 24,
           "borderColor": "#2F2640",
-          "borderRadius": 16,
+          "borderRadius": 24,
           "borderWidth": 1,
           "maxWidth": "86%",
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         }
       }
     >
@@ -1560,7 +1569,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
     style={
       {
         "alignItems": "flex-end",
-        "marginBottom": 8,
+        "marginBottom": 12,
       }
     }
   >
@@ -1568,11 +1577,14 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
       style={
         {
           "backgroundColor": "#6B3FD4",
+          "borderBottomLeftRadius": 24,
+          "borderBottomRightRadius": 8,
           "borderColor": "#E2DAF0",
-          "borderRadius": 16,
+          "borderRadius": 24,
           "borderWidth": 0,
           "maxWidth": "86%",
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         }
       }
     >
@@ -1600,7 +1612,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
     style={
       {
         "alignItems": "flex-start",
-        "marginBottom": 8,
+        "marginBottom": 12,
       }
     }
   >
@@ -1628,11 +1640,14 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
       style={
         {
           "backgroundColor": "#FFFFFF",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 24,
           "borderColor": "#E2DAF0",
-          "borderRadius": 16,
+          "borderRadius": 24,
           "borderWidth": 1,
           "maxWidth": "86%",
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         }
       }
     >
@@ -1660,7 +1675,7 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
     style={
       {
         "alignItems": "flex-start",
-        "marginBottom": 8,
+        "marginBottom": 12,
       }
     }
   >
@@ -1732,11 +1747,14 @@ exports[`components snapshot (light) ChatBubble me/other/ai 1`] = `
       style={
         {
           "backgroundColor": "#FFFFFF",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 24,
           "borderColor": "#E2DAF0",
-          "borderRadius": 16,
+          "borderRadius": 24,
           "borderWidth": 1,
           "maxWidth": "86%",
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         }
       }
     >

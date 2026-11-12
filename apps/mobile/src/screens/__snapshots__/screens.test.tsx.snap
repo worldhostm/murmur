@@ -1339,7 +1339,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                         ]
                       }
                     >
-                      기분 기록
+                      기록
                     </Text>
                   </View>
                 </View>
@@ -1366,6 +1366,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
               }
             >
               <View
+                accessibilityLabel="친구와 통화하기"
                 accessibilityRole="button"
                 accessibilityState={
                   {
@@ -1428,7 +1429,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                     ]
                   }
                 >
-                  친구와 통화하기
+                  친구 연결
                 </Text>
               </View>
             </View>
@@ -1444,18 +1445,43 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
             >
               <RCTScrollView
                 ListEmptyComponent={
-                  <ChatBubble
-                    isAi={true}
-                    name="한서린"
-                    side="other"
-                    text="오늘 어땠어?"
-                  />
+                  <View
+                    style={
+                      {
+                        "gap": 16,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "gap": 8,
+                          "paddingVertical": 16,
+                        }
+                      }
+                    >
+                      <RippleMark />
+                      <AppText
+                        color="inkMuted"
+                        variant="bodySm"
+                      >
+                        편한 속도로, 당신의 이야기부터.
+                      </AppText>
+                    </View>
+                    <ChatBubble
+                      isAi={true}
+                      name="한서린"
+                      side="other"
+                      text="오늘 어땠어?"
+                    />
+                  </View>
                 }
                 ListFooterComponent={null}
                 ListHeaderComponent={null}
                 contentContainerStyle={
                   {
-                    "paddingVertical": 8,
+                    "paddingVertical": 12,
                   }
                 }
                 data={[]}
@@ -1484,10 +1510,10 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
               >
                 <View>
                   <View
+                    onLayout={[Function]}
                     style={
                       {
-                        "alignItems": "flex-start",
-                        "marginBottom": 8,
+                        "gap": 16,
                       }
                     }
                   >
@@ -1495,45 +1521,96 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                       style={
                         {
                           "alignItems": "center",
-                          "flexDirection": "row",
                           "gap": 8,
-                          "marginBottom": 4,
+                          "paddingVertical": 16,
                         }
                       }
                     >
+                      <View
+                        accessible={false}
+                        importantForAccessibility="no-hide-descendants"
+                        style={
+                          {
+                            "alignItems": "center",
+                            "height": 48,
+                            "justifyContent": "center",
+                            "width": 48,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            {
+                              "borderColor": "#A98BFF",
+                              "borderRadius": 999,
+                              "borderWidth": 1,
+                              "height": 48,
+                              "position": "absolute",
+                              "width": 48,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            {
+                              "borderColor": "#A98BFF",
+                              "borderRadius": 999,
+                              "borderWidth": 1,
+                              "height": 32,
+                              "position": "absolute",
+                              "width": 32,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            {
+                              "borderColor": "#A98BFF",
+                              "borderRadius": 999,
+                              "borderWidth": 1,
+                              "height": 16,
+                              "position": "absolute",
+                              "width": 16,
+                            }
+                          }
+                        />
+                      </View>
                       <Text
                         style={
                           [
                             {
                               "fontFamily": "System",
-                              "fontSize": 12,
-                              "fontWeight": "500",
-                              "lineHeight": 16,
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 22,
                             },
                             {
-                              "color": "#FF8FBE",
+                              "color": "#B3A8C4",
                             },
                             undefined,
                           ]
                         }
                       >
-                        한서린
+                        편한 속도로, 당신의 이야기부터.
                       </Text>
+                    </View>
+                    <View
+                      style={
+                        {
+                          "alignItems": "flex-start",
+                          "marginBottom": 12,
+                        }
+                      }
+                    >
                       <View
-                        accessibilityLabel="AI 캐릭터"
-                        accessibilityRole="text"
                         style={
                           {
-                            "alignSelf": "flex-start",
-                            "backgroundColor": "#211A2C",
-                            "borderColor": "#FF8FBE",
-                            "borderRadius": 8,
-                            "borderWidth": 1,
-                            "paddingHorizontal": 8,
-                            "paddingVertical": 4,
+                            "alignItems": "center",
+                            "flexDirection": "row",
+                            "gap": 8,
+                            "marginBottom": 4,
                           }
                         }
-                        testID="ai-character-badge"
                       >
                         <Text
                           style={
@@ -1551,40 +1628,78 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                             ]
                           }
                         >
-                          AI 캐릭터
+                          한서린
                         </Text>
+                        <View
+                          accessibilityLabel="AI 캐릭터"
+                          accessibilityRole="text"
+                          style={
+                            {
+                              "alignSelf": "flex-start",
+                              "backgroundColor": "#211A2C",
+                              "borderColor": "#FF8FBE",
+                              "borderRadius": 8,
+                              "borderWidth": 1,
+                              "paddingHorizontal": 8,
+                              "paddingVertical": 4,
+                            }
+                          }
+                          testID="ai-character-badge"
+                        >
+                          <Text
+                            style={
+                              [
+                                {
+                                  "fontFamily": "System",
+                                  "fontSize": 12,
+                                  "fontWeight": "500",
+                                  "lineHeight": 16,
+                                },
+                                {
+                                  "color": "#FF8FBE",
+                                },
+                                undefined,
+                              ]
+                            }
+                          >
+                            AI 캐릭터
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                    <View
-                      style={
-                        {
-                          "backgroundColor": "#211A2C",
-                          "borderColor": "#2F2640",
-                          "borderRadius": 16,
-                          "borderWidth": 1,
-                          "maxWidth": "86%",
-                          "padding": 12,
-                        }
-                      }
-                    >
-                      <Text
+                      <View
                         style={
-                          [
-                            {
-                              "fontFamily": "System",
-                              "fontSize": 16,
-                              "fontWeight": "400",
-                              "lineHeight": 26,
-                            },
-                            {
-                              "color": "#F2EDF8",
-                            },
-                            undefined,
-                          ]
+                          {
+                            "backgroundColor": "#211A2C",
+                            "borderBottomLeftRadius": 8,
+                            "borderBottomRightRadius": 24,
+                            "borderColor": "#2F2640",
+                            "borderRadius": 24,
+                            "borderWidth": 1,
+                            "maxWidth": "86%",
+                            "paddingHorizontal": 16,
+                            "paddingVertical": 12,
+                          }
                         }
                       >
-                        오늘 어땠어?
-                      </Text>
+                        <Text
+                          style={
+                            [
+                              {
+                                "fontFamily": "System",
+                                "fontSize": 16,
+                                "fontWeight": "400",
+                                "lineHeight": 26,
+                              },
+                              {
+                                "color": "#F2EDF8",
+                              },
+                              undefined,
+                            ]
+                          }
+                        >
+                          오늘 어땠어?
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -1594,7 +1709,12 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
           <View
             style={
               {
+                "backgroundColor": "#211A2C",
+                "borderColor": "#2F2640",
+                "borderRadius": 24,
+                "borderWidth": 1,
                 "gap": 8,
+                "padding": 8,
               }
             }
             testID="solo-composer"
@@ -1602,8 +1722,8 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
             <View
               style={
                 {
-                  "alignItems": "stretch",
-                  "flexDirection": "column",
+                  "alignItems": "flex-end",
+                  "flexDirection": "row",
                   "gap": 8,
                 }
               }
@@ -1628,11 +1748,11 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                     },
                     {
                       "backgroundColor": "#17121F",
-                      "borderColor": "#7A6D90",
-                      "borderRadius": 8,
+                      "borderColor": "#17121F",
+                      "borderRadius": 16,
                       "borderWidth": 1,
                       "color": "#F2EDF8",
-                      "flex": undefined,
+                      "flex": 1,
                       "height": 52,
                       "maxHeight": 284,
                       "minHeight": 52,
@@ -1646,6 +1766,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                 value=""
               />
               <View
+                accessibilityLabel="보내기"
                 accessibilityRole="button"
                 accessibilityState={
                   {
@@ -1682,22 +1803,23 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                     "backgroundColor": "#A98BFF",
                     "borderRadius": 999,
                     "justifyContent": "center",
-                    "minHeight": 52,
+                    "minHeight": 48,
+                    "minWidth": 48,
                     "opacity": 0.5,
-                    "paddingHorizontal": 24,
-                    "paddingVertical": 12,
+                    "padding": 8,
                   }
                 }
                 testID="solo-send"
               >
                 <Text
+                  accessible={false}
                   style={
                     [
                       {
                         "fontFamily": "System",
-                        "fontSize": 15,
-                        "fontWeight": "600",
-                        "lineHeight": 22,
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                        "lineHeight": 28,
                       },
                       {
                         "color": "#140E1F",
@@ -1706,7 +1828,7 @@ exports[`screens snapshot (dark) SoloScreen 1`] = `
                     ]
                   }
                 >
-                  보내기
+                  ↑
                 </Text>
               </View>
             </View>
@@ -3391,7 +3513,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                         ]
                       }
                     >
-                      기분 기록
+                      기록
                     </Text>
                   </View>
                 </View>
@@ -3418,6 +3540,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
               }
             >
               <View
+                accessibilityLabel="친구와 통화하기"
                 accessibilityRole="button"
                 accessibilityState={
                   {
@@ -3480,7 +3603,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                     ]
                   }
                 >
-                  친구와 통화하기
+                  친구 연결
                 </Text>
               </View>
             </View>
@@ -3496,18 +3619,43 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
             >
               <RCTScrollView
                 ListEmptyComponent={
-                  <ChatBubble
-                    isAi={true}
-                    name="한서린"
-                    side="other"
-                    text="오늘 어땠어?"
-                  />
+                  <View
+                    style={
+                      {
+                        "gap": 16,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "gap": 8,
+                          "paddingVertical": 16,
+                        }
+                      }
+                    >
+                      <RippleMark />
+                      <AppText
+                        color="inkMuted"
+                        variant="bodySm"
+                      >
+                        편한 속도로, 당신의 이야기부터.
+                      </AppText>
+                    </View>
+                    <ChatBubble
+                      isAi={true}
+                      name="한서린"
+                      side="other"
+                      text="오늘 어땠어?"
+                    />
+                  </View>
                 }
                 ListFooterComponent={null}
                 ListHeaderComponent={null}
                 contentContainerStyle={
                   {
-                    "paddingVertical": 8,
+                    "paddingVertical": 12,
                   }
                 }
                 data={[]}
@@ -3536,10 +3684,10 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
               >
                 <View>
                   <View
+                    onLayout={[Function]}
                     style={
                       {
-                        "alignItems": "flex-start",
-                        "marginBottom": 8,
+                        "gap": 16,
                       }
                     }
                   >
@@ -3547,45 +3695,96 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                       style={
                         {
                           "alignItems": "center",
-                          "flexDirection": "row",
                           "gap": 8,
-                          "marginBottom": 4,
+                          "paddingVertical": 16,
                         }
                       }
                     >
+                      <View
+                        accessible={false}
+                        importantForAccessibility="no-hide-descendants"
+                        style={
+                          {
+                            "alignItems": "center",
+                            "height": 48,
+                            "justifyContent": "center",
+                            "width": 48,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            {
+                              "borderColor": "#6B3FD4",
+                              "borderRadius": 999,
+                              "borderWidth": 1,
+                              "height": 48,
+                              "position": "absolute",
+                              "width": 48,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            {
+                              "borderColor": "#6B3FD4",
+                              "borderRadius": 999,
+                              "borderWidth": 1,
+                              "height": 32,
+                              "position": "absolute",
+                              "width": 32,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            {
+                              "borderColor": "#6B3FD4",
+                              "borderRadius": 999,
+                              "borderWidth": 1,
+                              "height": 16,
+                              "position": "absolute",
+                              "width": 16,
+                            }
+                          }
+                        />
+                      </View>
                       <Text
                         style={
                           [
                             {
                               "fontFamily": "System",
-                              "fontSize": 12,
-                              "fontWeight": "500",
-                              "lineHeight": 16,
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 22,
                             },
                             {
-                              "color": "#B8366E",
+                              "color": "#5E5470",
                             },
                             undefined,
                           ]
                         }
                       >
-                        한서린
+                        편한 속도로, 당신의 이야기부터.
                       </Text>
+                    </View>
+                    <View
+                      style={
+                        {
+                          "alignItems": "flex-start",
+                          "marginBottom": 12,
+                        }
+                      }
+                    >
                       <View
-                        accessibilityLabel="AI 캐릭터"
-                        accessibilityRole="text"
                         style={
                           {
-                            "alignSelf": "flex-start",
-                            "backgroundColor": "#FFFFFF",
-                            "borderColor": "#B8366E",
-                            "borderRadius": 8,
-                            "borderWidth": 1,
-                            "paddingHorizontal": 8,
-                            "paddingVertical": 4,
+                            "alignItems": "center",
+                            "flexDirection": "row",
+                            "gap": 8,
+                            "marginBottom": 4,
                           }
                         }
-                        testID="ai-character-badge"
                       >
                         <Text
                           style={
@@ -3603,40 +3802,78 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                             ]
                           }
                         >
-                          AI 캐릭터
+                          한서린
                         </Text>
+                        <View
+                          accessibilityLabel="AI 캐릭터"
+                          accessibilityRole="text"
+                          style={
+                            {
+                              "alignSelf": "flex-start",
+                              "backgroundColor": "#FFFFFF",
+                              "borderColor": "#B8366E",
+                              "borderRadius": 8,
+                              "borderWidth": 1,
+                              "paddingHorizontal": 8,
+                              "paddingVertical": 4,
+                            }
+                          }
+                          testID="ai-character-badge"
+                        >
+                          <Text
+                            style={
+                              [
+                                {
+                                  "fontFamily": "System",
+                                  "fontSize": 12,
+                                  "fontWeight": "500",
+                                  "lineHeight": 16,
+                                },
+                                {
+                                  "color": "#B8366E",
+                                },
+                                undefined,
+                              ]
+                            }
+                          >
+                            AI 캐릭터
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                    <View
-                      style={
-                        {
-                          "backgroundColor": "#FFFFFF",
-                          "borderColor": "#E2DAF0",
-                          "borderRadius": 16,
-                          "borderWidth": 1,
-                          "maxWidth": "86%",
-                          "padding": 12,
-                        }
-                      }
-                    >
-                      <Text
+                      <View
                         style={
-                          [
-                            {
-                              "fontFamily": "System",
-                              "fontSize": 16,
-                              "fontWeight": "400",
-                              "lineHeight": 26,
-                            },
-                            {
-                              "color": "#1E1729",
-                            },
-                            undefined,
-                          ]
+                          {
+                            "backgroundColor": "#FFFFFF",
+                            "borderBottomLeftRadius": 8,
+                            "borderBottomRightRadius": 24,
+                            "borderColor": "#E2DAF0",
+                            "borderRadius": 24,
+                            "borderWidth": 1,
+                            "maxWidth": "86%",
+                            "paddingHorizontal": 16,
+                            "paddingVertical": 12,
+                          }
                         }
                       >
-                        오늘 어땠어?
-                      </Text>
+                        <Text
+                          style={
+                            [
+                              {
+                                "fontFamily": "System",
+                                "fontSize": 16,
+                                "fontWeight": "400",
+                                "lineHeight": 26,
+                              },
+                              {
+                                "color": "#1E1729",
+                              },
+                              undefined,
+                            ]
+                          }
+                        >
+                          오늘 어땠어?
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -3646,7 +3883,12 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
           <View
             style={
               {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E2DAF0",
+                "borderRadius": 24,
+                "borderWidth": 1,
                 "gap": 8,
+                "padding": 8,
               }
             }
             testID="solo-composer"
@@ -3654,8 +3896,8 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
             <View
               style={
                 {
-                  "alignItems": "stretch",
-                  "flexDirection": "column",
+                  "alignItems": "flex-end",
+                  "flexDirection": "row",
                   "gap": 8,
                 }
               }
@@ -3680,11 +3922,11 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                     },
                     {
                       "backgroundColor": "#F3EDFC",
-                      "borderColor": "#8C7FA3",
-                      "borderRadius": 8,
+                      "borderColor": "#F3EDFC",
+                      "borderRadius": 16,
                       "borderWidth": 1,
                       "color": "#1E1729",
-                      "flex": undefined,
+                      "flex": 1,
                       "height": 52,
                       "maxHeight": 284,
                       "minHeight": 52,
@@ -3698,6 +3940,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                 value=""
               />
               <View
+                accessibilityLabel="보내기"
                 accessibilityRole="button"
                 accessibilityState={
                   {
@@ -3734,22 +3977,23 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                     "backgroundColor": "#6B3FD4",
                     "borderRadius": 999,
                     "justifyContent": "center",
-                    "minHeight": 52,
+                    "minHeight": 48,
+                    "minWidth": 48,
                     "opacity": 0.5,
-                    "paddingHorizontal": 24,
-                    "paddingVertical": 12,
+                    "padding": 8,
                   }
                 }
                 testID="solo-send"
               >
                 <Text
+                  accessible={false}
                   style={
                     [
                       {
                         "fontFamily": "System",
-                        "fontSize": 15,
-                        "fontWeight": "600",
-                        "lineHeight": 22,
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                        "lineHeight": 28,
                       },
                       {
                         "color": "#FFFFFF",
@@ -3758,7 +4002,7 @@ exports[`screens snapshot (light) SoloScreen 1`] = `
                     ]
                   }
                 >
-                  보내기
+                  ↑
                 </Text>
               </View>
             </View>

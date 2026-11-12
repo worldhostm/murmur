@@ -235,6 +235,10 @@
     "onboardingEyebrow": "A quiet space for your conversations",
     "onboardingInvitation": "What stayed with you today?",
     "radioRoom": "Late-night radio",
-    "companions": "Companions"
+    "companions": "Companions",
+    "journalShort": "Journal",
+    "friendShort": "Friends",
+    "chatWelcome": "Your story, at your own pace.",
+    "samples": "Show expression test prompts"
   }
 }

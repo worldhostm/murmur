@@ -122,6 +122,8 @@ describe('SoloScreen', () => {
         samplePrompts={['오늘 너무 힘들었어', 'ㅋㅋㅋ 완전 좋아']}
       />,
     );
+    expect(screen.queryAllByTestId('solo-sample')).toHaveLength(0);
+    fireEvent.press(screen.getByTestId('solo-samples-toggle'));
     expect(screen.getAllByTestId('solo-sample')).toHaveLength(2);
     fireEvent.press(screen.getByText('ㅋㅋㅋ 완전 좋아'));
     expect(onSend).toHaveBeenCalledWith('ㅋㅋㅋ 완전 좋아');

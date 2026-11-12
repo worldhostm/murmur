@@ -235,6 +235,10 @@
     "onboardingEyebrow": "당신만의 조용한 대화 공간",
     "onboardingInvitation": "오늘 이야기를 들려줄래요?",
     "radioRoom": "심야 라디오",
-    "companions": "대화 상대"
+    "companions": "대화 상대",
+    "journalShort": "기록",
+    "friendShort": "친구 연결",
+    "chatWelcome": "편한 속도로, 당신의 이야기부터.",
+    "samples": "표정 테스트 문장 보기"
   }
 }

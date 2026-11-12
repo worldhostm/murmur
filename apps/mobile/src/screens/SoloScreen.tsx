@@ -3,6 +3,7 @@ import {
   BackHandler,
   FlatList,
   Image,
+  Pressable,
   Keyboard,
   TextInput,
   View,
@@ -21,6 +22,7 @@ import {
   Screen,
   SecondaryButton,
   TextButton,
+  RippleMark,
 } from '../components';
 import { useTheme } from '../theme';
 import { characterPortrait } from '../avatar/characterImages';
@@ -57,7 +59,7 @@ export interface SoloScreenProps {
 /** The message list scrolls independently; the composer stays above the keyboard. */
 export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
   const { t } = useTranslation();
-  const { color, space, radius, text, layout, reduceMotion } = useTheme();
+  const { color, space, radius, size, text, layout, reduceMotion } = useTheme();
   const { width, height, fontScale } = useWindowDimensions();
   const [draft, setDraft] = useState('');
   const [mood, setMood] = useState('');
@@ -68,6 +70,7 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
   const [availableHeight, setAvailableHeight] = useState(height);
   const [unseen, setUnseen] = useState(false);
   const [focused, setFocused] = useState(false);
+  const [showSamples, setShowSamples] = useState(false);
   const list = useRef<FlatList<SoloMessage>>(null);
   const following = useRef(true);
   const lastMessage = props.messages.at(-1)?.id;
@@ -112,15 +115,23 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
   };
   const maxInputHeight = text.body.lineHeight * fontScale * layout.inputMaxLines + space[3] * 2;
   const composer = (
-    <View testID="solo-composer" style={{ gap: space[2] }}>
+    <View
+      testID="solo-composer"
+      style={{
+        gap: space[2],
+        padding: space[2],
+        backgroundColor: color.surface300,
+        borderRadius: radius.lg,
+        borderWidth: 1,
+        borderColor: color.border,
+      }}
+    >
       {(props.speaking || props.replyFailed) && (
         <AppText variant="bodySm" accessibilityLiveRegion="polite" testID="solo-reply-status">
           {t(props.speaking ? 'solo.replyPending' : 'solo.replyFailed')}
         </AppText>
       )}
-      <View
-        style={{ flexDirection: compact ? 'column' : 'row', alignItems: 'stretch', gap: space[2] }}
-      >
+      <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: space[2] }}>
         <TextInput
           testID="solo-input"
           accessibilityLabel={t('solo.inputPlaceholder')}
@@ -136,23 +147,25 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
           style={[
             text.body,
             {
-              flex: compact ? undefined : 1,
+              flex: 1,
               minHeight: layout.inputMinHeight,
               height: Math.max(layout.inputMinHeight, Math.min(inputHeight, maxInputHeight)),
               maxHeight: maxInputHeight,
               color: color.ink,
               backgroundColor: color.surface200,
-              borderRadius: radius.sm,
+              borderRadius: radius.md,
               borderWidth: 1,
-              borderColor: focused ? color.brand : color.borderStrong,
+              borderColor: focused ? color.brand : color.surface200,
               paddingHorizontal: space[3],
               paddingVertical: space[3],
               textAlignVertical: 'top',
             },
           ]}
         />
-        <PrimaryButton
-          label={t('solo.send')}
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t('solo.send')}
+          accessibilityState={{ disabled: !!props.speaking || !draft.trim() }}
           disabled={!!props.speaking || !draft.trim()}
           testID="solo-send"
           onPress={() => {
@@ -161,7 +174,21 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
             setDraft('');
             setInputHeight(layout.inputMinHeight);
           }}
-        />
+          style={({ pressed }) => ({
+            minWidth: size.touchTarget,
+            minHeight: size.touchTarget,
+            borderRadius: radius.pill,
+            backgroundColor: color.brand,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: space[2],
+            opacity: props.speaking || !draft.trim() ? 0.5 : pressed ? 0.8 : 1,
+          })}
+        >
+          <AppText variant="title" color="onBrand" accessible={false}>
+            ↑
+          </AppText>
+        </Pressable>
       </View>
     </View>
   );
@@ -184,7 +211,7 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
         </View>
         <TextButton
           testID="solo-records-open"
-          label={t('solo.records')}
+          label={t('design.journalShort')}
           onPress={() => {
             Keyboard.dismiss();
             setRecordsOpen(true);
@@ -227,7 +254,8 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
               />
             )}
             <TextButton
-              label={t('solo.callFriend')}
+              label={t('design.friendShort')}
+              accessibilityLabel={t('solo.callFriend')}
               onPress={props.onCallFriend}
               testID="solo-call-friend"
             />
@@ -260,7 +288,7 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
               style={{ flex: 1 }}
               keyboardShouldPersistTaps="handled"
               scrollEventThrottle={16}
-              contentContainerStyle={{ paddingVertical: space[2] }}
+              contentContainerStyle={{ paddingVertical: space[3] }}
               onScroll={(event) => {
                 const { contentSize, contentOffset, layoutMeasurement } = event.nativeEvent;
                 following.current =
@@ -283,27 +311,72 @@ export function SoloScreen(props: SoloScreenProps): React.JSX.Element {
                 ) : null
               }
               ListEmptyComponent={
-                <ChatBubble side="other" isAi name={name} text={t('solo.greeting')} />
+                <View style={{ gap: space[4] }}>
+                  <View style={{ alignItems: 'center', paddingVertical: space[4], gap: space[2] }}>
+                    <RippleMark />
+                    <AppText variant="bodySm" color="inkMuted">
+                      {t('design.chatWelcome')}
+                    </AppText>
+                  </View>
+                  <ChatBubble side="other" isAi name={name} text={t('solo.greeting')} />
+                </View>
               }
-              renderItem={({ item }) =>
+              renderItem={({ item, index }) =>
                 item.from === 'me' ? (
                   <ChatBubble side="me" text={item.text} />
                 ) : (
-                  <ChatBubble side="other" isAi name={name} text={item.text} />
+                  <ChatBubble
+                    side="other"
+                    isAi
+                    name={name}
+                    text={item.text}
+                    hideIdentity={index > 0 && props.messages[index - 1]?.from === 'character'}
+                  />
                 )
               }
               ListFooterComponent={
                 props.samplePrompts?.length ? (
                   <View testID="solo-samples" style={{ gap: space[2] }}>
-                    {props.samplePrompts.map((sample) => (
-                      <TextButton
-                        key={sample}
-                        testID="solo-sample"
-                        label={sample}
-                        disabled={!!props.speaking}
-                        onPress={() => send(sample)}
-                      />
-                    ))}
+                    <TextButton
+                      testID="solo-samples-toggle"
+                      label={t('design.samples')}
+                      accessibilityState={{ expanded: showSamples }}
+                      onPress={() => setShowSamples((v) => !v)}
+                    />
+                    {showSamples && (
+                      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {props.samplePrompts.map((sample) => (
+                          <View key={sample} style={{ width: '33.333333%', padding: space[1] }}>
+                            <Pressable
+                              testID="solo-sample"
+                              accessibilityRole="button"
+                              accessibilityLabel={sample}
+                              accessibilityState={{ disabled: !!props.speaking }}
+                              disabled={!!props.speaking}
+                              onPress={() => send(sample)}
+                              style={({ pressed }) => ({
+                                flex: 1,
+                                minHeight: size.touchTarget,
+                                paddingHorizontal: space[2],
+                                paddingVertical: space[3],
+                                borderRadius: radius.lg,
+                                borderBottomLeftRadius: radius.sm,
+                                borderWidth: 1,
+                                borderColor: color.border,
+                                backgroundColor: color.surface300,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                opacity: props.speaking ? 0.5 : pressed ? 0.8 : 1,
+                              })}
+                            >
+                              <AppText variant="bodySm" style={{ textAlign: 'center' }}>
+                                {sample}
+                              </AppText>
+                            </Pressable>
+                          </View>
+                        ))}
+                      </View>
+                    )}
                   </View>
                 ) : null
               }
