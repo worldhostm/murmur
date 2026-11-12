@@ -134,3 +134,10 @@ adb logcat -s MurmurFaceTracker MurmurUnity Unity ReactNativeJS
 - 완료: 미등록 폰트명 대신 명시적 시스템 대체, 정적 TTF 굵기/PostScript 이름·Android 복사본·iOS 등록 목록·OFL 파일 검사 및 CI 연결.
 - 미완료: 실제 Noto TTF/OFL 확보, Android/iOS 등록, 재빌드·실기기 확인. 현재 DNS 제한으로 원본 다운로드가 실패했다. `fonts:check --require-bundled`는 이 미완료 상태를 실패로 보고한다.
 - 안내: `apps/mobile/assets/fonts/README.md`. 다음 작업은 이 폰트 번들 한 단위로 진행한다.
+
+### 전 페이지 경험 개편 및 Android 실행 (2026-11-12)
+
+- 적용: 온보딩 캐릭터 히어로, 큰 선택 초상, 채팅 입력 도크/연속 메시지 그룹화, 접힌 개발 예시, 기록 노트/세그먼트, 초대 상태 카드/보조 메뉴, 미지원 대안/미리보기/통화 컨트롤 정리.
+- 기획: `docs/specs/design-character-experience.md`. 실행 절차: `docs/specs/android-preview.md`.
+- JS 번들 생성과 Metro 없는 APK 옵션 `pnpm android:build:preview`를 검증했다(번들 포함 APK 가 에뮬레이터에서 온보딩까지 뜸). 일반 debug APK는 Metro가 필요하다.
+- 사용자 환경에서 새 APK 설치 또는 Metro 연결 후 전 페이지 실제 화면(390/320 폭, 키보드, 큰 글자, 두 테마)을 확인해야 한다.
