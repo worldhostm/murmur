@@ -14,7 +14,7 @@
     "reconnecting": "다시 연결하는 중이에요"
   },
   "onboarding": {
-    "headline": "얼굴은 감추고, 표정은 그대로.",
+    "headline": "얼굴은 감추고,\n표정은 그대로",
     "body": "카메라 속 표정이 캐릭터에 실시간으로 옮겨져요. 원본 영상은 기기 밖으로 나가지 않아요.",
     "start": "시작하기",
     "privacyNote": "전송되는 건 표정 수치와 목소리뿐이에요"
@@ -230,5 +230,10 @@
     "shareMessage": "Murmur에서 함께 이야기해요. 초대 코드: {{code}}",
     "shareError": "공유하지 못했어요. 초대 코드를 길게 눌러 복사할 수 있어요.",
     "otherOptions": "다른 연결 방법"
+  },
+  "design": {
+    "onboardingEyebrow": "당신만의 조용한 대화 공간",
+    "onboardingInvitation": "오늘 이야기를 들려줄래요?",
+    "radioRoom": "심야 라디오"
   }
 }

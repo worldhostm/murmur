@@ -230,5 +230,10 @@
     "shareMessage": "Join me on Murmur. Invitation code: {{code}}",
     "shareError": "Could not share. Press and hold the invitation code to copy it.",
     "otherOptions": "Other ways to connect"
+  },
+  "design": {
+    "onboardingEyebrow": "A quiet space for your conversations",
+    "onboardingInvitation": "What stayed with you today?",
+    "radioRoom": "Late-night radio"
   }
 }

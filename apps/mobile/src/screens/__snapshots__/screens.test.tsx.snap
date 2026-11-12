@@ -770,12 +770,105 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
           <View
             style={
               {
-                "flex": 1,
-                "gap": 24,
-                "justifyContent": "center",
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 20,
+                    "fontWeight": "700",
+                    "lineHeight": 28,
+                  },
+                  {
+                    "color": "#F2EDF8",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              murmur.
+            </Text>
+            <View
+              accessible={false}
+              importantForAccessibility="no-hide-descendants"
+              style={
+                {
+                  "alignItems": "center",
+                  "height": 48,
+                  "justifyContent": "center",
+                  "width": 48,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "borderColor": "#A98BFF",
+                    "borderRadius": 999,
+                    "borderWidth": 1,
+                    "height": 48,
+                    "position": "absolute",
+                    "width": 48,
+                  }
+                }
+              />
+              <View
+                style={
+                  {
+                    "borderColor": "#A98BFF",
+                    "borderRadius": 999,
+                    "borderWidth": 1,
+                    "height": 32,
+                    "position": "absolute",
+                    "width": 32,
+                  }
+                }
+              />
+              <View
+                style={
+                  {
+                    "borderColor": "#A98BFF",
+                    "borderRadius": 999,
+                    "borderWidth": 1,
+                    "height": 16,
+                    "position": "absolute",
+                    "width": 16,
+                  }
+                }
+              />
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "gap": 12,
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 12,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                  },
+                  {
+                    "color": "#A98BFF",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              당신만의 조용한 대화 공간
+            </Text>
             <Text
               style={
                 [
@@ -792,7 +885,8 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
                 ]
               }
             >
-              얼굴은 감추고, 표정은 그대로.
+              얼굴은 감추고,
+표정은 그대로
             </Text>
             <Text
               style={
@@ -813,35 +907,141 @@ exports[`screens snapshot (dark) OnboardingScreen 1`] = `
               카메라 속 표정이 캐릭터에 실시간으로 옮겨져요. 원본 영상은 기기 밖으로 나가지 않아요.
             </Text>
           </View>
+          <View
+            style={
+              {
+                "backgroundColor": "#2A2219",
+                "borderRadius": 24,
+                "flexDirection": "column",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <Image
+              accessible={false}
+              source={
+                {
+                  "testUri": "../../../apps/mobile/assets/characters/han-seorin.png",
+                }
+              }
+              style={
+                {
+                  "alignSelf": "center",
+                  "height": 192,
+                  "width": 109.6,
+                }
+              }
+            />
+            <View
+              style={
+                {
+                  "flex": 1,
+                  "gap": 8,
+                  "justifyContent": "center",
+                  "padding": 16,
+                }
+              }
+            >
+              <View
+                accessibilityLabel="AI 캐릭터"
+                accessibilityRole="text"
+                style={
+                  {
+                    "alignSelf": "flex-start",
+                    "backgroundColor": "#211A2C",
+                    "borderColor": "#FF8FBE",
+                    "borderRadius": 8,
+                    "borderWidth": 1,
+                    "paddingHorizontal": 8,
+                    "paddingVertical": 4,
+                  }
+                }
+                testID="ai-character-badge"
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "System",
+                        "fontSize": 12,
+                        "fontWeight": "500",
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "#FF8FBE",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  AI 캐릭터
+                </Text>
+              </View>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "System",
+                      "fontSize": 17,
+                      "fontWeight": "600",
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#F2EDF8",
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                오늘 이야기를 들려줄래요?
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "System",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 22,
+                    },
+                    {
+                      "color": "#B3A8C4",
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                한서린 · 심야 라디오
+              </Text>
+            </View>
+          </View>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#B3A8C4",
+                },
+                undefined,
+              ]
+            }
+          >
+            전송되는 건 표정 수치와 목소리뿐이에요
+          </Text>
         </View>
       </RCTScrollView>
       <View
         style={
           {
-            "gap": 12,
+            "gap": 4,
           }
         }
       >
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "System",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-              },
-              {
-                "color": "#B3A8C4",
-              },
-              {
-                "textAlign": "center",
-              },
-            ]
-          }
-        >
-          전송되는 건 표정 수치와 목소리뿐이에요
-        </Text>
         <View
           accessibilityRole="button"
           accessibilityState={
@@ -2622,12 +2822,105 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
           <View
             style={
               {
-                "flex": 1,
-                "gap": 24,
-                "justifyContent": "center",
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 20,
+                    "fontWeight": "700",
+                    "lineHeight": 28,
+                  },
+                  {
+                    "color": "#1E1729",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              murmur.
+            </Text>
+            <View
+              accessible={false}
+              importantForAccessibility="no-hide-descendants"
+              style={
+                {
+                  "alignItems": "center",
+                  "height": 48,
+                  "justifyContent": "center",
+                  "width": 48,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "borderColor": "#6B3FD4",
+                    "borderRadius": 999,
+                    "borderWidth": 1,
+                    "height": 48,
+                    "position": "absolute",
+                    "width": 48,
+                  }
+                }
+              />
+              <View
+                style={
+                  {
+                    "borderColor": "#6B3FD4",
+                    "borderRadius": 999,
+                    "borderWidth": 1,
+                    "height": 32,
+                    "position": "absolute",
+                    "width": 32,
+                  }
+                }
+              />
+              <View
+                style={
+                  {
+                    "borderColor": "#6B3FD4",
+                    "borderRadius": 999,
+                    "borderWidth": 1,
+                    "height": 16,
+                    "position": "absolute",
+                    "width": 16,
+                  }
+                }
+              />
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "gap": 12,
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 12,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                  },
+                  {
+                    "color": "#6B3FD4",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              당신만의 조용한 대화 공간
+            </Text>
             <Text
               style={
                 [
@@ -2644,7 +2937,8 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
                 ]
               }
             >
-              얼굴은 감추고, 표정은 그대로.
+              얼굴은 감추고,
+표정은 그대로
             </Text>
             <Text
               style={
@@ -2665,35 +2959,141 @@ exports[`screens snapshot (light) OnboardingScreen 1`] = `
               카메라 속 표정이 캐릭터에 실시간으로 옮겨져요. 원본 영상은 기기 밖으로 나가지 않아요.
             </Text>
           </View>
+          <View
+            style={
+              {
+                "backgroundColor": "#FFF6EA",
+                "borderRadius": 24,
+                "flexDirection": "column",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <Image
+              accessible={false}
+              source={
+                {
+                  "testUri": "../../../apps/mobile/assets/characters/han-seorin.png",
+                }
+              }
+              style={
+                {
+                  "alignSelf": "center",
+                  "height": 192,
+                  "width": 109.6,
+                }
+              }
+            />
+            <View
+              style={
+                {
+                  "flex": 1,
+                  "gap": 8,
+                  "justifyContent": "center",
+                  "padding": 16,
+                }
+              }
+            >
+              <View
+                accessibilityLabel="AI 캐릭터"
+                accessibilityRole="text"
+                style={
+                  {
+                    "alignSelf": "flex-start",
+                    "backgroundColor": "#FFFFFF",
+                    "borderColor": "#B8366E",
+                    "borderRadius": 8,
+                    "borderWidth": 1,
+                    "paddingHorizontal": 8,
+                    "paddingVertical": 4,
+                  }
+                }
+                testID="ai-character-badge"
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "System",
+                        "fontSize": 12,
+                        "fontWeight": "500",
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "#B8366E",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  AI 캐릭터
+                </Text>
+              </View>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "System",
+                      "fontSize": 17,
+                      "fontWeight": "600",
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#1E1729",
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                오늘 이야기를 들려줄래요?
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "System",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 22,
+                    },
+                    {
+                      "color": "#5E5470",
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                한서린 · 심야 라디오
+              </Text>
+            </View>
+          </View>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "System",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#5E5470",
+                },
+                undefined,
+              ]
+            }
+          >
+            전송되는 건 표정 수치와 목소리뿐이에요
+          </Text>
         </View>
       </RCTScrollView>
       <View
         style={
           {
-            "gap": 12,
+            "gap": 4,
           }
         }
       >
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "System",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-              },
-              {
-                "color": "#5E5470",
-              },
-              {
-                "textAlign": "center",
-              },
-            ]
-          }
-        >
-          전송되는 건 표정 수치와 목소리뿐이에요
-        </Text>
         <View
           accessibilityRole="button"
           accessibilityState={
